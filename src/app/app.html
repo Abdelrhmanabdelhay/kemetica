@@ -1,0 +1,33 @@
+<div class="min-h-screen flex flex-col bg-slate-950 text-slate-100 font-sans selection:bg-amber-500 selection:text-slate-950">
+  
+  <!-- Global Toast Notifications -->
+  <div class="fixed top-24 right-4 z-50 flex flex-col gap-2 max-w-sm w-full pointer-events-none">
+    <div 
+      *ngFor="let toast of notificationService.notifications()"
+      class="pointer-events-auto flex items-center justify-between p-4 rounded-xl shadow-2xl border backdrop-blur-lg animate-in fade-in slide-in-from-top-2 duration-300"
+      [ngClass]="{
+        'bg-emerald-950/90 border-emerald-500/40 text-emerald-200': toast.type === 'success',
+        'bg-rose-950/90 border-rose-500/40 text-rose-200': toast.type === 'error',
+        'bg-sky-950/90 border-sky-500/40 text-sky-200': toast.type === 'info',
+        'bg-amber-950/90 border-amber-500/40 text-amber-200': toast.type === 'warning'
+      }"
+    >
+      <span class="text-xs font-medium">{{ toast.message }}</span>
+      <button (click)="notificationService.dismiss(toast.id)" class="ml-3 text-slate-400 hover:text-white text-sm">
+        ✕
+      </button>
+    </div>
+  </div>
+
+  <!-- Core Navbar -->
+  <app-navbar></app-navbar>
+
+  <!-- Main Route Content -->
+  <main class="flex-grow">
+    <router-outlet></router-outlet>
+  </main>
+
+  <!-- Core Footer -->
+  <app-footer></app-footer>
+
+</div>

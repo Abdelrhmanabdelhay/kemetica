@@ -1,0 +1,137 @@
+<!-- Hero Section -->
+<section class="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
+  <!-- Background Image with Dark Vignette -->
+  <div class="absolute inset-0 z-0">
+    <img 
+      src="https://images.unsplash.com/photo-1503177119275-0aa32b3a9368?auto=format&fit=crop&w=2000&q=85" 
+      alt="Giza Pyramids at Twilight"
+      class="w-full h-full object-cover scale-105 filter brightness-50 contrast-125"
+    />
+    <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/60 to-slate-950/40"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-amber-500/10 via-transparent to-transparent"></div>
+  </div>
+
+  <!-- Hero Content -->
+  <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-20">
+    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-900/80 border border-amber-500/30 backdrop-blur-md mb-6 animate-pulse">
+      <span class="text-amber-400 text-xs">✨</span>
+      <span class="text-xs font-semibold text-amber-300 tracking-wider uppercase font-mono">
+        Exclusive 2026 Archaeological Access Open
+      </span>
+    </div>
+
+    <h1 class="text-4xl sm:text-6xl lg:text-7xl font-bold font-serif text-slate-100 tracking-tight leading-[1.15]">
+      Step Beyond Time in <br />
+      <span class="gold-gradient-text">Ancient Egypt</span>
+    </h1>
+
+    <p class="mt-6 text-lg sm:text-xl text-slate-300 max-w-2xl mx-auto font-light leading-relaxed">
+      Curating the world’s most intimate private expeditions across Giza, Luxor, Siwa, and the Nile with master Egyptologists and private aviation.
+    </p>
+
+    <!-- CTAs -->
+    <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+      <a routerLink="/tours">
+        <app-button variant="gold" size="lg">
+          Explore Curated Journeys
+        </app-button>
+      </a>
+      <a routerLink="/contact">
+        <app-button variant="outline" size="lg">
+          Design Custom Itinerary
+        </app-button>
+      </a>
+    </div>
+
+    <!-- Stats Ribbon -->
+    <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 pt-10 border-t border-slate-800/80">
+      <div *ngFor="let stat of stats" class="space-y-1">
+        <div class="text-2xl sm:text-3xl font-bold text-amber-400 font-serif">{{ stat.value }}</div>
+        <div class="text-xs text-slate-400 uppercase tracking-wider">{{ stat.label }}</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Value Pillars -->
+<section class="py-24 bg-slate-950 relative border-t border-slate-900">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <span class="text-xs font-semibold text-amber-400 uppercase tracking-widest font-mono">The Kemetica Distinction</span>
+      <h2 class="text-3xl sm:text-4xl font-serif font-bold text-slate-100 mt-2">
+        Unrivaled Access, Timeless Elegance
+      </h2>
+      <p class="text-slate-400 mt-3 text-sm sm:text-base">
+        Every expedition is hand-tailored to grant you unprecedented privileges usually reserved for foreign dignitaries and archaeological directors.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div *ngFor="let item of features" class="p-8 rounded-2xl bg-slate-900/60 border border-slate-800 hover:border-amber-500/40 transition-all duration-300 space-y-4 group">
+        <div class="text-4xl p-3 bg-slate-950/80 rounded-xl w-fit border border-slate-800 group-hover:scale-110 transition-transform">
+          {{ item.icon }}
+        </div>
+        <h3 class="text-xl font-bold font-serif text-slate-100 group-hover:text-amber-400 transition-colors">
+          {{ item.title }}
+        </h3>
+        <p class="text-sm text-slate-400 leading-relaxed">
+          {{ item.desc }}
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Featured Expeditions -->
+<section class="py-24 bg-slate-900/40 relative">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <div class="flex flex-col md:flex-row items-start md:items-end justify-between mb-12 gap-4">
+      <div>
+        <span class="text-xs font-semibold text-amber-400 uppercase tracking-widest font-mono">Signature Journeys</span>
+        <h2 class="text-3xl sm:text-4xl font-serif font-bold text-slate-100 mt-2">
+          Curated Private Itineraries
+        </h2>
+      </div>
+      <a routerLink="/tours" class="text-sm font-semibold text-amber-400 hover:text-amber-300 flex items-center gap-1">
+        <span>View all expeditions</span>
+        <span>→</span>
+      </a>
+    </div>
+
+    <!-- Tour Cards Grid -->
+    <div *ngIf="!loading()" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <app-tour-card *ngFor="let tour of featuredTours()" [tour]="tour"></app-tour-card>
+    </div>
+
+    <!-- Loading Skeleton -->
+    <div *ngIf="loading()" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div *ngFor="let _ of [1,2,3]" class="h-96 rounded-2xl bg-slate-800/40 animate-pulse"></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Custom Concierge CTA -->
+<section class="py-20 relative overflow-hidden">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="relative rounded-3xl p-8 sm:p-14 bg-gradient-to-r from-amber-950/40 via-slate-900 to-slate-900 border border-amber-500/30 overflow-hidden shadow-2xl">
+      <div class="relative z-10 max-w-2xl space-y-4">
+        <span class="text-xs font-semibold uppercase tracking-widest text-amber-400 font-mono">Tailor-Made Expeditions</span>
+        <h2 class="text-3xl sm:text-4xl font-serif font-bold text-slate-100">
+          Envisioning a Custom Journey?
+        </h2>
+        <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+          From private Nile river charters for wedding celebrations to private archaeological digs with former Supreme Council ministers, our concierge turns your dream itinerary into reality.
+        </p>
+        <div class="pt-4">
+          <a routerLink="/contact">
+            <app-button variant="gold" size="lg">
+              Contact Concierge Desk
+            </app-button>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,20 @@
+@use 'variables' as *;
+
+@mixin glass-effect($blur: 12px, $bg-opacity: 0.75) {
+  background: rgba(15, 23, 42, $bg-opacity);
+  backdrop-filter: blur($blur);
+  -webkit-backdrop-filter: blur($blur);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+@mixin gold-text-gradient {
+  background: linear-gradient(135deg, $color-gold-light 0%, $color-gold-primary 50%, $color-gold-dark 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

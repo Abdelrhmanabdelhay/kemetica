@@ -1,0 +1,71 @@
+<div class="min-h-screen bg-slate-950 pt-10 pb-24">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <!-- Page Header -->
+    <div class="text-center max-w-3xl mx-auto mb-12">
+      <span class="text-xs font-semibold text-amber-400 uppercase tracking-widest font-mono">Curated Expeditions</span>
+      <h1 class="text-4xl sm:text-5xl font-serif font-bold text-slate-100 mt-2">
+        Egyptian Journeys & Privileged Access
+      </h1>
+      <p class="text-slate-400 mt-3 text-base">
+        Explore hand-crafted itineraries curated with private permits, VIP Egyptologist scholars, and ultra-luxury stays.
+      </p>
+    </div>
+
+    <!-- Filter & Search Controls -->
+    <div class="mb-12 space-y-6">
+      
+      <!-- Category Tabs -->
+      <div class="flex flex-wrap items-center justify-center gap-2">
+        <button 
+          *ngFor="let cat of categories"
+          (click)="onCategoryChange(cat.id)"
+          [ngClass]="[
+            'px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all duration-300',
+            selectedCategory === cat.id 
+              ? 'bg-amber-500 text-slate-950 shadow-lg shadow-amber-500/20' 
+              : 'bg-slate-900 text-slate-400 hover:text-slate-200 border border-slate-800 hover:border-slate-700'
+          ]"
+        >
+          {{ cat.label }}
+        </button>
+      </div>
+
+      <!-- Search Bar -->
+      <div class="max-w-xl mx-auto relative">
+        <input 
+          type="text" 
+          [(ngModel)]="searchQuery" 
+          (ngModelChange)="onSearch()"
+          placeholder="Search by city, title or attraction (e.g. Giza, Dahabiya, Siwa)..." 
+          class="w-full pl-12 pr-4 py-3.5 rounded-2xl bg-slate-900 border border-slate-800 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400 transition-all shadow-inner"
+        />
+        <div class="absolute left-4 top-3.5 text-slate-400">
+          🔍
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Tours Grid -->
+    <div *ngIf="!loading() && tours().length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <app-tour-card *ngFor="let tour of tours()" [tour]="tour"></app-tour-card>
+    </div>
+
+    <!-- Empty State -->
+    <div *ngIf="!loading() && tours().length === 0" class="text-center py-20 bg-slate-900/40 rounded-3xl border border-slate-800/80 max-w-lg mx-auto p-8">
+      <span class="text-4xl">🏛️</span>
+      <h3 class="text-lg font-bold text-slate-200 mt-4">No matching expeditions found</h3>
+      <p class="text-sm text-slate-400 mt-2">Try adjusting your search criteria or explore other categories.</p>
+      <button (click)="selectedCategory = 'all'; searchQuery = ''; fetchTours()" class="mt-6 px-5 py-2 rounded-xl bg-amber-500 text-slate-950 font-semibold text-xs">
+        Reset Filters
+      </button>
+    </div>
+
+    <!-- Loading Skeletons -->
+    <div *ngIf="loading()" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div *ngFor="let _ of [1,2,3,4,5,6]" class="h-96 rounded-2xl bg-slate-900 border border-slate-800 animate-pulse"></div>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,73 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* استدعاء خطوط Google */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Open+Sans:wght@300;400;600&display=swap');
+
+:root {
+  /* Colors */
+  --primary-blue: #0F284B;
+  --secondary-gold: #B88F45;
+  --gold-hover: #CBA055;
+  --bg-sand: #F8F7F4;
+  --text-dark: #2B2D33;
+  --pure-white: #FFFFFF;
+
+  /* Typography */
+  --font-heading: 'Cinzel', serif;
+  --font-body: 'Open Sans', sans-serif;
+}
+
+/* Base Styles */
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg-sand);
+  color: var(--text-dark);
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  color: var(--primary-blue);
+  margin-top: 0;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0b0f19;
+}
+::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #334155;
+}
+
+/* Glassmorphism utility */
+.glass-panel {
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-card {
+  background: rgba(30, 41, 59, 0.5);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.gold-gradient-text {
+  background: linear-gradient(135deg, #fcd34d 0%, #f59e0b 50%, #d97706 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
