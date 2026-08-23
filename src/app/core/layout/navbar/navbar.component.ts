@@ -16,9 +16,10 @@ export class NavbarComponent {
 
   readonly navItems = [
     { label: 'Home', path: '/' },
-    { label: 'Curated Tours', path: '/tours' },
-    { label: 'Private Charters', path: '/tours', queryParams: { category: 'luxury-nile' } },
-    { label: 'Concierge & Contact', path: '/contact' },
+    { label: 'Destinations', path: '/tours' },
+    { label: 'Transportation', path: '/tours', queryParams: { category: 'luxury-nile' } },
+    { label: 'About Us', path: '/' },
+    { label: 'Contact', path: '/contact' },
   ];
 
   toggleMobileMenu(): void {

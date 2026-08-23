@@ -38,14 +38,14 @@ export class ButtonComponent {
   @Input() customClass: string = '';
   @Output() onClick = new EventEmitter<MouseEvent>();
 
-  readonly baseClasses = 'inline-flex items-center justify-center font-semibold rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 focus:ring-offset-slate-950';
+  readonly baseClasses = 'inline-flex items-center justify-center font-semibold rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-secondary-gold focus:ring-offset-2 focus:ring-offset-bg-sand';
 
   readonly variantClasses: Record<ButtonVariant, string> = {
-    primary: 'bg-amber-500 hover:bg-amber-400 text-slate-950 shadow-lg shadow-amber-500/20 hover:shadow-amber-500/40',
-    gold: 'bg-gradient-to-r from-amber-500 via-amber-400 to-yellow-300 text-slate-950 shadow-lg shadow-amber-500/30 hover:scale-[1.02]',
-    secondary: 'bg-slate-800 hover:bg-slate-700 text-slate-100 border border-slate-700',
-    outline: 'border border-amber-500/40 text-amber-400 hover:bg-amber-500/10 hover:border-amber-400',
-    ghost: 'text-slate-300 hover:text-amber-400 hover:bg-slate-850',
+    primary: 'bg-secondary-gold hover:bg-gold-hover text-pure-white shadow-lg shadow-secondary-gold/20 hover:shadow-secondary-gold/40',
+    gold: 'bg-gradient-to-r from-secondary-gold via-gold-hover to-yellow-500 text-pure-white shadow-lg shadow-secondary-gold/30 hover:scale-[1.02]',
+    secondary: 'bg-primary-blue hover:bg-primary-blue/90 text-pure-white border border-primary-blue',
+    outline: 'border border-secondary-gold/40 text-secondary-gold hover:bg-secondary-gold/10 hover:border-secondary-gold',
+    ghost: 'text-text-dark hover:text-secondary-gold hover:bg-black/5',
   };
 
   readonly sizeClasses: Record<ButtonSize, string> = {

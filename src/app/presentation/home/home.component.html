@@ -1,80 +1,127 @@
 <!-- Hero Section -->
-<section class="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
-  <!-- Background Image with Dark Vignette -->
+<section class="relative min-h-[90vh] sm:min-h-screen flex items-center justify-center overflow-hidden">
+  <!-- Background Video with Dark Vignette -->
   <div class="absolute inset-0 z-0">
-    <img 
-      src="https://images.unsplash.com/photo-1503177119275-0aa32b3a9368?auto=format&fit=crop&w=2000&q=85" 
-      alt="Giza Pyramids at Twilight"
-      class="w-full h-full object-cover scale-105 filter brightness-50 contrast-125"
-    />
-    <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/60 to-slate-950/40"></div>
-    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-amber-500/10 via-transparent to-transparent"></div>
+    <!-- YouTube Background Video -->
+    <iframe
+      class="absolute top-1/2 left-1/2 w-[300vw] h-[300vh] md:w-[150vw] md:h-[150vh] -translate-x-1/2 -translate-y-1/2 pointer-events-none filter brightness-50 contrast-125"
+      src="https://www.youtube.com/embed/T3OfWBxWRhE?controls=0&amp;rel=0&amp;playsinline=1&amp;autoplay=1&amp;mute=1&amp;loop=1&amp;playlist=T3OfWBxWRhE"
+      frameborder="0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen>
+    </iframe>
+    <div class="absolute inset-0 bg-gradient-to-t from-primary-blue via-primary-blue/70 to-primary-blue/40"></div>
+
+    <!-- Custom pause/play decorative icon (top center) -->
+    <div
+      class="absolute top-24 left-1/2 -translate-x-1/2 z-20 opacity-60 hover:opacity-100 transition-opacity cursor-pointer text-white hidden md:block">
+      <svg class="w-8 h-8 drop-shadow-md" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+          d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+    </div>
   </div>
 
   <!-- Hero Content -->
-  <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-20">
-    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-900/80 border border-amber-500/30 backdrop-blur-md mb-6 animate-pulse">
-      <span class="text-amber-400 text-xs">✨</span>
-      <span class="text-xs font-semibold text-amber-300 tracking-wider uppercase font-mono">
-        Exclusive 2026 Archaeological Access Open
-      </span>
+  <div
+    class="relative z-10 w-full h-full flex flex-col justify-center items-center px-4 sm:px-6 lg:px-8 text-center pt-32 sm:pt-48 pb-32 sm:pb-48">
+
+    <!-- Top Badge Tagline -->
+    <div
+      class="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-primary-blue/60 backdrop-blur-md border border-secondary-gold/40 text-secondary-gold text-xs sm:text-sm font-semibold tracking-[0.2em] uppercase mb-6 shadow-lg">
+      <span class="w-2 h-2 rounded-full bg-secondary-gold animate-pulse"></span>
+      <span>Curated Private Expeditions & Royal Nile Voyages</span>
     </div>
 
-    <h1 class="text-4xl sm:text-6xl lg:text-7xl font-bold font-serif text-slate-100 tracking-tight leading-[1.15]">
-      Step Beyond Time in <br />
-      <span class="gold-gradient-text">Ancient Egypt</span>
+    <!-- Main Headline -->
+    <h1
+      class="text-4xl sm:text-6xl lg:text-6xl font-bold font-heading uppercase text-pure-white tracking-tight leading-[1.15] drop-shadow-2xl">
+      UNVEIL EGYPT'S TIMELESS HERITAGE
     </h1>
 
-    <p class="mt-6 text-lg sm:text-xl text-slate-300 max-w-2xl mx-auto font-light leading-relaxed">
-      Curating the world’s most intimate private expeditions across Giza, Luxor, Siwa, and the Nile with master Egyptologists and private aviation.
+    <!-- Subheading with High Legibility & Shadow -->
+    <p
+      class="mt-6 text-lg sm:text-xl text-pure-white max-w-2xl font-body font-light tracking-wide leading-relaxed drop-shadow-[0_4px_8px_rgba(0,0,0,0.8)]">
+      Bespoke Travel Experiences & Exclusive Nile Cruises.
     </p>
 
-    <!-- CTAs -->
-    <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-      <a routerLink="/tours">
-        <app-button variant="gold" size="lg">
-          Explore Curated Journeys
-        </app-button>
+    <!-- CTAs with Tailwind Palette -->
+    <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto">
+      <a routerLink="/tours"
+        class="w-full sm:w-auto px-10 py-4 rounded-full bg-secondary-gold text-pure-white hover:bg-gold-hover hover:-translate-y-1 active:scale-95 transition-all duration-300 font-semibold text-base shadow-xl shadow-secondary-gold/30 flex items-center justify-center gap-2 group">
+        <span>Begin Your Voyage</span>
+        <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24"
+          stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+        </svg>
       </a>
-      <a routerLink="/contact">
-        <app-button variant="outline" size="lg">
-          Design Custom Itinerary
-        </app-button>
+
+      <a routerLink="/contact"
+        class="w-full sm:w-auto px-10 py-4 rounded-full bg-primary-blue/60 backdrop-blur-md border border-pure-white/30 text-pure-white hover:bg-primary-blue hover:border-secondary-gold transition-all duration-300 font-semibold text-base shadow-lg flex items-center justify-center">
+        <span>Custom Itinerary Request</span>
       </a>
     </div>
 
-    <!-- Stats Ribbon -->
-    <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 pt-10 border-t border-slate-800/80">
-      <div *ngFor="let stat of stats" class="space-y-1">
-        <div class="text-2xl sm:text-3xl font-bold text-amber-400 font-serif">{{ stat.value }}</div>
-        <div class="text-xs text-slate-400 uppercase tracking-wider">{{ stat.label }}</div>
-      </div>
-    </div>
+  </div>
+
+  <!-- Wavy SVG Divider (Animated) -->
+  <div
+    class="wave-container absolute bottom-0 left-0 w-full overflow-hidden leading-none z-20 transform translate-y-[1px]">
+    <svg viewBox="0 0 120 28" class="block w-full h-[60px] sm:h-[90px] md:h-[130px] lg:h-[160px]"
+      preserveAspectRatio="none">
+      <defs>
+        <mask id="xxx">
+          <circle cx="12" cy="24" r="40" fill="#fff"></circle>
+        </mask>
+
+        <filter id="goo">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="2" result="blur"></feGaussianBlur>
+          <feColorMatrix in="blur" mode="matrix" values="
+             1 0 0 0 0  
+             0 1 0 0 0  
+             0 0 1 0 0  
+             0 0 0 13 -9" result="goo"></feColorMatrix>
+          <feBlend in="SourceGraphic" in2="goo"></feBlend>
+        </filter>
+        <path id="wave"
+          d="M 0,6 C 30,6 30,18 60,18 90,18 90,6 120,6 150,6 150,18 180,18 210,18 210,6 240,6 v 28 h -240 z">
+        </path>
+      </defs>
+
+      <use id="wave3" class="wave" href="#wave" xlink:href="#wave" x="0" y="-2"></use>
+      <use id="wave2" class="wave" href="#wave" xlink:href="#wave" x="0" y="0"></use>
+
+      <g class="gooeff">
+        <use id="wave1" class="wave" href="#wave" xlink:href="#wave" x="0" y="2"></use>
+      </g>
+    </svg>
   </div>
 </section>
 
 <!-- Value Pillars -->
-<section class="py-24 bg-slate-950 relative border-t border-slate-900">
+<section class="py-24 bg-bg-sand relative border-t border-gray-200">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="text-center max-w-3xl mx-auto mb-16">
-      <span class="text-xs font-semibold text-amber-400 uppercase tracking-widest font-mono">The Kemetica Distinction</span>
-      <h2 class="text-3xl sm:text-4xl font-serif font-bold text-slate-100 mt-2">
+      <span class="text-xs font-semibold text-secondary-gold uppercase tracking-widest font-mono">The Kemetica
+        Distinction</span>
+      <h2 class="text-3xl sm:text-4xl font-heading font-bold text-primary-blue mt-2">
         Unrivaled Access, Timeless Elegance
       </h2>
-      <p class="text-slate-400 mt-3 text-sm sm:text-base">
-        Every expedition is hand-tailored to grant you unprecedented privileges usually reserved for foreign dignitaries and archaeological directors.
+      <p class="text-text-dark mt-3 text-sm sm:text-base">
+        Every expedition is hand-tailored to grant you unprecedented privileges usually reserved for foreign dignitaries
+        and archaeological directors.
       </p>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      <div *ngFor="let item of features" class="p-8 rounded-2xl bg-slate-900/60 border border-slate-800 hover:border-amber-500/40 transition-all duration-300 space-y-4 group">
-        <div class="text-4xl p-3 bg-slate-950/80 rounded-xl w-fit border border-slate-800 group-hover:scale-110 transition-transform">
+      <div *ngFor="let item of features"
+        class="p-8 rounded-2xl bg-pure-white border border-gray-200 hover:border-secondary-gold/40 transition-all duration-300 space-y-4 group">
+        <div
+          class="text-4xl p-3 bg-bg-sand rounded-xl w-fit border border-gray-200 group-hover:scale-110 transition-transform">
           {{ item.icon }}
         </div>
-        <h3 class="text-xl font-bold font-serif text-slate-100 group-hover:text-amber-400 transition-colors">
+        <h3 class="text-xl font-bold font-heading text-primary-blue group-hover:text-secondary-gold transition-colors">
           {{ item.title }}
         </h3>
-        <p class="text-sm text-slate-400 leading-relaxed">
+        <p class="text-sm text-gray-600 leading-relaxed">
           {{ item.desc }}
         </p>
       </div>
@@ -83,17 +130,19 @@
 </section>
 
 <!-- Featured Expeditions -->
-<section class="py-24 bg-slate-900/40 relative">
+<section class="py-24 bg-pure-white relative">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    
+
     <div class="flex flex-col md:flex-row items-start md:items-end justify-between mb-12 gap-4">
       <div>
-        <span class="text-xs font-semibold text-amber-400 uppercase tracking-widest font-mono">Signature Journeys</span>
-        <h2 class="text-3xl sm:text-4xl font-serif font-bold text-slate-100 mt-2">
+        <span class="text-xs font-semibold text-secondary-gold uppercase tracking-widest font-mono">Signature
+          Journeys</span>
+        <h2 class="text-3xl sm:text-4xl font-heading font-bold text-primary-blue mt-2">
           Curated Private Itineraries
         </h2>
       </div>
-      <a routerLink="/tours" class="text-sm font-semibold text-amber-400 hover:text-amber-300 flex items-center gap-1">
+      <a routerLink="/tours"
+        class="text-sm font-semibold text-secondary-gold hover:text-gold-hover flex items-center gap-1">
         <span>View all expeditions</span>
         <span>→</span>
       </a>
@@ -106,23 +155,25 @@
 
     <!-- Loading Skeleton -->
     <div *ngIf="loading()" class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      <div *ngFor="let _ of [1,2,3]" class="h-96 rounded-2xl bg-slate-800/40 animate-pulse"></div>
+      <div *ngFor="let _ of [1,2,3]" class="h-96 rounded-2xl bg-gray-100 animate-pulse"></div>
     </div>
 
   </div>
 </section>
 
 <!-- Custom Concierge CTA -->
-<section class="py-20 relative overflow-hidden">
+<section class="py-20 relative overflow-hidden bg-pure-white">
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="relative rounded-3xl p-8 sm:p-14 bg-gradient-to-r from-amber-950/40 via-slate-900 to-slate-900 border border-amber-500/30 overflow-hidden shadow-2xl">
+    <div class="relative rounded-3xl p-8 sm:p-14 bg-bg-sand border border-secondary-gold/20 overflow-hidden shadow-xl">
       <div class="relative z-10 max-w-2xl space-y-4">
-        <span class="text-xs font-semibold uppercase tracking-widest text-amber-400 font-mono">Tailor-Made Expeditions</span>
-        <h2 class="text-3xl sm:text-4xl font-serif font-bold text-slate-100">
+        <span class="text-xs font-semibold uppercase tracking-widest text-secondary-gold font-mono">Tailor-Made
+          Expeditions</span>
+        <h2 class="text-3xl sm:text-4xl font-heading font-bold text-primary-blue">
           Envisioning a Custom Journey?
         </h2>
-        <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
-          From private Nile river charters for wedding celebrations to private archaeological digs with former Supreme Council ministers, our concierge turns your dream itinerary into reality.
+        <p class="text-text-dark text-sm sm:text-base leading-relaxed">
+          From private Nile river charters for wedding celebrations to private archaeological digs with former Supreme
+          Council ministers, our concierge turns your dream itinerary into reality.
         </p>
         <div class="pt-4">
           <a routerLink="/contact">
