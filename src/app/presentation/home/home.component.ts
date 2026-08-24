@@ -2,7 +2,10 @@ import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { GetFeaturedToursUseCase } from '../../domain/use-cases/get-featured-tours.usecase';
+import { GetSpecialToursUseCase } from '../../domain/use-cases/get-special-tours.usecase';
+import { GetDestinationsUseCase } from '../../domain/use-cases/get-destinations.usecase';
 import { Tour } from '../../domain/models/tour.model';
+import { Destination } from '../../domain/models/destination.model';
 import { TourCardComponent } from '../../shared/components/tour-card/tour-card.component';
 import { ButtonComponent } from '../../shared/components/button/button.component';
 import { CardComponent } from '../../shared/components/card/card.component';
@@ -16,8 +19,14 @@ import { CardComponent } from '../../shared/components/card/card.component';
 })
 export class HomeComponent implements OnInit {
   private readonly getFeaturedTours = inject(GetFeaturedToursUseCase);
-  
+  private readonly getSpecialTours = inject(GetSpecialToursUseCase);
+  private readonly getDestinations = inject(GetDestinationsUseCase);
+
   readonly featuredTours = signal<Tour[]>([]);
+  readonly specialTours = signal<Tour[]>([]);
+  readonly destinations = signal<Destination[]>([]);
+  readonly selectedDestination = signal<string | null>(null);
+  
   readonly loading = signal<boolean>(true);
 
   readonly stats = [
@@ -46,12 +55,39 @@ export class HomeComponent implements OnInit {
   ];
 
   ngOnInit(): void {
-    this.getFeaturedTours.execute().subscribe({
-      next: (tours) => {
-        this.featuredTours.set(tours);
-        this.loading.set(false);
+    this.fetchDestinations();
+  }
+
+  private fetchDestinations(): void {
+    this.getDestinations.execute().subscribe({
+      next: (dests) => {
+        this.destinations.set(dests);
+        if (dests.length > 0) {
+          this.selectDestination(dests[0].slug);
+        } else {
+          this.loading.set(false);
+        }
       },
       error: () => this.loading.set(false),
     });
+  }
+
+  selectDestination(slug: string): void {
+    this.selectedDestination.set(slug);
+    this.loading.set(true);
+    this.getSpecialTours.execute(slug).subscribe({
+      next: (tours) => {
+        this.specialTours.set(tours);
+        this.loading.set(false);
+      },
+      error: () => this.loading.set(false)
+    });
+  }
+
+  getSelectedDestinationToursCount(): number {
+    const selected = this.selectedDestination();
+    if (!selected) return 0;
+    const dest = this.destinations().find(d => d.slug === selected);
+    return dest ? (dest.toursCount || 0) : 0;
   }
 }

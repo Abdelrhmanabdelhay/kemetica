@@ -14,4 +14,5 @@ import { TruncatePipe } from '../../pipes/truncate.pipe';
 })
 export class TourCardComponent {
   @Input({ required: true }) tour!: Tour;
+  @Input() toursCount?: number;
 }

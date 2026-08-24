@@ -3,6 +3,12 @@ import { TourDto } from '../dto/tour.dto';
 
 export class TourMapper {
   static fromDto(dto: TourDto): Tour {
+    const prependUrl = (url: string | undefined) => {
+      if (!url) return '';
+      if (url.startsWith('http')) return url;
+      return url.startsWith('/') ? `http://localhost:3000${url}` : `http://localhost:3000/${url}`;
+    };
+
     return {
       id: dto.id,
       title: dto.title,
@@ -16,8 +22,8 @@ export class TourMapper {
       rating: dto.rating_score,
       reviewCount: dto.reviews_count,
       groupSizeMax: dto.max_group_size,
-      featuredImage: dto.featured_image_url,
-      galleryImages: dto.gallery_urls || [],
+      featuredImage: prependUrl(dto.featured_image_url),
+      galleryImages: (dto.gallery_urls || []).map(prependUrl),
       highlights: dto.highlights || [],
       location: {
         city: dto.city,

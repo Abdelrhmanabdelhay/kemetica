@@ -116,38 +116,17 @@
     <!-- Icons Row -->
     <div
       class="flex flex-nowrap md:flex-wrap items-center justify-start md:justify-center gap-8 md:gap-16 mb-16 overflow-x-auto pb-4 snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-
-      <!-- Giza -->
-      <div
-        class="flex flex-col items-center cursor-pointer group pb-2 border-b-2 border-transparent hover:border-secondary-gold transition-colors shrink-0 snap-center">
+      
+      <!-- Destination Icons (Dynamic) -->
+      <div *ngFor="let dest of destinations()" (click)="selectDestination(dest.slug)"
+        [ngClass]="{'border-secondary-gold': selectedDestination() === dest.slug, 'border-transparent': selectedDestination() !== dest.slug}"
+        class="flex flex-col items-center cursor-pointer group pb-2 border-b-2 hover:border-secondary-gold transition-colors shrink-0 snap-center">
         <div class="w-40 h-40 sm:w-45 sm:h-45 transition-transform group-hover:-translate-y-2">
-          <img src="/icons/giza-icon.jpg" alt="Giza" class="w-full h-full object-contain mix-blend-multiply" />
-        </div>
-      </div>
-
-      <!-- Luxor -->
-      <!-- Default selected state (Luxor) based on screenshot style -->
-      <div
-        class="flex flex-col items-center cursor-pointer group pb-2 border-b-2 border-secondary-gold hover:border-secondary-gold transition-colors shrink-0 snap-center">
-        <div class="w-40 h-40 sm:w-45 sm:h-45transition-transform group-hover:-translate-y-2">
-          <img src="/icons/luxor-icon.jpg" alt="Luxor" class="w-full h-full object-contain mix-blend-multiply" />
-        </div>
-      </div>
-
-      <!-- Aswan -->
-      <div
-        class="flex flex-col items-center cursor-pointer group pb-2 border-b-2 border-transparent hover:border-secondary-gold transition-colors shrink-0 snap-center">
-        <div class="w-40 h-40 sm:w-45 sm:h-45 transition-transform group-hover:-translate-y-2">
-          <img src="/icons/aswan-icon.jpg" alt="Aswan" class="w-full h-full object-contain mix-blend-multiply" />
-        </div>
-      </div>
-
-      <!-- Abu Simbel -->
-      <div
-        class="flex flex-col items-center cursor-pointer group pb-2 border-b-2 border-transparent hover:border-secondary-gold transition-colors shrink-0 snap-center">
-        <div class="w-40 h-40 sm:w-45 sm:h-45 transition-transform group-hover:-translate-y-2">
-          <img src="/icons/abusimbel-icon.jpg" alt="Abu Simbel"
+          <img [src]="dest.iconUrl" [alt]="dest.name"
             class="w-full h-full object-contain mix-blend-multiply" />
+        </div>
+        <div class="mt-2 text-center transition-transform group-hover:-translate-y-2">
+          <h4 class="font-bold text-gray-900 font-heading uppercase tracking-wide">{{ dest.name }}</h4>
         </div>
       </div>
 
@@ -155,7 +134,7 @@
 
     <!-- Tour Cards Grid -->
     <div *ngIf="!loading()" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-      <app-tour-card *ngFor="let tour of featuredTours()" [tour]="tour"></app-tour-card>
+      <app-tour-card *ngFor="let tour of specialTours()" [tour]="tour" [toursCount]="getSelectedDestinationToursCount()"></app-tour-card>
     </div>
 
     <!-- Loading Skeleton -->
