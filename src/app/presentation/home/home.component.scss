@@ -5,8 +5,9 @@
   display: block;
 }
 
-:root, :host {
-  --wave-fill-color: var(--bg-sand, #F7F5F0);
+:root,
+:host {
+  --wave-fill-color: var(--pure-white, #F7F5F0);
 }
 
 .wave-container {
@@ -63,8 +64,8 @@
   0% {
     transform: translateX(0);
   }
+
   100% {
     transform: translateX(-100%);
   }
 }
-

@@ -96,56 +96,61 @@
   </div>
 </section>
 
-<!-- Value Pillars -->
-<section class="py-24 bg-bg-sand relative border-t border-gray-200">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="text-center max-w-3xl mx-auto mb-16">
-      <span class="text-xs font-semibold text-secondary-gold uppercase tracking-widest font-mono">The Kemetica
-        Distinction</span>
-      <h2 class="text-3xl sm:text-4xl font-heading font-bold text-primary-blue mt-2">
-        Unrivaled Access, Timeless Elegance
-      </h2>
-      <p class="text-text-dark mt-3 text-sm sm:text-base">
-        Every expedition is hand-tailored to grant you unprecedented privileges usually reserved for foreign dignitaries
-        and archaeological directors.
-      </p>
-    </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      <div *ngFor="let item of features"
-        class="p-8 rounded-2xl bg-pure-white border border-gray-200 hover:border-secondary-gold/40 transition-all duration-300 space-y-4 group">
-        <div
-          class="text-4xl p-3 bg-bg-sand rounded-xl w-fit border border-gray-200 group-hover:scale-110 transition-transform">
-          {{ item.icon }}
-        </div>
-        <h3 class="text-xl font-bold font-heading text-primary-blue group-hover:text-secondary-gold transition-colors">
-          {{ item.title }}
-        </h3>
-        <p class="text-sm text-gray-600 leading-relaxed">
-          {{ item.desc }}
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- Featured Expeditions -->
 <section class="py-24 bg-pure-white relative">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-    <div class="flex flex-col md:flex-row items-start md:items-end justify-between mb-12 gap-4">
-      <div>
-        <span class="text-xs font-semibold text-secondary-gold uppercase tracking-widest font-mono">Signature
-          Journeys</span>
-        <h2 class="text-3xl sm:text-4xl font-heading font-bold text-primary-blue mt-2">
-          Curated Private Itineraries
-        </h2>
+    <!-- Header part -->
+    <div class="text-center mb-16">
+      <div class="inline-block  text-primary-blue px-4 py-1 text-2xl sm:text-4xl shadow-sm mb-3"
+        style="font-family: 'Brush Script MT', 'Dancing Script', cursive;">
+        Don't miss
       </div>
-      <a routerLink="/tours"
-        class="text-sm font-semibold text-secondary-gold hover:text-gold-hover flex items-center gap-1">
-        <span>View all expeditions</span>
-        <span>→</span>
-      </a>
+      <h2 class="text-4xl sm:text-5xl font-bold font-heading text-black tracking-tight">
+        Special Tours
+      </h2>
+    </div>
+
+    <!-- Icons Row -->
+    <div
+      class="flex flex-nowrap md:flex-wrap items-center justify-start md:justify-center gap-8 md:gap-16 mb-16 overflow-x-auto pb-4 snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+
+      <!-- Giza -->
+      <div
+        class="flex flex-col items-center cursor-pointer group pb-2 border-b-2 border-transparent hover:border-secondary-gold transition-colors shrink-0 snap-center">
+        <div class="w-40 h-40 sm:w-45 sm:h-45 transition-transform group-hover:-translate-y-2">
+          <img src="/icons/giza-icon.jpg" alt="Giza" class="w-full h-full object-contain mix-blend-multiply" />
+        </div>
+      </div>
+
+      <!-- Luxor -->
+      <!-- Default selected state (Luxor) based on screenshot style -->
+      <div
+        class="flex flex-col items-center cursor-pointer group pb-2 border-b-2 border-secondary-gold hover:border-secondary-gold transition-colors shrink-0 snap-center">
+        <div class="w-40 h-40 sm:w-45 sm:h-45transition-transform group-hover:-translate-y-2">
+          <img src="/icons/luxor-icon.jpg" alt="Luxor" class="w-full h-full object-contain mix-blend-multiply" />
+        </div>
+      </div>
+
+      <!-- Aswan -->
+      <div
+        class="flex flex-col items-center cursor-pointer group pb-2 border-b-2 border-transparent hover:border-secondary-gold transition-colors shrink-0 snap-center">
+        <div class="w-40 h-40 sm:w-45 sm:h-45 transition-transform group-hover:-translate-y-2">
+          <img src="/icons/aswan-icon.jpg" alt="Aswan" class="w-full h-full object-contain mix-blend-multiply" />
+        </div>
+      </div>
+
+      <!-- Abu Simbel -->
+      <div
+        class="flex flex-col items-center cursor-pointer group pb-2 border-b-2 border-transparent hover:border-secondary-gold transition-colors shrink-0 snap-center">
+        <div class="w-40 h-40 sm:w-45 sm:h-45 transition-transform group-hover:-translate-y-2">
+          <img src="/icons/abusimbel-icon.jpg" alt="Abu Simbel"
+            class="w-full h-full object-contain mix-blend-multiply" />
+        </div>
+      </div>
+
     </div>
 
     <!-- Tour Cards Grid -->
