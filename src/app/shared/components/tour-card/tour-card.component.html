@@ -3,20 +3,20 @@
 
   <!-- Background Image with Zoom on Hover -->
   <img [src]="tour.featuredImage" [alt]="tour.title"
-    class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+    class="absolute inset-0 w-full h-full object-cover scale-105  transition-transform duration-700 ease-out group-hover:scale-110"
     loading="lazy" />
 
   <!-- Dark Gradient Overlay -->
   <div
-    class="absolute inset-0 bg-gradient-to-t from-primary-blue/90 via-primary-blue/20 to-transparent transition-opacity duration-500">
+    class="absolute inset-0 bg-gradient-to-t from-[#0F284B] via-[#0F284B]/40 to-transparent opacity-70 group-hover:opacity-95 transition-all duration-500">
   </div>
 
   <!-- Content positioned at bottom -->
   <div class="absolute bottom-0 left-0 right-0 p-6 flex justify-between items-end pb-8 z-10">
-    <h3 class="text-2xl font-bold font-heading text-pure-white line-clamp-2 pr-4 drop-shadow-md">
-      {{ tour.title }}
+    <h3 class="text-2xl font-bold font-heading text-white line-clamp-2 pr-4 drop-shadow-md">
+      {{ tour.city }}
     </h3>
-    <span class="text-sm font-semibold text-pure-white/90 whitespace-nowrap drop-shadow-md tracking-wide">
+    <span class="text-sm font-semibold text-white whitespace-nowrap drop-shadow-md tracking-wide">
       {{ toursCount }} Tours
     </span>
   </div>

@@ -1,5 +1,5 @@
-<header
-  class="fixed top-2 left-2 right-2 md:top-4 md:left-4 md:right-4 z-50 rounded-full bg-[#E5E5E5] shadow-md transition-all duration-300">
+<header [ngClass]="isScrolled() ?  'bg-transparent shadow-none': 'bg-[#E5E5E5] shadow-md'"
+  class="fixed top-2 left-2 right-2 md:top-4 md:left-4 md:right-4 z-50 rounded-full transition-all duration-300">
   <div class="px-6 lg:px-10">
     <div class="flex items-center justify-between h-16 sm:h-20">
 

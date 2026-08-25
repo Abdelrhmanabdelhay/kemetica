@@ -1,11 +1,4 @@
-export interface TourLocation {
-  city: string;
-  country: string;
-  coordinates?: {
-    lat: number;
-    lng: number;
-  };
-}
+
 
 export interface TourItineraryDay {
   dayNumber: number;
@@ -24,13 +17,21 @@ export interface TourReview {
   date: string;
 }
 
+export interface Category {
+  id: string;
+  name: string;
+  description?: string;
+  isActive: boolean;
+  displayOrder: number;
+}
+
 export interface Tour {
   id: string;
   title: string;
   slug: string;
   tagline: string;
   description: string;
-  category: 'historical' | 'luxury-nile' | 'desert-safari' | 'cultural' | 'diving';
+  category: Category;
   durationDays: number;
   price: number;
   currency: string;
@@ -40,7 +41,12 @@ export interface Tour {
   featuredImage: string;
   galleryImages: string[];
   highlights: string[];
-  location: TourLocation;
+  city: string;
+  country: string;
+  coordinates?: {
+    lat: number;
+    lng: number;
+  };
   itinerary: TourItineraryDay[];
   included: string[];
   notIncluded: string[];

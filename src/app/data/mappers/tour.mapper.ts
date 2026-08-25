@@ -15,7 +15,13 @@ export class TourMapper {
       slug: dto.slug,
       tagline: dto.tagline,
       description: dto.description,
-      category: dto.category,
+      category: {
+        id: dto.category._id,
+        name: dto.category.name,
+        description: dto.category.description,
+        isActive: dto.category.is_active,
+        displayOrder: dto.category.display_order,
+      },
       durationDays: dto.duration_days,
       price: dto.price_usd,
       currency: 'USD',
@@ -25,10 +31,8 @@ export class TourMapper {
       featuredImage: prependUrl(dto.featured_image_url),
       galleryImages: (dto.gallery_urls || []).map(prependUrl),
       highlights: dto.highlights || [],
-      location: {
-        city: dto.city,
-        country: dto.country,
-      },
+      city: dto.city,
+      country: dto.country,
       itinerary: (dto.itinerary || []).map((item) => ({
         dayNumber: item.day,
         title: item.title,

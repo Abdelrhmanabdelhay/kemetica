@@ -2,22 +2,15 @@
 <section class="relative min-h-[90vh] sm:min-h-screen flex items-center justify-center overflow-hidden">
   <!-- Background Video with Dark Vignette -->
   <div class="absolute inset-0 z-0">
-    <!-- YouTube Background Video -->
-    <iframe
-      class="absolute top-1/2 left-1/2 w-[300vw] h-[300vh] md:w-[150vw] md:h-[150vh] -translate-x-1/2 -translate-y-1/2 pointer-events-none filter brightness-50 contrast-125"
-      src="https://www.youtube.com/embed/T3OfWBxWRhE?controls=0&amp;rel=0&amp;playsinline=1&amp;autoplay=1&amp;mute=1&amp;loop=1&amp;playlist=T3OfWBxWRhE"
-      frameborder="0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen>
-    </iframe>
+    <!-- Local Background Video -->
+    <video
+      class="absolute top-1/2 left-1/2 min-w-full min-h-full w-auto h-auto -translate-x-1/2 -translate-y-1/2 object-cover pointer-events-none filter brightness-50 contrast-125"
+      src="/video.mp4"
+      autoplay muted loop playsinline>
+    </video>
     <div class="absolute inset-0 bg-gradient-to-t from-primary-blue via-primary-blue/70 to-primary-blue/40"></div>
 
-    <!-- Custom pause/play decorative icon (top center) -->
-    <div
-      class="absolute top-24 left-1/2 -translate-x-1/2 z-20 opacity-60 hover:opacity-100 transition-opacity cursor-pointer text-white hidden md:block">
-      <svg class="w-8 h-8 drop-shadow-md" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-          d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-      </svg>
-    </div>
+
   </div>
 
   <!-- Hero Content -->
@@ -26,37 +19,41 @@
 
     <!-- Top Badge Tagline -->
     <div
-      class="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-primary-blue/60 backdrop-blur-md border border-secondary-gold/40 text-secondary-gold text-xs sm:text-sm font-semibold tracking-[0.2em] uppercase mb-6 shadow-lg">
+      class="animate-fade-in-up inline-flex items-center gap-2 px-5 py-2 rounded-full bg-primary-blue/60 backdrop-blur-md border border-secondary-gold/40 text-secondary-gold text-xs sm:text-sm font-semibold tracking-[0.2em] uppercase mb-6 shadow-lg hover:bg-primary-blue/80 hover:border-secondary-gold/70 transition-all duration-300">
       <span class="w-2 h-2 rounded-full bg-secondary-gold animate-pulse"></span>
       <span>Curated Private Expeditions & Royal Nile Voyages</span>
     </div>
 
     <!-- Main Headline -->
     <h1
-      class="text-4xl sm:text-6xl lg:text-6xl font-bold font-heading uppercase text-pure-white tracking-tight leading-[1.15] drop-shadow-2xl">
+      class="animate-fade-in-up delay-100 text-4xl sm:text-6xl lg:text-7xl font-bold font-heading uppercase text-pure-white tracking-tight leading-[1.15] drop-shadow-2xl">
       UNVEIL EGYPT'S TIMELESS HERITAGE
     </h1>
 
     <!-- Subheading with High Legibility & Shadow -->
     <p
-      class="mt-6 text-lg sm:text-xl text-pure-white max-w-2xl font-body font-light tracking-wide leading-relaxed drop-shadow-[0_4px_8px_rgba(0,0,0,0.8)]">
+      class="animate-fade-in-up delay-200 mt-6 text-lg sm:text-xl text-pure-white max-w-2xl font-body font-light tracking-wide leading-relaxed drop-shadow-[0_4px_8px_rgba(0,0,0,0.8)]">
       Bespoke Travel Experiences & Exclusive Nile Cruises.
     </p>
 
     <!-- CTAs with Tailwind Palette -->
-    <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto">
+    <div
+      class="animate-fade-in-up delay-300 mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto">
       <a routerLink="/tours"
-        class="w-full sm:w-auto px-10 py-4 rounded-full bg-secondary-gold text-pure-white hover:bg-gold-hover hover:-translate-y-1 active:scale-95 transition-all duration-300 font-semibold text-base shadow-xl shadow-secondary-gold/30 flex items-center justify-center gap-2 group">
-        <span>Begin Your Voyage</span>
-        <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24"
-          stroke="currentColor">
+        class="w-full sm:w-auto px-10 py-4 rounded-full bg-secondary-gold text-pure-white hover:bg-gold-hover hover:-translate-y-1 hover:shadow-2xl hover:shadow-secondary-gold/40 active:scale-95 transition-all duration-300 font-semibold text-base shadow-xl flex items-center justify-center gap-2 group relative overflow-hidden">
+        <span class="relative z-10">Begin Your Voyage</span>
+        <svg class="w-5 h-5 group-hover:translate-x-2 transition-transform duration-300 relative z-10" fill="none"
+          viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
         </svg>
+        <div
+          class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out z-0">
+        </div>
       </a>
 
       <a routerLink="/contact"
-        class="w-full sm:w-auto px-10 py-4 rounded-full bg-primary-blue/60 backdrop-blur-md border border-pure-white/30 text-pure-white hover:bg-primary-blue hover:border-secondary-gold transition-all duration-300 font-semibold text-base shadow-lg flex items-center justify-center">
-        <span>Custom Itinerary Request</span>
+        class="w-full sm:w-auto px-10 py-4 rounded-full bg-primary-blue/60 backdrop-blur-md border border-pure-white/30 text-pure-white hover:bg-primary-blue hover:border-secondary-gold hover:-translate-y-1 hover:shadow-xl transition-all duration-300 font-semibold text-base flex items-center justify-center group">
+        <span class="group-hover:text-secondary-gold transition-colors duration-300">Custom Itinerary Request</span>
       </a>
     </div>
 
@@ -103,38 +100,43 @@
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
     <!-- Header part -->
-    <div class="text-center mb-16">
-      <div class="inline-block  text-primary-blue px-4 py-1 text-2xl sm:text-4xl shadow-sm mb-3"
+    <div class="animate-fade-in-up text-center mb-16">
+      <div
+        class="inline-block text-primary-blue px-4 py-1 text-2xl sm:text-4xl shadow-sm mb-3 hover:scale-105 transition-transform duration-300"
         style="font-family: 'Brush Script MT', 'Dancing Script', cursive;">
         Don't miss
       </div>
-      <h2 class="text-4xl sm:text-5xl font-bold font-heading text-black tracking-tight">
+      <h2
+        class="text-4xl sm:text-5xl font-bold font-heading text-primary-blue tracking-tight hover:text-secondary-gold transition-colors duration-300 cursor-default">
         Special Tours
       </h2>
     </div>
 
     <!-- Icons Row -->
     <div
-      class="flex flex-nowrap md:flex-wrap items-center justify-start md:justify-center gap-8 md:gap-16 mb-16 overflow-x-auto pb-4 snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-      
+      class="flex flex-nowrap pb-3 md:flex-wrap items-center justify-start md:justify-center gap-8 md:gap-16 overflow-x-auto snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+
       <!-- Destination Icons (Dynamic) -->
-      <div *ngFor="let dest of destinations()" (click)="selectDestination(dest.slug)"
+      <div *ngFor="let dest of destinations(); let i = index" (click)="selectDestination(dest.slug)"
         [ngClass]="{'border-secondary-gold': selectedDestination() === dest.slug, 'border-transparent': selectedDestination() !== dest.slug}"
-        class="flex flex-col items-center cursor-pointer group pb-2 border-b-2 hover:border-secondary-gold transition-colors shrink-0 snap-center">
-        <div class="w-40 h-40 sm:w-45 sm:h-45 transition-transform group-hover:-translate-y-2">
-          <img [src]="dest.iconUrl" [alt]="dest.name"
-            class="w-full h-full object-contain mix-blend-multiply" />
+        class="animate-fade-in-up flex flex-col items-center justify-end cursor-pointer group pb-3 px-2 border-b-2 hover:border-secondary-gold transition-all shrink-0 snap-center"
+        [style.animation-delay]="(i * 100) + 'ms'">
+
+        <div class="w-32 sm:w-40 h-auto transition-transform group-hover:-translate-y-1">
+          <img [src]="dest.iconUrl" [alt]="dest.name" class="w-full h-auto object-contain mix-blend-multiply" />
         </div>
-        <div class="mt-2 text-center transition-transform group-hover:-translate-y-2">
-          <h4 class="font-bold text-gray-900 font-heading uppercase tracking-wide">{{ dest.name }}</h4>
-        </div>
+
+        <!-- Text label if needed (uncomment if images don't have text inside them) -->
+        <!-- <h4 class="mt-2 font-bold text-gray-900 font-heading uppercase">{{ dest.name }}</h4> -->
       </div>
 
     </div>
 
     <!-- Tour Cards Grid -->
-    <div *ngIf="!loading()" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-      <app-tour-card *ngFor="let tour of specialTours()" [tour]="tour" [toursCount]="getSelectedDestinationToursCount()"></app-tour-card>
+    <div *ngIf="!loading()" class="flex flex-wrap justify-center gap-8 max-w-7xl mx-auto px-4 mt-0">
+      <div *ngFor="let tour of specialTours()" class="w-full max-w-md">
+        <app-tour-card [tour]="tour" [toursCount]="getSelectedDestinationToursCount()"></app-tour-card>
+      </div>
     </div>
 
     <!-- Loading Skeleton -->
@@ -145,28 +147,89 @@
   </div>
 </section>
 
-<!-- Custom Concierge CTA -->
-<section class="py-20 relative overflow-hidden bg-pure-white">
-  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="relative rounded-3xl p-8 sm:p-14 bg-bg-sand border border-secondary-gold/20 overflow-hidden shadow-xl">
-      <div class="relative z-10 max-w-2xl space-y-4">
-        <span class="text-xs font-semibold uppercase tracking-widest text-secondary-gold font-mono">Tailor-Made
-          Expeditions</span>
-        <h2 class="text-3xl sm:text-4xl font-heading font-bold text-primary-blue">
-          Envisioning a Custom Journey?
-        </h2>
-        <p class="text-text-dark text-sm sm:text-base leading-relaxed">
-          From private Nile river charters for wedding celebrations to private archaeological digs with former Supreme
-          Council ministers, our concierge turns your dream itinerary into reality.
-        </p>
-        <div class="pt-4">
-          <a routerLink="/contact">
-            <app-button variant="gold" size="lg">
-              Contact Concierge Desk
-            </app-button>
-          </a>
-        </div>
+<!-- Dream Vacation CTA Section -->
+<section class="w-full flex flex-col md:flex-row group overflow-hidden bg-primary-blue">
+  <!-- Left Side: Image -->
+  <div
+    class="w-full md:w-1/2 min-h-[350px] md:min-h-[500px] lg:min-h-[600px] img-zoom-wrapper order-2 md:order-1 relative">
+    <div class="absolute inset-0 bg-primary-blue/20 z-10 group-hover:bg-transparent transition-colors duration-700">
+    </div>
+    <img src="/book-geo.jpg" alt="Dream Vacation World Tour"
+      class="absolute inset-0 w-full h-full object-cover transform" loading="lazy" />
+  </div>
+
+  <!-- Right Side: Content -->
+  <div
+    class="w-full md:w-1/2 flex flex-col justify-center items-start px-8 sm:px-12 md:px-16 lg:px-24 py-16 md:py-24 bg-primary-blue order-1 md:order-2 relative overflow-hidden">
+    <!-- Decorative background elements -->
+    <div
+      class="absolute top-0 right-0 w-64 h-64 bg-secondary-gold/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2">
+    </div>
+    <div
+      class="absolute bottom-0 left-0 w-48 h-48 bg-pure-white/5 rounded-full blur-2xl translate-y-1/2 -translate-x-1/2">
+    </div>
+
+    <div class="relative z-10">
+      <h2
+        class="animate-fade-in-up text-3xl md:text-4xl lg:text-5xl font-bold font-heading mb-6 leading-tight drop-shadow-md text-pure-white"
+        style="color: var(--pure-white) !important;">
+        Your dream vacation,<br />
+        Designed by you.
+      </h2>
+      <p
+        class="animate-fade-in-up delay-100 text-sm text-white md:text-base font-body text-pure-white/90 leading-relaxed mb-8 max-w-xl border-l-2 border-secondary-gold pl-4 opacity-90 group-hover:opacity-100 transition-opacity duration-500">
+        From the iconic skylines to the hidden gems, you're in control of every detail. Select your destination, tailor
+        your activities, and personalize your stay &mdash; for a journey that reflects your taste, your passions, and
+        your lifestyle.
+      </p>
+      <div class="animate-fade-in-up delay-200 mt-2">
+        <a routerLink="/contact"
+          class="group/btn inline-flex items-center justify-center bg-pure-white text-primary-blue font-bold font-body px-8 py-3.5 rounded hover:bg-secondary-gold hover:text-pure-white hover:shadow-[0_0_20px_rgba(184,143,69,0.4)] active:scale-95 transition-all duration-500 text-sm tracking-wide relative overflow-hidden">
+          <span class="relative z-10 flex items-center gap-2">
+            Click Here
+            <svg
+              class="w-4 h-4 opacity-0 -ml-4 group-hover/btn:opacity-100 group-hover/btn:ml-1 transition-all duration-300"
+              fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </span>
+        </a>
       </div>
     </div>
+  </div>
+</section>
+
+
+
+<!-- Popular Tours Section -->
+<section class="py-24 bg-bg-sand relative">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <!-- Section Header -->
+    <div class="animate-fade-in-up text-center mb-16">
+      <div
+        class="inline-block text-primary-blue px-4 py-1 text-2xl sm:text-4xl shadow-sm mb-3 hover:scale-105 transition-transform duration-300"
+        style="font-family: 'Brush Script MT', 'Dancing Script', cursive;">
+        What's new
+      </div>
+      <h2
+        class="text-4xl sm:text-5xl font-bold font-heading uppercase text-primary-blue tracking-tight hover:text-secondary-gold transition-colors duration-300 cursor-default">
+        POPULAR TOURS
+      </h2>
+    </div>
+
+    <!-- Tours Grid -->
+    <div *ngIf="popularTours().length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div *ngFor="let tour of popularTours(); let i = index" class="animate-fade-in-up"
+        [style.animation-delay]="(i * 100) + 'ms'">
+        <app-popular-tour-card [tour]="tour"></app-popular-tour-card>
+      </div>
+    </div>
+
+    <!-- Empty State -->
+    <div *ngIf="popularTours().length === 0" class="text-center py-12 text-gray-500 font-medium animate-pulse">
+      Loading popular tours...
+    </div>
+
   </div>
 </section>

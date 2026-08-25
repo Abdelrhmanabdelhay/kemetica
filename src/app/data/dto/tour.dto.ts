@@ -1,10 +1,18 @@
+export interface CategoryDto {
+  _id: string;
+  name: string;
+  description?: string;
+  is_active: boolean;
+  display_order: number;
+}
+
 export interface TourDto {
   id: string;
   title: string;
   slug: string;
   tagline: string;
   description: string;
-  category: 'historical' | 'luxury-nile' | 'desert-safari' | 'cultural' | 'diving';
+  category: CategoryDto; // Updated to use the populated category object
   duration_days: number;
   price_usd: number;
   rating_score: number;

@@ -4,16 +4,16 @@ import { RouterLink } from '@angular/router';
 import { GetFeaturedToursUseCase } from '../../domain/use-cases/get-featured-tours.usecase';
 import { GetSpecialToursUseCase } from '../../domain/use-cases/get-special-tours.usecase';
 import { GetDestinationsUseCase } from '../../domain/use-cases/get-destinations.usecase';
+import { GetPopularToursUseCase } from '../../domain/use-cases/get-popular-tours.usecase';
 import { Tour } from '../../domain/models/tour.model';
 import { Destination } from '../../domain/models/destination.model';
 import { TourCardComponent } from '../../shared/components/tour-card/tour-card.component';
-import { ButtonComponent } from '../../shared/components/button/button.component';
-import { CardComponent } from '../../shared/components/card/card.component';
+import { PopularTourCardComponent } from '../../shared/components/popular-tour-card/popular-tour-card.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, RouterLink, TourCardComponent, ButtonComponent],
+  imports: [CommonModule, RouterLink, TourCardComponent, PopularTourCardComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
@@ -21,12 +21,14 @@ export class HomeComponent implements OnInit {
   private readonly getFeaturedTours = inject(GetFeaturedToursUseCase);
   private readonly getSpecialTours = inject(GetSpecialToursUseCase);
   private readonly getDestinations = inject(GetDestinationsUseCase);
+  private readonly getPopularTours = inject(GetPopularToursUseCase);
 
   readonly featuredTours = signal<Tour[]>([]);
   readonly specialTours = signal<Tour[]>([]);
+  readonly popularTours = signal<Tour[]>([]);
   readonly destinations = signal<Destination[]>([]);
   readonly selectedDestination = signal<string | null>(null);
-  
+
   readonly loading = signal<boolean>(true);
 
   readonly stats = [
@@ -56,6 +58,14 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchDestinations();
+    this.fetchPopularTours();
+  }
+
+  private fetchPopularTours(): void {
+    this.getPopularTours.execute().subscribe({
+      next: (tours) => this.popularTours.set(tours),
+      error: () => console.error('Failed to fetch popular tours')
+    });
   }
 
   private fetchDestinations(): void {
