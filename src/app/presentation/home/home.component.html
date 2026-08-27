@@ -1,16 +1,20 @@
 <!-- Hero Section -->
 <section class="relative min-h-[90vh] sm:min-h-screen flex items-center justify-center overflow-hidden">
   <!-- Background Video with Dark Vignette -->
-  <div class="absolute inset-0 z-0">
-    <video #bgVideo
-      class="absolute inset-0 w-full h-full object-cover pointer-events-none filter brightness-50 contrast-125 scale-125"
-      src="/video.mp4" muted loop playsinline>
-    </video>
-    <div class="absolute inset-0 bg-gradient-to-t from-primary-blue via-primary-blue/70 to-primary-blue/40"></div>
+  <div class="absolute inset-0 z-0 overflow-hidden">
 
+    <video #bgVideo
+      class="absolute inset-0 w-full h-full object-cover pointer-events-none brightness-50 contrast-125 scale-125"
+      autoplay muted loop playsinline preload="auto" aria-hidden="true">
+      <source src="https://res.cloudinary.com/e7b9mwev/video/upload/0825_1.mp4" type="video/mp4" />
+    </video>
+
+    <!-- Dark Vignette -->
+    <div
+      class="absolute inset-0 bg-gradient-to-t from-primary-blue via-primary-blue/70 to-primary-blue/40 pointer-events-none">
+    </div>
 
   </div>
-
   <!-- Hero Content -->
   <div
     class="relative z-10 w-full h-full flex flex-col justify-center items-center px-4 sm:px-6 lg:px-8 text-center pt-32 sm:pt-48 pb-32 sm:pb-48">
