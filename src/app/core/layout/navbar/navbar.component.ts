@@ -13,13 +13,13 @@ import { ThemeService } from '../../services/theme.service';
 export class NavbarComponent implements OnInit {
   readonly themeService = inject(ThemeService);
   readonly isMobileMenuOpen = signal<boolean>(false);
+  readonly isRightDrawerOpen = signal<boolean>(false);
   readonly isScrolled = signal<boolean>(false);
 
   readonly navItems = [
     { label: 'Home', path: '/' },
     { label: 'Destinations', path: '/tours' },
-    { label: 'Transportation', path: '/tours', queryParams: { category: 'luxury-nile' } },
-    { label: 'About Us', path: '/' },
+    { label: 'About Us', path: '/about' },
     { label: 'Contact', path: '/contact' },
   ];
 
@@ -43,9 +43,19 @@ export class NavbarComponent implements OnInit {
 
   toggleMobileMenu(): void {
     this.isMobileMenuOpen.update((open) => !open);
+    if (this.isMobileMenuOpen()) this.isRightDrawerOpen.set(false);
   }
 
   closeMobileMenu(): void {
     this.isMobileMenuOpen.set(false);
+  }
+
+  toggleRightDrawer(): void {
+    this.isRightDrawerOpen.update((open) => !open);
+    if (this.isRightDrawerOpen()) this.isMobileMenuOpen.set(false);
+  }
+
+  closeRightDrawer(): void {
+    this.isRightDrawerOpen.set(false);
   }
 }

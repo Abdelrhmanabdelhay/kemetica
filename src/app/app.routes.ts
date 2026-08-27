@@ -17,6 +17,11 @@ export const routes: Routes = [
     title: 'VIP Concierge & Inquiries - Kemetica',
   },
   {
+    path: 'about',
+    loadComponent: () => import('./presentation/about/about').then((m) => m.About),
+    title: 'About Kemetica - Born in Aswan, 2018',
+  },
+  {
     path: '**',
     redirectTo: '',
   },

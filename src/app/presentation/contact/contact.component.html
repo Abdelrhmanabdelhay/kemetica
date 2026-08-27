@@ -1,134 +1,317 @@
-<div class="min-h-screen bg-bg-sand pt-10 pb-24">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    
-    <div class="text-center max-w-2xl mx-auto mb-14">
-      <span class="text-xs font-semibold text-secondary-gold uppercase tracking-widest font-mono">Private Client Services</span>
-      <h1 class="text-4xl sm:text-5xl font-heading font-bold text-primary-blue mt-2">
-        Initiate Your Bespoke Journey
-      </h1>
-      <p class="text-text-dark mt-3 text-sm sm:text-base">
-        Connect directly with our Lead Egyptologist and Senior Concierge to tailor your private expedition.
-      </p>
+<!-- ===== HERO SECTION (same design as home/about, image instead of video) ===== -->
+<section class="relative min-h-[90vh] sm:min-h-screen flex items-center justify-center overflow-hidden">
+
+  <!-- Background Image -->
+  <div class="absolute inset-0 z-0">
+    <img src="/contact-us.jpg" alt="Contact Kemetica"
+      class="absolute inset-0 w-full h-full object-cover pointer-events-none filter brightness-50 contrast-110 scale-105" />
+    <div class="absolute inset-0 bg-gradient-to-t from-primary-blue via-primary-blue/60 to-primary-blue/20"></div>
+  </div>
+
+  <!-- Hero Content -->
+  <div
+    class="relative z-10 w-full h-full flex flex-col justify-center items-center px-4 sm:px-6 lg:px-8 text-center pt-32 sm:pt-48 pb-32 sm:pb-48">
+    <!-- Badge -->
+    <div
+      class="animate-fade-in-up inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary-blue/60 backdrop-blur-md border border-secondary-gold/40 text-secondary-gold text-xs font-semibold tracking-[0.1em] sm:tracking-[0.2em] uppercase mb-6 shadow-lg hover:bg-primary-blue/80 hover:border-secondary-gold/70 transition-all duration-300">
+      <span class="w-1.5 h-1.5 rounded-full bg-secondary-gold animate-pulse"></span>
+      Reach Out To Us
     </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 max-w-6xl mx-auto">
+    <h1
+      class="animate-fade-in-up text-3xl sm:text-5xl lg:text-7xl font-bold font-heading text-pure-white leading-tight tracking-tight drop-shadow-2xl mb-6">
+      Plan Your<br /><span class="text-secondary-gold">Journey</span>
+    </h1>
+
+    <p class="animate-fade-in-up text-white/80 text-base sm:text-lg font-body max-w-2xl leading-relaxed">
+      Let us know your travel preferences, and our Aswan-based experts will curate the perfect Egyptian experience for you.
+    </p>
+  </div>
+
+  <!-- Wavy SVG Divider (Animated) -->
+  <div
+    class="wave-container absolute bottom-0 left-0 w-full overflow-hidden leading-none z-20 transform translate-y-[1px]">
+    <svg viewBox="0 0 120 28" class="block w-full h-[60px] sm:h-[90px] md:h-[130px] lg:h-[160px]"
+      preserveAspectRatio="none">
+      <defs>
+        <mask id="xxx">
+          <circle cx="12" cy="24" r="40" fill="#fff"></circle>
+        </mask>
+
+        <filter id="goo">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="2" result="blur"></feGaussianBlur>
+          <feColorMatrix in="blur" mode="matrix" values="
+             1 0 0 0 0  
+             0 1 0 0 0  
+             0 0 1 0 0  
+             0 0 0 13 -9" result="goo"></feColorMatrix>
+          <feBlend in="SourceGraphic" in2="goo"></feBlend>
+        </filter>
+        <path id="wave"
+          d="M 0,6 C 30,6 30,18 60,18 90,18 90,6 120,6 150,6 150,18 180,18 210,18 210,6 240,6 v 28 h -240 z">
+        </path>
+      </defs>
+
+      <use id="wave3" class="wave" href="#wave" xlink:href="#wave" x="0" y="-2"></use>
+      <use id="wave2" class="wave" href="#wave" xlink:href="#wave" x="0" y="0"></use>
+
+      <g class="gooeff">
+        <use id="wave1" class="wave" href="#wave" xlink:href="#wave" x="0" y="2"></use>
+      </g>
+    </svg>
+  </div>
+</section>
+
+
+<!-- ===== INQUIRY FORM SECTION ===== -->
+<section class="relative py-24 bg-[#faf8f5]">
+  
+  <!-- Decorative background elements -->
+  <div class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
+    <div class="absolute -top-40 -right-40 w-96 h-96 bg-secondary-gold/5 rounded-full blur-3xl"></div>
+    <div class="absolute top-40 -left-40 w-80 h-80 bg-primary-blue/5 rounded-full blur-3xl"></div>
+  </div>
+
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    
+    <!-- Premium Form Card -->
+    <div class="bg-white rounded-[2.5rem] p-8 sm:p-12 lg:p-16 shadow-2xl shadow-primary-blue/5 border border-gray-100">
       
-      <!-- Contact Info / Heritage Office Column -->
-      <div class="lg:col-span-5 space-y-6">
-        
-        <div class="p-8 rounded-3xl bg-pure-white border border-gray-200 space-y-6 shadow-sm">
-          <div>
-            <h3 class="text-xl font-bold font-heading text-primary-blue">The Cairo Sanctuary</h3>
-            <p class="text-xs text-secondary-gold font-mono mt-0.5">Private Concierge & Curatorial Office</p>
-          </div>
-
-          <div class="space-y-4 text-sm text-gray-600">
-            <div class="flex items-start gap-3">
-              <span class="text-secondary-gold text-lg">📍</span>
-              <div>
-                <p class="font-medium text-text-dark">Giza Pyramids Plateau Enclave</p>
-                <p class="text-xs text-gray-500">Private Suite 104, Mena House, Giza, Egypt</p>
-              </div>
-            </div>
-
-            <div class="flex items-start gap-3">
-              <span class="text-secondary-gold text-lg">✉️</span>
-              <div>
-                <p class="font-medium text-text-dark">Private Inquiries</p>
-                <p class="text-xs text-gray-500">concierge&#64;kemetica-expeditions.com</p>
-              </div>
-            </div>
-
-            <div class="flex items-start gap-3">
-              <span class="text-secondary-gold text-lg">📞</span>
-              <div>
-                <p class="font-medium text-text-dark">VIP Direct Line & WhatsApp</p>
-                <p class="text-xs text-gray-500">+20 (2) 3377 3220</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="pt-4 border-t border-gray-200">
-            <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-secondary-gold/10 border border-secondary-gold/30 text-secondary-gold text-xs">
-              <span>🛡️</span>
-              <span>Diplomatic Security & Confidentiality Guaranteed</span>
-            </div>
-          </div>
-        </div>
-
+      <div class="mb-12 animate-fade-in-up">
+        <h2 class="text-3xl sm:text-4xl font-bold font-heading text-primary-blue mb-3">Tailor Your Experience</h2>
+        <p class="text-gray-500 text-sm sm:text-base font-body">Provide your details below and our concierge will craft your perfect itinerary.</p>
       </div>
 
-      <!-- Inquiry Form Column -->
-      <div class="lg:col-span-7">
-        <div class="p-8 sm:p-10 rounded-3xl bg-pure-white border border-gray-200 shadow-sm relative">
+      <form class="grid grid-cols-1 lg:grid-cols-2 gap-x-16 gap-y-10 items-start">
+        
+        <!-- Left Column (Personal Info) -->
+        <div class="space-y-10">
           
-          <div *ngIf="!isSubmitted()">
-            <h3 class="text-2xl font-bold font-heading text-primary-blue mb-6">
-              Expedition Inquiry Form
-            </h3>
-
-            <form (ngSubmit)="onSubmit()" class="space-y-5">
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label class="block text-xs font-semibold uppercase tracking-wider text-gray-600 mb-2">Full Name *</label>
-                  <input type="text" [(ngModel)]="formData.fullName" name="fullName" required placeholder="Lord / Lady / Dr. / Mr." class="w-full px-4 py-3 rounded-xl bg-bg-sand border border-gray-200 text-text-dark text-sm focus:outline-none focus:border-secondary-gold transition-colors">
-                </div>
-
-                <div>
-                  <label class="block text-xs font-semibold uppercase tracking-wider text-gray-600 mb-2">Email Address *</label>
-                  <input type="email" [(ngModel)]="formData.email" name="email" required placeholder="guest@domain.com" class="w-full px-4 py-3 rounded-xl bg-bg-sand border border-gray-200 text-text-dark text-sm focus:outline-none focus:border-secondary-gold transition-colors">
+          <!-- Name (Floating Label) -->
+          <div class="relative group animate-fade-in-up" style="animation-delay: 100ms">
+            <input type="text" id="name" placeholder="Name*" 
+              class="peer w-full border-b-2 border-gray-200 bg-transparent px-0 py-3 text-base text-gray-800 placeholder-transparent focus:border-secondary-gold focus:outline-none transition-colors">
+            <label for="name" 
+              class="absolute left-0 -top-4 text-xs font-semibold text-gray-500 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-3 peer-focus:-top-4 peer-focus:text-xs peer-focus:text-secondary-gold pointer-events-none">
+              Name*
+            </label>
+          </div>
+            
+          <!-- Email (Floating Label) -->
+          <div class="relative group animate-fade-in-up" style="animation-delay: 150ms">
+            <input type="email" id="email" placeholder="E-mail*" 
+              class="peer w-full border-b-2 border-gray-200 bg-transparent px-0 py-3 text-base text-gray-800 placeholder-transparent focus:border-secondary-gold focus:outline-none transition-colors">
+            <label for="email" 
+              class="absolute left-0 -top-4 text-xs font-semibold text-gray-500 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-3 peer-focus:-top-4 peer-focus:text-xs peer-focus:text-secondary-gold pointer-events-none">
+              E-mail*
+            </label>
+          </div>
+            
+          <!-- Overlay to close dropdowns -->
+          <div *ngIf="isCountryDropdownOpen() || isCodeDropdownOpen()" class="fixed inset-0 z-40" (click)="closeDropdowns()"></div>
+          
+          <!-- Passport & Phone Grid -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-10 animate-fade-in-up relative z-50" style="animation-delay: 200ms">
+            <!-- Passport Custom Dropdown -->
+            <div class="relative group">
+              <div (click)="toggleCountryDropdown()" class="w-full border-b-2 border-gray-200 bg-transparent px-0 py-3 text-base text-gray-800 transition-colors cursor-pointer flex justify-between items-center" [class.border-secondary-gold]="isCountryDropdownOpen()">
+                <span [class.text-gray-400]="!selectedCountry()">{{ selectedCountry() || 'Select Country' }}</span>
+                <svg class="w-5 h-5 text-gray-400 transition-transform" [class.text-secondary-gold]="isCountryDropdownOpen()" [class.rotate-180]="isCountryDropdownOpen()" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 9l-7 7-7-7"></path></svg>
+              </div>
+              <label class="absolute left-0 -top-4 text-xs font-semibold transition-all pointer-events-none" [class.text-secondary-gold]="selectedCountry() || isCountryDropdownOpen()" [class.text-gray-500]="!selectedCountry() && !isCountryDropdownOpen()">
+                Passport you travel with
+              </label>
+              
+              <!-- Dropdown Menu -->
+              <div *ngIf="isCountryDropdownOpen()" class="absolute z-50 top-full left-0 mt-1 w-full max-h-60 overflow-y-auto bg-white border border-gray-100 rounded-xl shadow-xl shadow-primary-blue/10 animate-fade-in-up">
+                <div *ngFor="let country of countries" (click)="selectCountry(country.name)" class="px-4 py-2.5 text-sm hover:bg-bg-sand hover:text-primary-blue cursor-pointer transition-colors border-b border-gray-50 last:border-0">
+                  {{ country.name }}
                 </div>
               </div>
+            </div>
 
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label class="block text-xs font-semibold uppercase tracking-wider text-gray-600 mb-2">Phone / WhatsApp</label>
-                  <input type="tel" [(ngModel)]="formData.phone" name="phone" placeholder="+1 (555) 000-0000" class="w-full px-4 py-3 rounded-xl bg-bg-sand border border-gray-200 text-text-dark text-sm focus:outline-none focus:border-secondary-gold transition-colors">
+            <!-- Phone -->
+            <div class="relative group flex gap-4">
+              
+              <!-- Code Custom Dropdown -->
+              <div class="relative w-1/3 border-b-2 border-gray-200 transition-colors" [class.border-secondary-gold]="isCodeDropdownOpen()">
+                <div (click)="toggleCodeDropdown()" class="w-full h-full bg-transparent px-0 py-3 text-base text-gray-800 cursor-pointer flex justify-between items-center">
+                  <span>{{ selectedCode() }}</span>
+                  <svg class="w-4 h-4 text-gray-400 transition-transform" [class.text-secondary-gold]="isCodeDropdownOpen()" [class.rotate-180]="isCodeDropdownOpen()" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                 </div>
+                <label class="absolute left-0 -top-4 text-xs font-semibold text-secondary-gold transition-all pointer-events-none">
+                  Code
+                </label>
 
-                <div>
-                  <label class="block text-xs font-semibold uppercase tracking-wider text-gray-600 mb-2">Expedition of Interest</label>
-                  <select [(ngModel)]="formData.expeditionType" name="expeditionType" class="w-full px-4 py-3 rounded-xl bg-bg-sand border border-gray-200 text-text-dark text-sm focus:outline-none focus:border-secondary-gold transition-colors">
-                    <option value="luxury-nile">Royal Dahabiya Nile Charter</option>
-                    <option value="historical">Pharaohs Sanctuary VIP Access</option>
-                    <option value="desert-safari">Siwa & White Desert Stargazing</option>
-                    <option value="diving">Red Sea Marine Safari</option>
-                    <option value="custom">Completely Custom Itinerary</option>
-                  </select>
+                <!-- Dropdown Menu -->
+                <div *ngIf="isCodeDropdownOpen()" class="absolute z-50 top-full left-0 mt-1 w-[200px] max-h-60 overflow-y-auto bg-white border border-gray-100 rounded-xl shadow-xl shadow-primary-blue/10 animate-fade-in-up">
+                  <ng-container *ngFor="let country of countries">
+                    <div *ngIf="country.dialCode" (click)="selectCode(country.dialCode)" class="px-4 py-2.5 text-sm hover:bg-bg-sand hover:text-primary-blue cursor-pointer transition-colors border-b border-gray-50 last:border-0 flex justify-between items-center">
+                      <span class="text-gray-500 truncate mr-2 text-xs">{{ country.name }}</span>
+                      <span class="font-medium text-primary-blue">{{ country.dialCode }}</span>
+                    </div>
+                  </ng-container>
                 </div>
               </div>
-
-              <div>
-                <label class="block text-xs font-semibold uppercase tracking-wider text-gray-600 mb-2">Preferred Dates & Special Requests</label>
-                <textarea rows="4" [(ngModel)]="formData.specialRequests" name="specialRequests" placeholder="Tell us about your ideal travel dates, group size, private jet requirements, or specific archaeological permissions..." class="w-full px-4 py-3 rounded-xl bg-bg-sand border border-gray-200 text-text-dark text-sm focus:outline-none focus:border-secondary-gold transition-colors"></textarea>
+              
+              <div class="relative w-2/3">
+                <input type="tel" id="phone" placeholder="Phone" 
+                  class="peer w-full border-b-2 border-gray-200 bg-transparent px-0 py-3 text-base text-gray-800 placeholder-transparent focus:border-secondary-gold focus:outline-none transition-colors">
+                <label for="phone" class="absolute left-0 -top-4 text-xs font-semibold text-gray-500 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-3 peer-focus:-top-4 peer-focus:text-xs peer-focus:text-secondary-gold pointer-events-none">
+                  Phone
+                </label>
               </div>
-
-              <div class="pt-2">
-                <app-button variant="gold" size="lg" type="submit" [loading]="isSubmitting()" customClass="w-full">
-                  Submit Private Request
-                </app-button>
-              </div>
-            </form>
+            </div>
           </div>
 
-          <!-- Submitted Success State -->
-          <div *ngIf="isSubmitted()" class="py-12 text-center space-y-4">
-            <div class="w-16 h-16 rounded-full bg-secondary-gold/20 border border-secondary-gold/40 text-secondary-gold text-3xl flex items-center justify-center mx-auto">
-              ✓
+          <!-- Requirements Textarea -->
+          <div class="relative group animate-fade-in-up" style="animation-delay: 250ms">
+            <textarea id="requirements" rows="3" placeholder="Please advise your tour requirements*" 
+              class="peer w-full border-b-2 border-gray-200 bg-transparent px-0 py-3 text-base text-gray-800 placeholder-transparent focus:border-secondary-gold focus:outline-none transition-colors resize-none"></textarea>
+            <label for="requirements" 
+              class="absolute left-0 -top-4 text-xs font-semibold text-gray-500 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-3 peer-focus:-top-4 peer-focus:text-xs peer-focus:text-secondary-gold pointer-events-none">
+              Please advise your tour requirements*
+            </label>
+          </div>
+
+        </div>
+
+        <!-- Right Column (Dates & Submit) -->
+        <div class="space-y-10 flex flex-col h-full">
+          
+          <!-- Overlay to close dropdowns -->
+          <div *ngIf="isCountryDropdownOpen() || isCodeDropdownOpen() || isDateFromOpen() || isDateToOpen()" class="fixed inset-0 z-40" (click)="closeDropdowns()"></div>
+          
+          <!-- Dates Grid -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-10 animate-fade-in-up relative z-50" style="animation-delay: 300ms">
+            
+            <!-- From Date Custom Picker -->
+            <div class="relative group">
+              <div (click)="toggleDateFrom()" class="w-full border-b-2 border-gray-200 bg-transparent px-0 py-3 text-base text-gray-800 transition-colors cursor-pointer flex justify-between items-center" [class.border-secondary-gold]="isDateFromOpen()">
+                <span [class.text-gray-400]="!selectedDateFrom()">{{ formatDate(selectedDateFrom()) || 'From*' }}</span>
+                <svg class="w-5 h-5 text-gray-400 transition-colors" [class.text-secondary-gold]="isDateFromOpen()" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" />
+                </svg>
+              </div>
+              <label class="absolute left-0 -top-4 text-xs font-semibold transition-all pointer-events-none" [class.text-secondary-gold]="selectedDateFrom() || isDateFromOpen()" [class.text-gray-500]="!selectedDateFrom() && !isDateFromOpen()">
+                From*
+              </label>
+
+              <!-- Custom Calendar Popup -->
+              <div *ngIf="isDateFromOpen()" class="absolute z-50 top-full left-0 mt-2 w-72 bg-white rounded-2xl shadow-2xl border border-gray-100 p-4 animate-fade-in-up">
+                <!-- Header -->
+                <div class="flex justify-between items-center mb-4">
+                  <button type="button" (click)="prevMonth(); $event.stopPropagation()" class="p-2 hover:bg-gray-100 rounded-full transition-colors">
+                    <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                  </button>
+                  <div class="font-bold text-primary-blue">{{ currentMonthName }} {{ currentYear() }}</div>
+                  <button type="button" (click)="nextMonth(); $event.stopPropagation()" class="p-2 hover:bg-gray-100 rounded-full transition-colors">
+                    <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                  </button>
+                </div>
+                <!-- Days Header -->
+                <div class="grid grid-cols-7 gap-1 text-center mb-2">
+                  <div *ngFor="let day of weekDays" class="text-xs font-bold text-gray-400">{{ day }}</div>
+                </div>
+                <!-- Calendar Grid -->
+                <div class="grid grid-cols-7 gap-1">
+                  <div *ngFor="let day of calendarDays" 
+                    class="h-8 flex items-center justify-center text-sm rounded-full transition-all"
+                    [class.cursor-pointer]="day !== null"
+                    [class.hover:bg-secondary-gold]="day !== null"
+                    [class.hover:text-white]="day !== null"
+                    [class.text-gray-700]="day !== null"
+                    (click)="day !== null ? selectDate(day, true) : null">
+                    {{ day || '' }}
+                  </div>
+                </div>
+              </div>
             </div>
-            <h3 class="text-2xl font-heading font-bold text-primary-blue">Thank You, {{ formData.fullName }}</h3>
-            <p class="text-sm text-gray-600 max-w-md mx-auto">
-              Your inquiry has been encrypted and dispatched to our Senior Concierge. We will reach out via email within 12 hours with your curated proposal.
-            </p>
-            <button (click)="isSubmitted.set(false)" class="mt-4 px-6 py-2 rounded-xl bg-primary-blue text-pure-white text-xs font-semibold hover:bg-primary-blue/90">
-              Submit Another Inquiry
+
+            <!-- To Date Custom Picker -->
+            <div class="relative group">
+              <div (click)="toggleDateTo()" class="w-full border-b-2 border-gray-200 bg-transparent px-0 py-3 text-base text-gray-800 transition-colors cursor-pointer flex justify-between items-center" [class.border-secondary-gold]="isDateToOpen()">
+                <span [class.text-gray-400]="!selectedDateTo()">{{ formatDate(selectedDateTo()) || 'To' }}</span>
+                <svg class="w-5 h-5 text-gray-400 transition-colors" [class.text-secondary-gold]="isDateToOpen()" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" />
+                </svg>
+              </div>
+              <label class="absolute left-0 -top-4 text-xs font-semibold transition-all pointer-events-none" [class.text-secondary-gold]="selectedDateTo() || isDateToOpen()" [class.text-gray-500]="!selectedDateTo() && !isDateToOpen()">
+                To
+              </label>
+
+              <!-- Custom Calendar Popup -->
+              <div *ngIf="isDateToOpen()" class="absolute z-50 top-full left-0 mt-2 w-72 bg-white rounded-2xl shadow-2xl border border-gray-100 p-4 animate-fade-in-up">
+                <!-- Header -->
+                <div class="flex justify-between items-center mb-4">
+                  <button type="button" (click)="prevMonth(); $event.stopPropagation()" class="p-2 hover:bg-gray-100 rounded-full transition-colors">
+                    <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                  </button>
+                  <div class="font-bold text-primary-blue">{{ currentMonthName }} {{ currentYear() }}</div>
+                  <button type="button" (click)="nextMonth(); $event.stopPropagation()" class="p-2 hover:bg-gray-100 rounded-full transition-colors">
+                    <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                  </button>
+                </div>
+                <!-- Days Header -->
+                <div class="grid grid-cols-7 gap-1 text-center mb-2">
+                  <div *ngFor="let day of weekDays" class="text-xs font-bold text-gray-400">{{ day }}</div>
+                </div>
+                <!-- Calendar Grid -->
+                <div class="grid grid-cols-7 gap-1">
+                  <div *ngFor="let day of calendarDays" 
+                    class="h-8 flex items-center justify-center text-sm rounded-full transition-all"
+                    [class.cursor-pointer]="day !== null"
+                    [class.hover:bg-secondary-gold]="day !== null"
+                    [class.hover:text-white]="day !== null"
+                    [class.text-gray-700]="day !== null"
+                    (click)="day !== null ? selectDate(day, false) : null">
+                    {{ day || '' }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Guests Grid -->
+          <div class="grid grid-cols-2 gap-10 animate-fade-in-up" style="animation-delay: 350ms">
+            <!-- Adult -->
+            <div class="relative group">
+              <input type="number" id="adult" placeholder="Adult" min="1"
+                class="peer w-full border-b-2 border-gray-200 bg-transparent px-0 py-3 text-base text-gray-800 placeholder-transparent focus:border-secondary-gold focus:outline-none transition-colors">
+              <label for="adult" 
+                class="absolute left-0 -top-4 text-xs font-semibold text-gray-500 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-3 peer-focus:-top-4 peer-focus:text-xs peer-focus:text-secondary-gold pointer-events-none">
+                Adults
+              </label>
+            </div>
+            <!-- Child -->
+            <div class="relative group">
+              <input type="number" id="child" placeholder="Child" min="0"
+                class="peer w-full border-b-2 border-gray-200 bg-transparent px-0 py-3 text-base text-gray-800 placeholder-transparent focus:border-secondary-gold focus:outline-none transition-colors">
+              <label for="child" 
+                class="absolute left-0 -top-4 text-xs font-semibold text-gray-500 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-3 peer-focus:-top-4 peer-focus:text-xs peer-focus:text-secondary-gold pointer-events-none">
+                Children
+              </label>
+            </div>
+          </div>
+          
+          <div class="flex-grow"></div>
+
+          <!-- Submit Button -->
+          <div class="animate-fade-in-up" style="animation-delay: 400ms">
+            <button type="submit" 
+              class="group relative w-full lg:w-auto inline-flex items-center justify-center gap-3 bg-primary-blue text-white font-bold font-body text-sm px-10 py-4 rounded overflow-hidden transition-all duration-300 hover:shadow-[0_10px_30px_rgba(33,50,94,0.3)] hover:-translate-y-1">
+              <span class="absolute inset-0 w-full h-full bg-secondary-gold transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-out"></span>
+              <span class="relative z-10 uppercase tracking-widest">Submit Your Inquiry</span>
+              <svg class="relative z-10 w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
             </button>
           </div>
 
         </div>
-      </div>
-
+        
+      </form>
     </div>
-
+    
   </div>
-</div>
+</section>

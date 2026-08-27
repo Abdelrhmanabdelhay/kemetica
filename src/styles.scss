@@ -31,7 +31,12 @@ body {
   overflow-x: hidden;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-heading);
   color: var(--primary-blue);
   margin-top: 0;
@@ -41,15 +46,21 @@ h1, h2, h3, h4, h5, h6 {
 ::-webkit-scrollbar {
   width: 8px;
 }
+
 ::-webkit-scrollbar-track {
-  background: #0b0f19;
+  background: #F8F7F4;
+  /* Matches the sand background theme */
 }
+
 ::-webkit-scrollbar-thumb {
-  background: #1e293b;
+  background: #0F284B;
+  /* Near white */
   border-radius: 4px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
-  background: #334155;
+  background: #ffffff;
+  /* Pure white on hover */
 }
 
 /* Glassmorphism utility */
@@ -74,8 +85,13 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Moving Wave Animation */
 @keyframes wave-animation {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
 .animate-wave {
@@ -91,7 +107,8 @@ h1, h2, h3, h4, h5, h6 {
   justify-content: center;
   align-items: center;
   z-index: 9999;
-  background-color: var(--bg-sand, #F8F7F4); /* Match the body background so there is no harsh flash */
+  background-color: var(--bg-sand, #F8F7F4);
+  /* Match the body background so there is no harsh flash */
 }
 
 .luxury-image-loader {
@@ -105,8 +122,9 @@ h1, h2, h3, h4, h5, h6 {
   width: 100%;
   height: auto;
   object-fit: contain;
-  mix-blend-mode: multiply; /* This magically removes the white background of the image */
-  filter: drop-shadow(0 15px 20px rgba(0,0,0,0.1));
+  mix-blend-mode: multiply;
+  /* This magically removes the white background of the image */
+  filter: drop-shadow(0 15px 20px rgba(0, 0, 0, 0.1));
 }
 
 .loading-text {
@@ -120,24 +138,50 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 @keyframes floatImage {
-  0% { transform: translateY(10px) scale(0.95); }
-  100% { transform: translateY(-10px) scale(1.05); }
+  0% {
+    transform: translateY(10px) scale(0.95);
+  }
+
+  100% {
+    transform: translateY(-10px) scale(1.05);
+  }
 }
 
 @keyframes pulseText {
-  0% { opacity: 0.4; letter-spacing: 4px; }
-  100% { opacity: 1; letter-spacing: 7px; }
+  0% {
+    opacity: 0.4;
+    letter-spacing: 4px;
+  }
+
+  100% {
+    opacity: 1;
+    letter-spacing: 7px;
+  }
 }
 
 /* Premium Animations & Micro-interactions */
 @keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes fadeScale {
-  from { opacity: 0; transform: scale(0.95); }
-  to { opacity: 1; transform: scale(1); }
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 .animate-fade-in-up {
@@ -150,20 +194,36 @@ h1, h2, h3, h4, h5, h6 {
   animation: fadeScale 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-.delay-100 { animation-delay: 100ms; }
-.delay-200 { animation-delay: 200ms; }
-.delay-300 { animation-delay: 300ms; }
-.delay-400 { animation-delay: 400ms; }
-.delay-500 { animation-delay: 500ms; }
+.delay-100 {
+  animation-delay: 100ms;
+}
+
+.delay-200 {
+  animation-delay: 200ms;
+}
+
+.delay-300 {
+  animation-delay: 300ms;
+}
+
+.delay-400 {
+  animation-delay: 400ms;
+}
+
+.delay-500 {
+  animation-delay: 500ms;
+}
 
 /* Image Hover Zoom wrapper */
 .img-zoom-wrapper {
   overflow: hidden;
   position: relative;
 }
+
 .img-zoom-wrapper img {
   transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
 }
+
 .img-zoom-wrapper:hover img {
   transform: scale(1.08);
 }

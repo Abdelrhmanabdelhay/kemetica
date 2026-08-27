@@ -1,0 +1,408 @@
+<!-- ===== HERO SECTION (same design as home, image instead of video) ===== -->
+<section class="relative min-h-[90vh] sm:min-h-screen flex items-center justify-center overflow-hidden">
+
+  <!-- Background Image -->
+  <div class="absolute inset-0 z-0">
+    <img src="/about-us.jpg" alt="About Kemetica"
+      class="absolute inset-0 w-full h-full object-cover pointer-events-none filter brightness-50 contrast-110 scale-105" />
+    <div class="absolute inset-0 bg-gradient-to-t from-primary-blue via-primary-blue/60 to-primary-blue/20"></div>
+  </div>
+
+  <!-- Hero Content -->
+  <div
+    class="relative z-10 w-full h-full flex flex-col justify-center items-center px-4 sm:px-6 lg:px-8 text-center pt-32 sm:pt-48 pb-32 sm:pb-48">
+    <!-- Badge -->
+    <div
+      class="animate-fade-in-up inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary-blue/60 backdrop-blur-md border border-secondary-gold/40 text-secondary-gold text-xs font-semibold tracking-[0.1em] sm:tracking-[0.2em] uppercase mb-6 shadow-lg hover:bg-primary-blue/80 hover:border-secondary-gold/70 transition-all duration-300">
+      <span class="w-1.5 h-1.5 rounded-full bg-secondary-gold animate-pulse"></span>
+      Born in Aswan · Est. 2018
+    </div>
+
+    <h1
+      class="animate-fade-in-up text-3xl sm:text-5xl lg:text-7xl font-bold font-heading text-pure-white leading-tight tracking-tight drop-shadow-2xl mb-6">
+      The Story of<br /><span class="text-secondary-gold">Kemetica</span>
+    </h1>
+
+    <p class="animate-fade-in-up text-white/80 text-base sm:text-lg font-body max-w-2xl leading-relaxed">
+      A travel company born from a deep love for Egypt — its history, its people, and its timeless soul.
+    </p>
+  </div>
+
+  <!-- Wavy SVG Divider (Animated) -->
+  <div
+    class="wave-container absolute bottom-0 left-0 w-full overflow-hidden leading-none z-20 transform translate-y-[1px]">
+    <svg viewBox="0 0 120 28" class="block w-full h-[60px] sm:h-[90px] md:h-[130px] lg:h-[160px]"
+      preserveAspectRatio="none">
+      <defs>
+        <mask id="xxx">
+          <circle cx="12" cy="24" r="40" fill="#fff"></circle>
+        </mask>
+
+        <filter id="goo">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="2" result="blur"></feGaussianBlur>
+          <feColorMatrix in="blur" mode="matrix" values="
+             1 0 0 0 0  
+             0 1 0 0 0  
+             0 0 1 0 0  
+             0 0 0 13 -9" result="goo"></feColorMatrix>
+          <feBlend in="SourceGraphic" in2="goo"></feBlend>
+        </filter>
+        <path id="wave"
+          d="M 0,6 C 30,6 30,18 60,18 90,18 90,6 120,6 150,6 150,18 180,18 210,18 210,6 240,6 v 28 h -240 z">
+        </path>
+      </defs>
+
+      <use id="wave3" class="wave" href="#wave" xlink:href="#wave" x="0" y="-2"></use>
+      <use id="wave2" class="wave" href="#wave" xlink:href="#wave" x="0" y="0"></use>
+
+      <g class="gooeff">
+        <use id="wave1" class="wave" href="#wave" xlink:href="#wave" x="0" y="2"></use>
+      </g>
+    </svg>
+  </div>
+</section>
+
+
+<!-- ===== SECTION 1: Our Story (image left, text right) ===== -->
+<section class="py-20 bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+
+      <!-- Left: Image -->
+      <div class="w-full lg:w-1/2 relative">
+        <div class="relative rounded-2xl overflow-hidden shadow-2xl group">
+          <img src="/book-geo.jpg" alt="Kemetica Egypt Tours"
+            class="w-full h-[380px] sm:h-[480px] object-cover transition-transform duration-700 group-hover:scale-105"
+            loading="lazy" />
+          <div class="absolute inset-0 bg-gradient-to-t from-primary-blue/30 via-transparent to-transparent"></div>
+        </div>
+        <!-- Floating badge -->
+        <div
+          class="absolute -bottom-5 -right-5 bg-secondary-gold text-white px-5 py-3 rounded-xl shadow-xl font-bold font-heading text-sm">
+          Est. 2018 · Aswan
+        </div>
+      </div>
+
+      <!-- Right: Text -->
+      <div class="w-full lg:w-1/2">
+        <p class="text-secondary-gold text-xl sm:text-2xl mb-3"
+          style="font-family: 'Brush Script MT', 'Dancing Script', cursive;">About</p>
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold font-heading text-primary-blue leading-tight mb-6">
+          Where Kemetica Begins —<br />Your Gateway to Ancient Egypt
+        </h2>
+
+        <div class="space-y-4 text-gray-600 font-body text-sm sm:text-base leading-relaxed">
+          <p>
+            At <strong class="text-primary-blue">Kemetica</strong>, we turn every journey into an unforgettable
+            adventure. Founded in the heart of Aswan in 2018, we proudly serve travellers from around the world,
+            crafting carefully designed expeditions that combine authenticity, comfort, and extraordinary value.
+          </p>
+          <p>
+            Our travellers are at the heart of everything we do. Your comfort, safety, and satisfaction are our top
+            priorities. That's why we focus on delivering more than just trips — we create meaningful experiences filled
+            with culture, beauty, and moments that last a lifetime.
+          </p>
+          <p>
+            From the moment you arrive, we take care of every detail. Our services include private transfers, carefully
+            selected accommodations, expert local guides, and personalized itineraries. With <strong
+              class="text-primary-blue">24/7 concierge support</strong>, your Kemetica journey is smooth, stress-free,
+            and deeply personal.
+          </p>
+        </div>
+
+        <!-- Divider -->
+        <div class="flex items-center gap-3 mt-8">
+          <div class="h-px flex-1 bg-gray-200"></div>
+          <span class="text-secondary-gold text-xl">☽</span>
+          <div class="h-px flex-1 bg-gray-200"></div>
+        </div>
+
+        <a routerLink="/tours"
+          class="group/btn mt-8 inline-flex items-center gap-2 bg-primary-blue text-white font-bold font-body px-8 py-3.5 rounded hover:bg-secondary-gold hover:shadow-[0_0_20px_rgba(184,143,69,0.4)] active:scale-95 transition-all duration-500 text-sm tracking-wide">
+          Explore Our Tours
+          <svg class="w-4 h-4 group-hover/btn:translate-x-1 transition-transform duration-300" fill="none"
+            viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ===== SECTION 2: Why Us — Feature Grid ===== -->
+<section class="py-20 bg-[#faf8f5] relative overflow-hidden">
+  <!-- Decorative blob -->
+  <div
+    class="absolute top-0 left-0 w-80 h-80 bg-secondary-gold/5 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2 pointer-events-none">
+  </div>
+
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+
+    <!-- Header -->
+    <div class="text-center mb-14 animate-fade-in-up">
+      <p class="text-secondary-gold text-xl sm:text-2xl mb-2"
+        style="font-family: 'Brush Script MT', 'Dancing Script', cursive;">Why us</p>
+      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold font-heading text-primary-blue leading-tight">
+        We Make All The<br />Process Easy
+      </h2>
+    </div>
+
+    <!-- 3-column × 2-row grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+
+      <!-- Feature 1 -->
+      <div class="flex items-start gap-4 animate-fade-in-up">
+        <div
+          class="w-14 h-14 shrink-0 rounded-full bg-white border border-gray-200 flex items-center justify-center shadow-sm text-secondary-gold">
+          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+          </svg>
+        </div>
+        <div>
+          <h3 class="font-bold font-heading text-primary-blue mb-1">Best Travel Agent</h3>
+          <p class="text-sm text-gray-500 leading-relaxed">Our experienced Aswan-based team designs seamless travel
+            experiences with professional planning, local expertise, and full attention to every detail.</p>
+        </div>
+      </div>
+
+      <!-- Feature 2 -->
+      <div class="flex items-start gap-4 animate-fade-in-up" style="animation-delay: 100ms">
+        <div
+          class="w-14 h-14 shrink-0 rounded-full bg-white border border-gray-200 flex items-center justify-center shadow-sm text-secondary-gold">
+          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
+          </svg>
+        </div>
+        <div>
+          <h3 class="font-bold font-heading text-primary-blue mb-1">Trust &amp; Safety</h3>
+          <p class="text-sm text-gray-500 leading-relaxed">Your safety comes first. We work with trusted partners,
+            licensed Egyptologist guides, and reliable services to ensure a secure and worry-free journey.</p>
+        </div>
+      </div>
+
+      <!-- Feature 3 -->
+      <div class="flex items-start gap-4 animate-fade-in-up" style="animation-delay: 200ms">
+        <div
+          class="w-14 h-14 shrink-0 rounded-full bg-white border border-gray-200 flex items-center justify-center shadow-sm text-secondary-gold">
+          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33" />
+          </svg>
+        </div>
+        <div>
+          <h3 class="font-bold font-heading text-primary-blue mb-1">Best Price Guarantee</h3>
+          <p class="text-sm text-gray-500 leading-relaxed">Enjoy high-quality Egyptian travel experiences at competitive
+            prices, with transparent costs and excellent value for your investment.</p>
+        </div>
+      </div>
+
+      <!-- Feature 4 -->
+      <div class="flex items-start gap-4 animate-fade-in-up" style="animation-delay: 100ms">
+        <div
+          class="w-14 h-14 shrink-0 rounded-full bg-white border border-gray-200 flex items-center justify-center shadow-sm text-secondary-gold">
+          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+          </svg>
+        </div>
+        <div>
+          <h3 class="font-bold font-heading text-primary-blue mb-1">Beautiful Places</h3>
+          <p class="text-sm text-gray-500 leading-relaxed">Explore handpicked destinations across Upper Egypt — from
+            iconic Luxor temples to hidden Nubian villages, carefully chosen to deliver unforgettable memories.</p>
+        </div>
+      </div>
+
+      <!-- Feature 5 -->
+      <div class="flex items-start gap-4 animate-fade-in-up" style="animation-delay: 200ms">
+        <div
+          class="w-14 h-14 shrink-0 rounded-full bg-white border border-gray-200 flex items-center justify-center shadow-sm text-secondary-gold">
+          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+          </svg>
+        </div>
+        <div>
+          <h3 class="font-bold font-heading text-primary-blue mb-1">Passionate Travel</h3>
+          <p class="text-sm text-gray-500 leading-relaxed">Travel is our passion. Every trip we create is inspired by a
+            love for discovery, Egyptian culture, and meaningful cross-cultural experiences.</p>
+        </div>
+      </div>
+
+      <!-- Feature 6 -->
+      <div class="flex items-start gap-4 animate-fade-in-up" style="animation-delay: 300ms">
+        <div
+          class="w-14 h-14 shrink-0 rounded-full bg-white border border-gray-200 flex items-center justify-center shadow-sm text-secondary-gold">
+          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 010 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a3 3 0 010-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375z" />
+          </svg>
+        </div>
+        <div>
+          <h3 class="font-bold font-heading text-primary-blue mb-1">Fast Booking</h3>
+          <p class="text-sm text-gray-500 leading-relaxed">Book your Kemetica journey quickly and easily with our smooth
+            booking process, flexible options, and responsive Aswan-based customer support.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ===== SECTION 3: Stats Banner (image background) ===== -->
+<section class="relative py-20 overflow-hidden">
+  <img src="/ab-us.jpg" alt="Aswan Nile View" class="absolute inset-0 w-full h-full object-cover object-center"
+    loading="lazy" />
+  <div class="absolute inset-0 bg-primary-blue/70"></div>
+
+  <div class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-10 text-center">
+
+      <!-- Stat 1 -->
+      <div class="animate-fade-in-up">
+        <div class="flex justify-center mb-3 text-white/70">
+          <svg class="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+          </svg>
+        </div>
+        <p class="text-4xl sm:text-5xl font-bold text-white">154</p>
+        <p class="text-white text-sm mt-1"
+          style="font-family: 'Brush Script MT', 'Dancing Script', cursive; font-size: 1.1rem;">Destinations</p>
+      </div>
+
+      <!-- Stat 2 -->
+      <div class="animate-fade-in-up" style="animation-delay: 100ms">
+        <div class="flex justify-center mb-3 text-white/70">
+          <svg class="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918" />
+          </svg>
+        </div>
+        <p class="text-4xl sm:text-5xl font-bold text-white">2,165</p>
+        <p class="text-white text-sm mt-1"
+          style="font-family: 'Brush Script MT', 'Dancing Script', cursive; font-size: 1.1rem;">Amazing tours</p>
+      </div>
+
+      <!-- Stat 3 -->
+      <div class="animate-fade-in-up" style="animation-delay: 200ms">
+        <div class="flex justify-center mb-3 text-white/70">
+          <svg class="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25z" />
+          </svg>
+        </div>
+        <p class="text-4xl sm:text-5xl font-bold text-white">98</p>
+        <p class="text-white text-sm mt-1"
+          style="font-family: 'Brush Script MT', 'Dancing Script', cursive; font-size: 1.1rem;">Tour types</p>
+      </div>
+
+      <!-- Stat 4 -->
+      <div class="animate-fade-in-up" style="animation-delay: 300ms">
+        <div class="flex justify-center mb-3 text-white/70">
+          <svg class="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
+          </svg>
+        </div>
+        <p class="text-4xl sm:text-5xl font-bold text-white">117,259</p>
+        <p class="text-white text-sm mt-1"
+          style="font-family: 'Brush Script MT', 'Dancing Script', cursive; font-size: 1.1rem;">Happy customers</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ===== SECTION 4: Customer Reviews ===== -->
+<section class="py-20 bg-white">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <!-- Header -->
+    <div class="text-center mb-14 animate-fade-in-up">
+      <p class="text-secondary-gold text-xl sm:text-2xl mb-2"
+        style="font-family: 'Brush Script MT', 'Dancing Script', cursive;">What they say</p>
+      <h2 class="text-3xl sm:text-5xl font-bold font-heading text-primary-blue tracking-tight">
+        Our Travellers' Stories
+      </h2>
+    </div>
+
+    <!-- Reviews Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+      <!-- Review 1 -->
+      <div
+        class="bg-[#faf8f5] rounded-2xl p-6 border border-gray-100 hover:shadow-xl hover:shadow-secondary-gold/10 transition-all duration-500 animate-fade-in-up relative">
+        <div class="text-secondary-gold text-4xl font-serif leading-none mb-4">"</div>
+        <p class="text-gray-600 text-sm leading-relaxed mb-6">
+          Kemetica turned our Egypt trip into something we will never forget. The private Egyptologist was phenomenal —
+          he opened up history in a way no book ever could. We felt like royalty at every step.
+        </p>
+        <div class="flex items-center gap-3 mt-auto">
+          <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Sarah & James L."
+            class="w-12 h-12 rounded-full object-cover border-2 border-white shadow-md shrink-0">
+          <div>
+            <p class="font-bold text-primary-blue text-sm font-heading uppercase tracking-widest">Sarah & James L.</p>
+            <p class="text-xs text-gray-400">London, United Kingdom</p>
+          </div>
+          <div class="ml-auto flex gap-0.5">
+            <span *ngFor="let s of [1,2,3,4,5]" class="text-secondary-gold text-sm">★</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Review 2 -->
+      <div
+        class="bg-[#faf8f5] rounded-2xl p-6 border border-gray-100 hover:shadow-xl hover:shadow-secondary-gold/10 transition-all duration-500 animate-fade-in-up relative"
+        style="animation-delay: 100ms">
+        <div class="text-secondary-gold text-4xl font-serif leading-none mb-4">"</div>
+        <p class="text-gray-600 text-sm leading-relaxed mb-6">
+          The Nile felucca sailing at sunset from Aswan was magical. Our guide from Kemetica was warm, knowledgeable,
+          and incredibly professional. Every single detail was arranged perfectly.
+        </p>
+        <div class="flex items-center gap-3 mt-auto">
+          <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Marco & Elena R."
+            class="w-12 h-12 rounded-full object-cover border-2 border-white shadow-md shrink-0">
+          <div>
+            <p class="font-bold text-primary-blue text-sm font-heading uppercase tracking-widest">Marco & Elena R.</p>
+            <p class="text-xs text-gray-400">Milan, Italy</p>
+          </div>
+          <div class="ml-auto flex gap-0.5">
+            <span *ngFor="let s of [1,2,3,4,5]" class="text-secondary-gold text-sm">★</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Review 3 -->
+      <div
+        class="bg-[#faf8f5] rounded-2xl p-6 border border-gray-100 hover:shadow-xl hover:shadow-secondary-gold/10 transition-all duration-500 animate-fade-in-up relative"
+        style="animation-delay: 200ms">
+        <div class="text-secondary-gold text-4xl font-serif leading-none mb-4">"</div>
+        <p class="text-gray-600 text-sm leading-relaxed mb-6">
+          We did a 10-day private tour of Upper Egypt with Kemetica — Aswan, Luxor, and Abu Simbel. An absolute dream.
+          The team is responsive, honest, and genuinely passionate about sharing Egypt's heritage.
+        </p>
+        <div class="flex items-center gap-3 mt-auto">
+          <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Amanda K."
+            class="w-12 h-12 rounded-full object-cover border-2 border-white shadow-md shrink-0">
+          <div>
+            <p class="font-bold text-primary-blue text-sm font-heading uppercase tracking-widest">Amanda K.</p>
+            <p class="text-xs text-gray-400">Toronto, Canada</p>
+          </div>
+          <div class="ml-auto flex gap-0.5">
+            <span *ngFor="let s of [1,2,3,4,5]" class="text-secondary-gold text-sm">★</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

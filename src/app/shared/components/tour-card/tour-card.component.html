@@ -1,22 +1,36 @@
 <div
   class="group relative w-full h-[450px] rounded-2xl overflow-hidden bg-bg-sand cursor-pointer shadow-lg hover:shadow-2xl hover:shadow-primary-blue/20 transition-all duration-500">
 
-  <!-- Background Image with Zoom on Hover -->
+  <!-- Old Image (Stays visible during transition to prevent blank flashes) -->
+  <img *ngIf="previousImageSrc()" [src]="previousImageSrc()" [alt]="tour.title"
+    class="absolute inset-0 w-full h-full object-cover scale-105 transition-opacity duration-700 ease-out z-0"
+    [ngClass]="{'opacity-100': isImageLoading(), 'opacity-0': !isImageLoading()}" />
+
+  <!-- New Image (Fades in when loaded) -->
   <img [src]="tour.featuredImage" [alt]="tour.title"
-    class="absolute inset-0 w-full h-full object-cover scale-105  transition-transform duration-700 ease-out group-hover:scale-110"
+    class="absolute inset-0 w-full h-full object-cover scale-105 transition-all duration-700 ease-out group-hover:scale-110 z-0"
+    [ngClass]="{'opacity-0': isImageLoading(), 'opacity-100': !isImageLoading()}"
+    (load)="onImageLoaded()"
     loading="lazy" />
+
+  <!-- Small Centered Loader -->
+  <div *ngIf="isImageLoading()" class="absolute inset-0 flex items-center justify-center z-0">
+    <div class="w-8 h-8 rounded-full border-[2px] border-secondary-gold/30 border-t-secondary-gold animate-spin"></div>
+  </div>
 
   <!-- Dark Gradient Overlay -->
   <div
-    class="absolute inset-0 bg-gradient-to-t from-[#0F284B] via-[#0F284B]/40 to-transparent opacity-70 group-hover:opacity-95 transition-all duration-500">
+    class="absolute inset-0 bg-gradient-to-t from-[#0F284B] via-[#0F284B]/40 to-transparent transition-all duration-500"
+    [ngClass]="{'opacity-0': isImageLoading(), 'opacity-70 group-hover:opacity-95': !isImageLoading()}">
   </div>
 
   <!-- Content positioned at bottom -->
-  <div class="absolute bottom-0 left-0 right-0 p-6 flex justify-between items-end pb-8 z-10">
+  <div class="absolute bottom-0 left-0 right-0 p-6 flex justify-between items-end pb-8 z-10 transition-all duration-700 ease-out transform"
+       [ngClass]="{'opacity-0 translate-y-4': isImageLoading(), 'opacity-100 translate-y-0': !isImageLoading()}">
     <h3 class="text-2xl font-bold font-heading text-white line-clamp-2 pr-4 drop-shadow-md">
       {{ tour.city }}
     </h3>
-    <span class="text-sm font-semibold text-white whitespace-nowrap drop-shadow-md tracking-wide">
+    <span *ngIf="toursCount !== undefined" class="text-sm font-semibold text-white whitespace-nowrap drop-shadow-md tracking-wide">
       {{ toursCount }} Tours
     </span>
   </div>

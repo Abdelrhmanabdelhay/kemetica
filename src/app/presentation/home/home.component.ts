@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
+import { Component, OnInit, AfterViewInit, inject, signal, ViewChild, ElementRef, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { GetFeaturedToursUseCase } from '../../domain/use-cases/get-featured-tours.usecase';
@@ -9,6 +9,7 @@ import { Tour } from '../../domain/models/tour.model';
 import { Destination } from '../../domain/models/destination.model';
 import { TourCardComponent } from '../../shared/components/tour-card/tour-card.component';
 import { PopularTourCardComponent } from '../../shared/components/popular-tour-card/popular-tour-card.component';
+import { LoadingService } from '../../core/services/loading.service';
 
 @Component({
   selector: 'app-home',
@@ -17,11 +18,32 @@ import { PopularTourCardComponent } from '../../shared/components/popular-tour-c
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, AfterViewInit {
+  @ViewChild('bgVideo') bgVideo!: ElementRef<HTMLVideoElement>;
+
   private readonly getFeaturedTours = inject(GetFeaturedToursUseCase);
   private readonly getSpecialTours = inject(GetSpecialToursUseCase);
   private readonly getDestinations = inject(GetDestinationsUseCase);
   private readonly getPopularTours = inject(GetPopularToursUseCase);
+  readonly loadingService = inject(LoadingService);
+
+  constructor() {
+    // effect() must run in the injection context (constructor).
+    // When the loading overlay disappears, immediately play the background video.
+    effect(() => {
+      const doneLoading = !this.loadingService.isInitialLoading();
+      if (doneLoading) {
+        // Small tick so the overlay CSS transition starts before we play
+        setTimeout(() => {
+          const vid = this.bgVideo?.nativeElement;
+          if (vid) {
+            vid.muted = true;
+            vid.play().catch(() => {/* autoplay blocked */});
+          }
+        }, 50);
+      }
+    });
+  }
 
   readonly featuredTours = signal<Tour[]>([]);
   readonly specialTours = signal<Tour[]>([]);
@@ -32,7 +54,7 @@ export class HomeComponent implements OnInit {
   readonly loading = signal<boolean>(true);
 
   readonly stats = [
-    { value: '25+', label: 'Years of Royal Heritage Expeditions' },
+    { value: '2018', label: 'Founded in Aswan, Egypt' },
     { value: '100%', label: 'Private Egyptologist Curators' },
     { value: '4.98', label: 'Guest Excellence Rating' },
     { value: '500+', label: 'Protected Tomb VIP Approvals' },
@@ -59,6 +81,18 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.fetchDestinations();
     this.fetchPopularTours();
+    this.fetchFeaturedTours();
+  }
+
+  ngAfterViewInit() {
+    // Play is handled by the constructor effect() which fires when isInitialLoading becomes false.
+  }
+
+  private fetchFeaturedTours(): void {
+    this.getFeaturedTours.execute().subscribe({
+      next: (tours) => this.featuredTours.set(tours),
+      error: () => console.error('Failed to fetch featured tours')
+    });
   }
 
   private fetchPopularTours(): void {
@@ -99,5 +133,17 @@ export class HomeComponent implements OnInit {
     if (!selected) return 0;
     const dest = this.destinations().find(d => d.slug === selected);
     return dest ? (dest.toursCount || 0) : 0;
+  }
+
+  trackByIndex(index: number, item: any): number {
+    return index;
+  }
+
+  getDestinationAsTour(dest: Destination): Tour {
+    return {
+      title: dest.name,
+      city: dest.name,
+      featuredImage: `http://localhost:3000/cover-special/${dest.slug}.jpg`,
+    } as Tour;
   }
 }

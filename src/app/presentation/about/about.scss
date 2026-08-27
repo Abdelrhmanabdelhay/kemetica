@@ -1,0 +1,68 @@
+:host {
+    display: block;
+}
+
+:root,
+:host {
+    --wave-fill-color: var(--pure-white, #F7F5F0);
+}
+
+.wave-container {
+    width: 100%;
+
+    svg {
+        width: 100%;
+    }
+}
+
+.wave {
+    animation: wave 3s linear infinite;
+    fill: var(--wave-fill-color, var(--bg-sand, #F7F5F0));
+}
+
+.gooeff {
+    filter: url(#goo);
+}
+
+#wave2 {
+    animation-duration: 5s;
+    animation-direction: reverse;
+    opacity: 0.6;
+}
+
+#wave3 {
+    animation-duration: 7s;
+    opacity: 0.3;
+}
+
+:host ::ng-deep {
+    .wave {
+        animation: wave 3s linear infinite;
+        fill: var(--wave-fill-color, var(--bg-sand, #F7F5F0));
+    }
+
+    .gooeff {
+        filter: url(#goo);
+    }
+
+    #wave2 {
+        animation-duration: 5s;
+        animation-direction: reverse;
+        opacity: 0.6;
+    }
+
+    #wave3 {
+        animation-duration: 7s;
+        opacity: 0.3;
+    }
+}
+
+@keyframes wave {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+}

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { Tour } from '../../../domain/models/tour.model';
@@ -12,4 +12,6 @@ import { Tour } from '../../../domain/models/tour.model';
 })
 export class PopularTourCardComponent {
   @Input({ required: true }) tour!: Tour;
+  
+  readonly isImageLoading = signal<boolean>(true);
 }

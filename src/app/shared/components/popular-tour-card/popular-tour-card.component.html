@@ -1,9 +1,16 @@
 <div class="group relative w-full bg-pure-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col h-full cursor-pointer">
   
   <!-- Image Container -->
-  <div class="relative w-full h-56 overflow-hidden">
+  <div class="relative w-full h-56 overflow-hidden bg-gray-100 flex items-center justify-center">
+    <!-- Small Centered Loader -->
+    <div *ngIf="isImageLoading()" class="absolute inset-0 flex items-center justify-center z-0">
+      <div class="w-6 h-6 rounded-full border-[2px] border-secondary-gold/30 border-t-secondary-gold animate-spin"></div>
+    </div>
+
     <img [src]="tour.featuredImage" [alt]="tour.title"
       class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+      [ngClass]="{'opacity-0': isImageLoading(), 'opacity-100': !isImageLoading()}"
+      (load)="isImageLoading.set(false)"
       loading="lazy" />
   </div>
 

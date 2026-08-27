@@ -1,6 +1,11 @@
 import { HttpInterceptorFn } from '@angular/common/http';
+import { inject } from '@angular/core';
+import { finalize } from 'rxjs/operators';
+import { LoadingService } from '../services/loading.service';
 
 export const apiInterceptor: HttpInterceptorFn = (req, next) => {
+  const loadingService = inject(LoadingService);
+  
   // Use localhost:3000 as the backend base URL for API requests
   const baseUrl = 'http://localhost:3000';
   
@@ -19,5 +24,11 @@ export const apiInterceptor: HttpInterceptorFn = (req, next) => {
     });
   }
 
-  return next(modifiedReq);
+  loadingService.show();
+
+  return next(modifiedReq).pipe(
+    finalize(() => {
+      loadingService.hide();
+    })
+  );
 };

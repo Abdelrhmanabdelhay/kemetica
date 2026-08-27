@@ -1,5 +1,17 @@
 <div class="min-h-screen flex flex-col bg-bg-sand text-text-dark font-sans selection:bg-secondary-gold selection:text-pure-white">
-  
+
+  <!-- Initial Full-Screen Loader (Stays until first batch of data is loaded) -->
+  <div *ngIf="loadingService.isInitialLoading()" class="fixed inset-0 z-[110] bg-bg-sand flex items-center justify-center pointer-events-none transition-opacity duration-500">
+    <div class="kemetica-loader-wrapper relative">
+      <div class="luxury-image-loader relative rounded-full overflow-hidden w-32 h-32 border-[3px] border-secondary-gold/30 shadow-[0_0_30px_rgba(184,143,69,0.2)]">
+        <img src="/loader.jpg" alt="Loading..." class="loader-image w-full h-full object-cover animate-pulse" />
+        <div class="absolute inset-0 border-t-[3px] border-secondary-gold rounded-full animate-spin"></div>
+      </div>
+      <div class="loading-text mt-6 text-sm tracking-widest text-secondary-gold uppercase font-mono font-semibold animate-pulse text-center">
+        Awakening the ancient world...
+      </div>
+    </div>
+  </div>
   <!-- Global Toast Notifications -->
   <div class="fixed top-24 right-4 z-50 flex flex-col gap-2 max-w-sm w-full pointer-events-none">
     <div 
