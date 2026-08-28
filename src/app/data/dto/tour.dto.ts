@@ -13,7 +13,9 @@ export interface TourDto {
   tagline: string;
   description: string;
   category: CategoryDto; // Updated to use the populated category object
-  duration_days: number;
+  duration?: number;
+  duration_type?: string;
+  duration_days?: number; // for backwards compatibility
   price_usd: number;
   rating_score: number;
   reviews_count: number;
@@ -23,15 +25,16 @@ export interface TourDto {
   highlights: string[];
   city: string;
   country: string;
-  itinerary: Array<{
+  tours_plan: Array<{
     day: number;
     title: string;
-    description: string;
-    activities: string[];
-    meals: string[];
+    description: Array<{
+      headline: string;
+      details: string;
+    }>;
   }>;
-  included_items: string[];
-  excluded_items: string[];
+  included: string[];
+  excluded: string[];
   is_featured: boolean;
   badge_label?: string;
 }

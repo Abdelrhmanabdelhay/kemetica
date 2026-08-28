@@ -1,11 +1,12 @@
 
 
-export interface TourItineraryDay {
-  dayNumber: number;
+export interface TourPlanDay {
+  day: number;
   title: string;
-  description: string;
-  activities: string[];
-  mealsIncluded: string[];
+  description: Array<{
+    headline: string;
+    details: string;
+  }>;
 }
 
 export interface TourReview {
@@ -32,7 +33,8 @@ export interface Tour {
   tagline: string;
   description: string;
   category: Category;
-  durationDays: number;
+  duration: number;
+  durationType: string;
   price: number;
   currency: string;
   rating: number;
@@ -47,10 +49,11 @@ export interface Tour {
     lat: number;
     lng: number;
   };
-  itinerary: TourItineraryDay[];
+  tours_plan: TourPlanDay[];
   included: string[];
-  notIncluded: string[];
+  excluded: string[];
   isFeatured: boolean;
+  sub_type?: string;
   badge?: string;
 }
 
@@ -59,4 +62,7 @@ export interface TourFilterOptions {
   maxPrice?: number;
   duration?: number;
   searchQuery?: string;
+  sub_type?: string;
+  destination?: string;
+  tour_type?: string;
 }

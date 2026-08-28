@@ -1,0 +1,59 @@
+<div class="kmt-login-container">
+  <!-- Dynamic Background Particles/Orbs -->
+  <div class="kmt-orb kmt-orb-1"></div>
+  <div class="kmt-orb kmt-orb-2"></div>
+  <div class="kmt-orb kmt-orb-3"></div>
+
+  <div class="kmt-login-card">
+    <div class="kmt-brand-header">
+      <img src="/logo-Photoroom.png" alt="Kemetica Logo" class="kmt-logo" />
+      <h2>Admin Portal</h2>
+      <p>Sign in to manage the expedition platform</p>
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="kmt-login-form">
+      <!-- Error Message -->
+      <div *ngIf="errorMessage()" class="kmt-alert">
+        {{ errorMessage() }}
+      </div>
+
+      <!-- Email Input -->
+      <div class="kmt-input-group">
+        <input type="email" id="email" formControlName="email" class="kmt-input"
+          [class.kmt-input-error]="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" placeholder=" "
+          required />
+        <label for="email" class="kmt-label">Administrator Email</label>
+        <span class="kmt-focus-border"></span>
+        <div class="kmt-error-text" *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+          Valid email is required
+        </div>
+      </div>
+
+      <!-- Password Input -->
+      <div class="kmt-input-group">
+        <input type="password" id="password" formControlName="password" class="kmt-input"
+          [class.kmt-input-error]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched"
+          placeholder=" " required />
+        <label for="password" class="kmt-label">Password</label>
+        <span class="kmt-focus-border"></span>
+        <div class="kmt-error-text" *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+          Password must be at least 6 characters
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" class="kmt-btn kmt-btn-primary" [disabled]="isLoading()" [class.kmt-loading]="isLoading()">
+        <span class="kmt-btn-text" *ngIf="!isLoading()">Authenticate</span>
+        <div class="kmt-spinner" *ngIf="isLoading()">
+          <svg viewBox="0 0 50 50">
+            <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle>
+          </svg>
+        </div>
+      </button>
+    </form>
+
+    <div class="kmt-footer-note">
+      <p>&copy; 2026 Kemetica Expeditions. Secure Access Only.</p>
+    </div>
+  </div>
+</div>

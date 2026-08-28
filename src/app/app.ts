@@ -18,6 +18,10 @@ export class App {
   readonly loadingService = inject(LoadingService);
   private router = inject(Router);
 
+  get isAdminRoute(): boolean {
+    return this.router.url.startsWith('/admin');
+  }
+
   constructor() {
     // Fallback: If no API calls are made, ensure initial loader stops after navigation finishes
     this.router.events.subscribe(event => {

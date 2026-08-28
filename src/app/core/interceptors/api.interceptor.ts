@@ -14,13 +14,19 @@ export const apiInterceptor: HttpInterceptorFn = (req, next) => {
 
   // If the request starts with /api, prepend the base URL
   if (req.url.startsWith('/api')) {
+    // If we're uploading a file (FormData), don't set the Content-Type header.
+    // The browser will automatically set it to multipart/form-data with the correct boundary.
+    const isFormData = req.body instanceof FormData;
+    
+    let headers = req.headers.set('X-App-Client', 'Kemetica-Web');
+    if (!isFormData) {
+      headers = headers.set('Content-Type', 'application/json');
+    }
+
     modifiedReq = req.clone({
       url: `${baseUrl}${req.url}`,
       withCredentials: true, // Send HttpOnly cookies for authentication
-      setHeaders: {
-        'Content-Type': 'application/json',
-        'X-App-Client': 'Kemetica-Web',
-      },
+      headers: headers,
     });
   }
 

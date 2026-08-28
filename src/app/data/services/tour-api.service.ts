@@ -24,6 +24,9 @@ export class TourApiService {
       if (filters.searchQuery && filters.searchQuery.trim() !== '') {
         params = params.set('q', filters.searchQuery.trim());
       }
+      if (filters.sub_type) {
+        params = params.set('sub_type', filters.sub_type);
+      }
       if (filters.tour_type) {
         params = params.set('tour_type', filters.tour_type);
       }
@@ -63,5 +66,21 @@ export class TourApiService {
     return this.http.get<ApiResponse<TourDto>>(`/api/v1/tours/${id}`).pipe(
       map(res => res.data)
     );
+  }
+
+  getReviews(tourId: string): Observable<any[]> {
+    return this.http.get<ApiResponse<any[]>>(`/api/v1/tours/${tourId}/reviews`).pipe(
+      map(res => res.data)
+    );
+  }
+
+  addAnonymousReview(tourId: string, authorName: string, rating: number, comment: string) {
+    const payload = {
+      authorName: authorName,
+      rating: rating,
+      comment: comment
+    };
+    
+    return this.http.post<ApiResponse<any>>(`/api/v1/tours/${tourId}/reviews`, payload);
   }
 }

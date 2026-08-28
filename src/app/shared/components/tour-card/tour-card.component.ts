@@ -2,16 +2,23 @@ import { Component, Input, signal, OnChanges, SimpleChanges } from '@angular/cor
 import { CommonModule } from '@angular/common';
 import { Tour } from '../../../domain/models/tour.model';
 
+import { RouterLink } from '@angular/router';
+
 @Component({
   selector: 'app-tour-card',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './tour-card.component.html',
   styleUrl: './tour-card.component.scss',
 })
 export class TourCardComponent implements OnChanges {
   @Input({ required: true }) tour!: Tour;
   @Input() toursCount?: number;
+  @Input() routeTo?: string | any[];
+
+  get linkPath(): any[] | string {
+    return this.routeTo || ['/tours', this.tour.slug];
+  }
 
   readonly isImageLoading = signal<boolean>(true);
   readonly previousImageSrc = signal<string | null>(null);

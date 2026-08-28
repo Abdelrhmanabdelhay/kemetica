@@ -22,6 +22,20 @@ export const routes: Routes = [
     title: 'About Kemetica - Born in Aswan, 2018',
   },
   {
+    path: 'destinations/:destination',
+    loadComponent: () => import('./presentation/destinations/destinations.component').then((m) => m.DestinationsComponent),
+    title: 'Discover Destinations - Kemetica',
+  },
+  {
+    path: 'tours/:slug',
+    loadComponent: () => import('./presentation/tour-detail/tour-detail.component').then((m) => m.TourDetailComponent),
+    title: 'Tour Details - Kemetica',
+  },
+  {
+    path: 'admin',
+    loadChildren: () => import('./presentation/admin/admin.routes').then((m) => m.adminRoutes),
+  },
+  {
     path: '**',
     redirectTo: '',
   },

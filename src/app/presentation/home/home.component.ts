@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, inject, signal, ViewChild, ElementRef, effect } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy, inject, signal, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { GetFeaturedToursUseCase } from '../../domain/use-cases/get-featured-tours.usecase';
@@ -18,7 +18,7 @@ import { LoadingService } from '../../core/services/loading.service';
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
-export class HomeComponent implements OnInit, AfterViewInit {
+export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('bgVideo') bgVideo!: ElementRef<HTMLVideoElement>;
 
   private readonly getFeaturedTours = inject(GetFeaturedToursUseCase);
@@ -27,22 +27,11 @@ export class HomeComponent implements OnInit, AfterViewInit {
   private readonly getPopularTours = inject(GetPopularToursUseCase);
   readonly loadingService = inject(LoadingService);
 
+  private videoLoadHandled = false;
+
   constructor() {
-    // effect() must run in the injection context (constructor).
-    // When the loading overlay disappears, immediately play the background video.
-    effect(() => {
-      const doneLoading = !this.loadingService.isInitialLoading();
-      if (doneLoading) {
-        // Small tick so the overlay CSS transition starts before we play
-        setTimeout(() => {
-          const vid = this.bgVideo?.nativeElement;
-          if (vid) {
-            vid.muted = true;
-            vid.play().catch(() => {/* autoplay blocked */});
-          }
-        }, 50);
-      }
-    });
+    // Add a manual loading task so the global loader stays until the video is ready
+    this.loadingService.show();
   }
 
   readonly featuredTours = signal<Tour[]>([]);
@@ -50,6 +39,25 @@ export class HomeComponent implements OnInit, AfterViewInit {
   readonly popularTours = signal<Tour[]>([]);
   readonly destinations = signal<Destination[]>([]);
   readonly selectedDestination = signal<string | null>(null);
+
+  readonly isVideoReady = signal<boolean>(false);
+
+  ngOnDestroy() {
+    // Clean up loading state if user navigates away before video loads
+    if (!this.videoLoadHandled) {
+      this.videoLoadHandled = true;
+      this.loadingService.hide();
+    }
+  }
+
+  onVideoReady() {
+    if (!this.videoLoadHandled) {
+      this.videoLoadHandled = true;
+      this.isVideoReady.set(true);
+      // Remove our manual loading task
+      this.loadingService.hide();
+    }
+  }
 
   readonly loading = signal<boolean>(true);
 
@@ -85,7 +93,19 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    // Play is handled by the constructor effect() which fires when isInitialLoading becomes false.
+    const vid = this.bgVideo?.nativeElement;
+    if (vid) {
+      vid.muted = true;
+      vid.play().catch(() => {
+        // If autoplay is blocked by the browser, dismiss the loader anyway
+        this.onVideoReady();
+      });
+    }
+
+    // Safety fallback: if the video doesn't emit 'playing' within 5 seconds, hide the loader
+    setTimeout(() => {
+      this.onVideoReady();
+    }, 5000);
   }
 
   private fetchFeaturedTours(): void {

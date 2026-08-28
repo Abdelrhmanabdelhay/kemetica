@@ -16,6 +16,7 @@ module.exports = {
       fontFamily: {
         heading: ['var(--font-heading)', 'serif'],
         body: ['var(--font-body)', 'sans-serif'],
+        signature: ['"Dancing Script"', 'cursive'], // add this
         sans: ['var(--font-body)', 'sans-serif'],
       }
     },

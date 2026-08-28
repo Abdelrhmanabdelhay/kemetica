@@ -89,7 +89,7 @@
 
       <!-- Left Scroll Button -->
       <button (click)="carousel.scrollBy({left: -320, behavior: 'smooth'})"
-        class="absolute -left-2 md:-left-6 top-1/2 -translate-y-1/2 z-20 bg-white/95 backdrop-blur shadow-[0_4px_20px_rgba(0,0,0,0.1)] border border-gray-100 hover:bg-secondary-gold hover:text-white hover:scale-105 text-primary-blue rounded-full w-12 h-12 flex items-center justify-center opacity-0 group-hover/carousel:opacity-100 transition-all duration-300">
+        class="absolute -left-2 md:-left-6 top-1/2 -translate-y-1/2 z-20 bg-white/95 backdrop-blur shadow-[0_4px_20px_rgba(0,0,0,0.1)] border border-gray-100 hover:bg-secondary-gold hover:text-white hover:scale-105 text-primary-blue rounded-full w-12 h-12 flex items-center justify-center opacity-100 md:opacity-0 md:group-hover/carousel:opacity-100 transition-all duration-300">
         <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
         </svg>
@@ -101,7 +101,7 @@
         class="w-full overflow-x-auto flex justify-center snap-x snap-mandatory pb-8 pt-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
         <div class="flex gap-6 px-6 md:px-12">
           <div *ngFor="let dest of destinations()" class="w-72 sm:w-80 shrink-0 snap-center animate-fade-in-up">
-            <app-tour-card [tour]="getDestinationAsTour(dest)" [toursCount]="dest.toursCount"></app-tour-card>
+            <app-tour-card [tour]="getDestinationAsTour(dest)" [toursCount]="dest.toursCount" [routeTo]="'/destinations/' + dest.slug"></app-tour-card>
           </div>
         </div>
       </div>

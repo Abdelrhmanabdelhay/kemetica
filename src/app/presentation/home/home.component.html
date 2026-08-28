@@ -1,18 +1,18 @@
 <!-- Hero Section -->
 <section class="relative min-h-[90vh] sm:min-h-screen flex items-center justify-center overflow-hidden">
   <!-- Background Video with Dark Vignette -->
-  <div class="absolute inset-0 z-0 overflow-hidden">
+  <div class="absolute inset-0 z-0 overflow-hidden bg-[#0f172a]">
 
     <video #bgVideo
-      class="absolute inset-0 w-full h-full object-cover pointer-events-none brightness-50 contrast-125 scale-125"
+      [class.opacity-0]="!isVideoReady()"
+      [class.opacity-100]="isVideoReady()"
+      (playing)="onVideoReady()"
+      class="transition-opacity duration-1000 absolute inset-0 w-full h-full object-cover pointer-events-none brightness-50 contrast-125 scale-125"
       autoplay muted loop playsinline preload="auto" aria-hidden="true">
       <source src="https://res.cloudinary.com/e7b9mwev/video/upload/0825_1.mp4" type="video/mp4" />
     </video>
 
-    <!-- Dark Vignette -->
-    <div
-      class="absolute inset-0 bg-gradient-to-t from-primary-blue via-primary-blue/70 to-primary-blue/40 pointer-events-none">
-    </div>
+
 
   </div>
   <!-- Hero Content -->
@@ -139,7 +139,7 @@
       class="flex flex-wrap justify-center gap-8 max-w-7xl mx-auto px-4 mt-0 transition-opacity duration-300"
       [ngClass]="{'opacity-50 pointer-events-none': loading()}">
       <div *ngFor="let tour of specialTours(); trackBy: trackByIndex" class="w-full max-w-md">
-        <app-tour-card [tour]="tour" [toursCount]="getSelectedDestinationToursCount()"></app-tour-card>
+        <app-tour-card [tour]="tour" [toursCount]="getSelectedDestinationToursCount()" [routeTo]="['/destinations', selectedDestination()]"></app-tour-card>
       </div>
     </div>
 
@@ -295,7 +295,7 @@
     <div #carousel
       class="w-full overflow-x-auto flex gap-6 px-6 md:px-12 snap-x snap-mandatory pb-8 pt-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
       <div *ngFor="let dest of destinations()" class="w-72 sm:w-80 shrink-0 snap-center animate-fade-in-up">
-        <app-tour-card [tour]="getDestinationAsTour(dest)" [toursCount]="dest.toursCount"></app-tour-card>
+        <app-tour-card [tour]="getDestinationAsTour(dest)" [toursCount]="dest.toursCount" [routeTo]="['/destinations', dest.slug]"></app-tour-card>
       </div>
     </div>
 

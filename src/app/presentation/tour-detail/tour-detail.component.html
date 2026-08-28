@@ -1,0 +1,673 @@
+<!-- Loading State -->
+<div *ngIf="loading()" class="min-h-screen flex flex-col items-center justify-center bg-bg-sand">
+  <div class="w-16 h-16 rounded-full border-4 border-secondary-gold/20 border-t-secondary-gold animate-spin mb-4"></div>
+  <p class="text-primary-blue animate-pulse font-heading text-xl">Loading Tour Details...</p>
+</div>
+
+<ng-container *ngIf="!loading() && tour() as currentTour">
+  <!-- Hero Section -->
+  <section class="relative min-h-[90vh] sm:min-h-screen flex flex-col justify-end overflow-hidden pb-32">
+    <!-- Background Image -->
+    <div class="absolute inset-0 z-0 ">
+      <img [src]="currentTour.featuredImage || '/world-map.jpg'" [alt]="currentTour.title"
+        class="absolute inset-0 w-full h-full object-cover  mix-blend-overlay scale-105">
+      <!-- Shadows from left and right -->
+      <div
+        class="absolute inset-y-0 left-0 w-1/3 md:w-1/4 bg-gradient-to-r from-black/80 to-transparent z-10 pointer-events-none">
+      </div>
+      <div
+        class="absolute inset-y-0 right-0 w-1/3 md:w-1/4 bg-gradient-to-l from-black/80 to-transparent z-10 pointer-events-none">
+      </div>
+      <!-- Gradient Overlay for text legibility -->
+      <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20 z-10 pointer-events-none">
+      </div>
+    </div>
+
+    <!-- Hero Content -->
+    <div class="relative z-20 text-center px-4 w-full flex flex-col justify-center items-center pb-24 pt-32">
+      <!-- Category Badge -->
+      <div
+        class="animate-fade-in-up inline-block px-5 py-2 rounded-full bg-secondary-gold text-pure-white text-xs font-bold uppercase tracking-widest mb-6 shadow-md border border-white/20">
+        {{ currentTour.category?.name || 'Exclusive Tour' }}
+      </div>
+
+      <h1
+        class="animate-fade-in-up text-4xl sm:text-6xl lg:text-7xl font-bold font-heading uppercase text-pure-white tracking-tight leading-[1.15] drop-shadow-2xl mb-4">
+        {{ currentTour.title }}
+      </h1>
+
+      <p *ngIf="currentTour.tagline"
+        class="animate-fade-in-up delay-100 text-lg sm:text-2xl text-pure-white font-body font-medium tracking-wide drop-shadow-md mb-12">
+        {{ currentTour.tagline }}
+      </p>
+
+      <!-- Quick Info Bar -->
+      <div
+        class="animate-fade-in-up delay-300 flex flex-wrap items-center justify-center gap-4 sm:gap-8 bg-pure-white/10 backdrop-blur-md border border-pure-white/20 rounded-full py-4 px-8 text-pure-white max-w-2xl mx-auto shadow-2xl">
+        <div class="flex items-center gap-2">
+          <svg class="w-5 h-5 text-secondary-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <span class="font-semibold">{{ currentTour.duration }} {{ currentTour.durationType }}</span>
+        </div>
+        <div class="w-px h-6 bg-pure-white/30"></div>
+        <div class="flex items-center gap-2">
+          <svg class="w-5 h-5 text-secondary-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+          </svg>
+          <span class="font-semibold">Max {{ currentTour.groupSizeMax }}</span>
+        </div>
+        <div class="w-px h-6 bg-pure-white/30"></div>
+        <div class="flex items-center gap-2">
+          <svg class="w-5 h-5 text-secondary-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+          <span class="font-semibold">{{ currentTour.city }}, {{ currentTour.country }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scroll Cue -->
+    <div class="absolute bottom-24 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center animate-bounce">
+      <span class="text-white/80 text-xs font-semibold tracking-widest uppercase mb-2">Scroll to explore</span>
+      <svg class="w-6 h-6 text-secondary-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+      </svg>
+    </div>
+
+    <!-- Wavy SVG Divider (Animated) -->
+    <div
+      class="wave-container absolute bottom-0 left-0 w-full overflow-hidden leading-none z-20 transform translate-y-[1px]">
+      <svg viewBox="0 0 120 28" class="block w-full h-[60px] sm:h-[90px] md:h-[130px] lg:h-[160px]"
+        preserveAspectRatio="none">
+        <defs>
+          <mask id="xxx">
+            <circle cx="12" cy="24" r="40" fill="#fff"></circle>
+          </mask>
+          <filter id="goo">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="2" result="blur"></feGaussianBlur>
+            <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 13 -9" result="goo">
+            </feColorMatrix>
+            <feBlend in="SourceGraphic" in2="goo"></feBlend>
+          </filter>
+          <path id="wave"
+            d="M 0,6 C 30,6 30,18 60,18 90,18 90,6 120,6 150,6 150,18 180,18 210,18 210,6 240,6 v 28 h -240 z"></path>
+        </defs>
+        <use id="wave3" class="wave" href="#wave" xlink:href="#wave" x="0" y="-2"></use>
+        <use id="wave2" class="wave" href="#wave" xlink:href="#wave" x="0" y="0"></use>
+        <g class="gooeff">
+          <use id="wave1" class="wave" href="#wave" xlink:href="#wave" x="0" y="2"></use>
+        </g>
+      </svg>
+    </div>
+  </section>
+
+  <div class="bg-bg-sand pb-24 pt-12 relative z-30">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <!-- Gallery Grid -->
+      <div class="flex flex-col md:flex-row gap-2 mb-12 h-[400px] sm:h-[500px]">
+        <!-- Main Large Image (Scrollable) -->
+        <div
+          class="w-full md:w-3/4 relative h-[300px] md:h-full group rounded-t-xl md:rounded-l-xl md:rounded-tr-none overflow-hidden shadow-sm">
+          <img [src]="allImages[galleryIndex()]" [alt]="currentTour.title"
+            class="w-full h-full object-cover transition-all duration-500">
+
+          <!-- Navigation Buttons -->
+          <button *ngIf="allImages.length > 1" (click)="prevImage()"
+            class="absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-white/95 backdrop-blur shadow-[0_4px_20px_rgba(0,0,0,0.1)] border border-gray-100 hover:bg-secondary-gold hover:text-white hover:scale-105 text-primary-blue rounded-full w-12 h-12 flex items-center justify-center opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-all duration-300 focus:outline-none">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+          <button *ngIf="allImages.length > 1" (click)="nextImage()"
+            class="absolute right-4 top-1/2 -translate-y-1/2 z-20 bg-white/95 backdrop-blur shadow-[0_4px_20px_rgba(0,0,0,0.1)] border border-gray-100 hover:bg-secondary-gold hover:text-white hover:scale-105 text-primary-blue rounded-full w-12 h-12 flex items-center justify-center opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-all duration-300 focus:outline-none">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+        </div>
+
+        <!-- Right Side Small Images Stack -->
+        <div class="w-full md:w-1/4 flex flex-row md:flex-col gap-2 h-[100px] md:h-full">
+          <div *ngFor="let img of allImages | slice:1:4; let i = index"
+            class="flex-1 relative overflow-hidden shadow-sm group cursor-pointer" [ngClass]="{
+                 'md:rounded-tr-xl rounded-bl-xl md:rounded-bl-none': i === 0,
+                 'md:rounded-br-xl rounded-br-xl': i === 2
+               }" (click)="setGalleryImage(i + 1)">
+            <img [src]="img" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+            <!-- Active overlay -->
+            <div *ngIf="galleryIndex() === (i + 1)"
+              class="absolute inset-0 bg-secondary-gold/20 border-2 border-secondary-gold pointer-events-none transition-all">
+            </div>
+            <div *ngIf="galleryIndex() !== (i + 1)"
+              class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-all pointer-events-none"></div>
+
+            <!-- +X More Overlay on last thumbnail -->
+            <div *ngIf="i === 2 && allImages.length > 4"
+              class="absolute inset-0 bg-black/50 flex items-center justify-center text-white font-bold text-xl pointer-events-none">
+              +{{ allImages.length - 4 }}
+            </div>
+          </div>
+          <div *ngFor="let _ of [].constructor(Math.max(0, 3 - (allImages.length - 1)))"
+            class="flex-1 bg-gray-100 hidden md:block rounded-br-xl"></div>
+        </div>
+      </div>
+
+      <!-- Main Content Layout -->
+      <div class="flex flex-col lg:flex-row gap-12">
+
+        <!-- Left Column: Details -->
+        <div class="w-full lg:w-2/3">
+
+          <!-- Overview & Highlights -->
+          <div class="bg-pure-white rounded-3xl p-6 sm:p-10 shadow-sm border border-gray-100 mb-8">
+            <h2 class="text-3xl font-bold font-heading text-primary-blue mb-4">Overview</h2>
+            <h3 class="text-xl font-bold text-gray-800 mb-4 break-words">{{ currentTour.title }}</h3>
+            <p class="text-gray-600 leading-relaxed text-lg mb-6 break-words">{{ currentTour.description }}</p>
+            
+            <!-- Highlights -->
+            <div *ngIf="currentTour.highlights?.length" class="mt-8 pt-6 border-t border-gray-100">
+              <h4 class="text-lg font-bold text-gray-800 mb-4">Highlights</h4>
+              <div class="flex flex-wrap gap-2">
+                <span *ngFor="let highlight of currentTour.highlights" class="inline-flex items-center px-4 py-2 rounded-full bg-secondary-gold/10 text-primary-blue font-medium text-sm">
+                  <svg class="w-4 h-4 mr-2 text-secondary-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                  {{ highlight }}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Included / Excluded -->
+          <div class="bg-pure-white rounded-3xl p-6 sm:p-10 shadow-sm border border-gray-100 mb-8">
+            <h2 class="text-2xl sm:text-3xl font-bold font-heading text-primary-blue mb-8 break-words">Included/Excluded</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+              <!-- Included -->
+              <ul class="space-y-4">
+                <li *ngFor="let item of currentTour.included" class="flex items-start gap-3">
+                  <svg class="w-6 h-6 text-green-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span class="text-gray-700">{{ item }}</span>
+                </li>
+              </ul>
+
+              <!-- Excluded -->
+              <ul class="space-y-4">
+                <li *ngFor="let item of currentTour.excluded" class="flex items-start gap-3">
+                  <svg class="w-6 h-6 text-red-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span class="text-gray-700">{{ item }}</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Tour Plan (Itinerary) matching exactly the latest Image -->
+          <div class="mb-12">
+            <h2 class="text-3xl font-black text-black mb-8 font-heading">Tour Plan</h2>
+            <div class="space-y-6">
+
+              <!-- Use actual itinerary if exists, otherwise show a mock one for design verification -->
+              <ng-container *ngIf="currentTour.tours_plan?.length; else mockItinerary">
+                <div *ngFor="let plan of currentTour.tours_plan; let i = index">
+                  <button (click)="toggleAccordion(i)"
+                    class="w-full flex items-center justify-between p-5 bg-[#F4F5F7] transition-colors"
+                    [ngClass]="openAccordionIndex === i ? 'rounded-t-lg' : 'rounded-lg'">
+                    <div class="flex items-center gap-3">
+                      <svg class="w-5 h-5 text-[#B8945A]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                      </svg>
+                      <span class="font-bold text-[#B8945A] text-lg">Day {{ plan.day }}: {{ plan.title }}</span>
+                    </div>
+                    <svg class="w-4 h-4 text-gray-500 transition-transform duration-200"
+                      [class.rotate-180]="openAccordionIndex === i" fill="none" viewBox="0 0 24 24"
+                      stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </button>
+                  <div *ngIf="openAccordionIndex === i" class="p-6 px-8 bg-white rounded-b-lg">
+                    <ul class="space-y-4">
+                      <li *ngFor="let item of plan.description" class="text-gray-600 text-[15px]">
+                        <strong class="block text-gray-800 mb-1">{{ item.headline }}</strong>
+                        <p>{{ item.details }}</p>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </ng-container>
+
+              <!-- Fallback Mock Itinerary (so the user can always see the design) -->
+              <ng-template #mockItinerary>
+
+                <!-- Day 1 -->
+                <div>
+                  <button (click)="toggleAccordion(0)"
+                    class="w-full flex items-center justify-between p-5 bg-[#F4F5F7] transition-colors"
+                    [ngClass]="openAccordionIndex === 0 ? 'rounded-t-lg' : 'rounded-lg'">
+                    <div class="flex items-center gap-3">
+                      <svg class="w-5 h-5 text-[#B8945A]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                      </svg>
+                      <span class="font-bold text-[#B8945A] text-lg">Day 1: Arrival in Cairo & Nile Dinner Cruise</span>
+                    </div>
+                    <svg class="w-4 h-4 text-gray-500 transition-transform duration-200"
+                      [class.rotate-180]="openAccordionIndex === 0" fill="none" viewBox="0 0 24 24"
+                      stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </button>
+                  <div *ngIf="openAccordionIndex === 0" class="p-6 px-8 bg-white rounded-b-lg">
+                    <ul class="list-disc pl-6 text-gray-600 space-y-2 text-[15px]">
+                      <li>Arrive at Cairo International Airport and meet our representative for assistance with passport
+                        control and luggage.</li>
+                      <li>Transfer in a private, air-conditioned vehicle to your 5-star hotel for check-in and
+                        relaxation.</li>
+                      <li><strong>Evening: Nile Dinner Experience</strong></li>
+                      <li>Enjoy a scenic dinner cruise along the Nile River.</li>
+                      <li>Watch a colorful belly dancing show and a traditional Tannoura performance inspired by Egypt's
+                        whirling dervish heritage.</li>
+                      <li><strong>Overnight in Cairo</strong></li>
+                      <li>Return to your hotel for a comfortable overnight stay.</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <!-- Day 2 -->
+                <div>
+                  <button (click)="toggleAccordion(1)"
+                    class="w-full flex items-center justify-between p-5 bg-[#F4F5F7] transition-colors"
+                    [ngClass]="openAccordionIndex === 1 ? 'rounded-t-lg' : 'rounded-lg'">
+                    <div class="flex items-center gap-3">
+                      <svg class="w-5 h-5 text-[#B8945A]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                      </svg>
+                      <span class="font-bold text-[#B8945A] text-lg">Day 2: Giza Pyramids & Cairo Museums</span>
+                    </div>
+                    <svg class="w-4 h-4 text-gray-500 transition-transform duration-200"
+                      [class.rotate-180]="openAccordionIndex === 1" fill="none" viewBox="0 0 24 24"
+                      stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </button>
+                  <div *ngIf="openAccordionIndex === 1" class="p-6 px-8 bg-white rounded-b-lg">
+                    <ul class="list-disc pl-6 text-gray-600 space-y-2 text-[15px]">
+                      <li><strong>Morning: Breakfast & Guided Tour Begins</strong></li>
+                      <li>Meet your private Egyptologist guide and begin your journey through Egypt's ancient wonders.
+                      </li>
+                      <li><strong>Giza Pyramids Complex – Icons of Ancient Egypt</strong></li>
+                      <li>Explore the legendary plateau featuring the three Great Pyramids, the Great Sphinx, the Valley
+                        Temple, and the queens' pyramids.</li>
+                    </ul>
+                  </div>
+                </div>
+
+              </ng-template>
+
+            </div>
+          </div>
+
+          <!-- Reviews Section -->
+          <div class="bg-pure-white rounded-3xl p-8 sm:p-10 shadow-sm border border-gray-100 mb-8">
+            <h2 class="text-3xl font-black text-black mb-8 font-heading">Reviews</h2>
+
+            <!-- Existing Reviews -->
+            <div class="mb-10">
+              <!-- Empty State -->
+              <div *ngIf="reviews().length === 0" class="text-center py-8 bg-gray-50 rounded-xl border border-gray-100">
+                <span class="text-4xl mb-3 block">⭐</span>
+                <p class="text-gray-500 font-medium">Be the first to review this expedition!</p>
+              </div>
+
+              <!-- Reviews Slider -->
+              <div *ngIf="reviews().length > 0" class="relative bg-gray-50 rounded-xl border border-gray-100 p-8 sm:p-12">
+                
+                <!-- Display current review -->
+                <div class="text-center transition-opacity duration-300">
+                  <div class="flex justify-center text-secondary-gold mb-4">
+                    <svg *ngFor="let star of [1,2,3,4,5]" 
+                      [class.text-secondary-gold]="star <= (reviews()[currentReviewIndex()]?.rating || 0)"
+                      [class.text-gray-300]="star > (reviews()[currentReviewIndex()]?.rating || 0)"
+                      class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                  </div>
+                  <p class="text-gray-600 text-lg italic mb-6 px-4">"{{ reviews()[currentReviewIndex()]?.comment }}"</p>
+                  <h4 class="font-bold text-primary-blue">- {{ reviews()[currentReviewIndex()]?.authorName || 'Anonymous' }}</h4>
+                  <p *ngIf="reviews()[currentReviewIndex()]?.createdAt" class="text-sm text-gray-400 mt-1">{{ reviews()[currentReviewIndex()].createdAt | date }}</p>
+                </div>
+
+                <!-- Navigation Arrows -->
+                <button *ngIf="reviews().length > 1" (click)="prevReview()" class="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 p-2 bg-white rounded-full shadow-md text-gray-400 hover:text-secondary-gold transition-colors">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+                </button>
+                <button *ngIf="reviews().length > 1" (click)="nextReview()" class="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 p-2 bg-white rounded-full shadow-md text-gray-400 hover:text-secondary-gold transition-colors">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                </button>
+
+                <!-- Dots -->
+                <div *ngIf="reviews().length > 1" class="flex justify-center gap-2 mt-8 flex-wrap">
+                  <button *ngFor="let r of reviews(); let i = index" 
+                    (click)="setReviewPage(i)"
+                    [class.bg-secondary-gold]="i === currentReviewIndex()"
+                    [class.bg-gray-300]="i !== currentReviewIndex()"
+                    class="w-2.5 h-2.5 rounded-full transition-colors duration-300 focus:outline-none">
+                  </button>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Add Review Form -->
+            <div class="border-t border-gray-100 pt-10">
+              <h3 class="text-xl font-bold text-black mb-6">Leave a Review</h3>
+              
+              <!-- Success Message -->
+              <div *ngIf="reviewSubmitSuccess()" class="bg-green-50 text-green-700 p-4 rounded-lg mb-6 border border-green-200">
+                Thank you! Your review has been submitted successfully.
+              </div>
+
+              <!-- Error Message -->
+              <div *ngIf="reviewSubmitError()" class="bg-red-50 text-red-700 p-4 rounded-lg mb-6 border border-red-200">
+                {{ reviewSubmitError() }}
+              </div>
+
+              <form class="space-y-4" (ngSubmit)="submitReview()">
+
+                <!-- Rating Stars -->
+                <div class="flex items-center gap-2 mb-4">
+                  <span class="text-gray-700 font-semibold mr-2">Your Rating *</span>
+                  <div class="flex text-gray-300 cursor-pointer">
+                    <svg *ngFor="let star of [1,2,3,4,5]" 
+                      (click)="setRating(star)"
+                      [class.text-secondary-gold]="star <= reviewRating()"
+                      class="w-7 h-7 hover:text-secondary-gold transition-colors"
+                      fill="currentColor" viewBox="0 0 20 20">
+                      <path
+                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                  </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row gap-4">
+                  <div class="flex-1">
+                    <input type="text" placeholder="Name *" name="name"
+                      [(ngModel)]="reviewName"
+                      [disabled]="isSubmittingReview()"
+                      class="w-full border border-gray-300 rounded-lg p-3 text-sm focus:outline-none focus:border-secondary-gold bg-gray-50 focus:bg-white transition-colors">
+                  </div>
+                </div>
+
+                <div>
+                  <textarea placeholder="Write your review here..." rows="4" name="comment"
+                    [(ngModel)]="reviewComment"
+                    [disabled]="isSubmittingReview()"
+                    class="w-full border border-gray-300 rounded-lg p-3 text-sm focus:outline-none focus:border-secondary-gold bg-gray-50 focus:bg-white transition-colors resize-none"></textarea>
+                </div>
+
+                <div>
+                  <button type="submit"
+                    [disabled]="isSubmittingReview()"
+                    class="bg-secondary-gold hover:bg-[#A6834F] text-white font-bold py-3 px-8 rounded-full transition-colors shadow-sm disabled:opacity-50 disabled:cursor-not-allowed">
+                    <span *ngIf="isSubmittingReview()">Submitting...</span>
+                    <span *ngIf="!isSubmittingReview()">Submit Review</span>
+                  </button>
+                </div>
+              </form>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- Right Column: Check Availability Form Widget (Matching Image 2 in Kemetica Style) -->
+        <div class="w-full lg:w-1/3 space-y-6">
+
+          <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden sticky top-24">
+            <!-- Header (Kemetica Dark Blue) -->
+            <div class="bg-primary-blue text-white text-center py-4 px-6">
+              <h3 class="text-xl text-white font-bold font-heading">Check Availability</h3>
+            </div>
+
+            <div class="p-6 relative">
+
+              <!-- Overlay to close dropdowns -->
+              <div *ngIf="isCountryDropdownOpen() || isCodeDropdownOpen() || isDateFromOpen() || isDateToOpen()"
+                class="fixed inset-0 z-40" (click)="closeDropdowns()"></div>
+
+              <form class="space-y-4 relative z-50">
+
+                <!-- Row 1: Name & Email -->
+                <div class="flex gap-4">
+                  <div class="flex-1">
+                    <input type="text" placeholder="Name *"
+                      class="w-full border border-gray-300 rounded p-2 text-sm focus:outline-none focus:border-secondary-gold">
+                  </div>
+                  <div class="flex-1">
+                    <input type="email" placeholder="E-mail *"
+                      class="w-full border border-gray-300 rounded p-2 text-sm focus:outline-none focus:border-secondary-gold">
+                  </div>
+                </div>
+
+                <!-- Row 2: Code & Phone -->
+                <div class="flex gap-4">
+                  <!-- Code Custom Dropdown -->
+                  <div class="w-1/3 relative">
+                    <div (click)="toggleCodeDropdown()"
+                      class="w-full border border-gray-300 rounded p-2 text-sm text-gray-600 bg-white cursor-pointer flex justify-between items-center h-full">
+                      <span>{{ selectedCode() }}</span>
+                      <svg class="w-4 h-4 text-gray-400 transition-transform" [class.rotate-180]="isCodeDropdownOpen()"
+                        fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                      </svg>
+                    </div>
+                    <!-- Dropdown Menu -->
+                    <div *ngIf="isCodeDropdownOpen()"
+                      class="absolute z-50 top-full left-0 mt-1 w-[200px] max-h-60 overflow-y-auto bg-white border border-gray-100 rounded-lg shadow-xl">
+                      <ng-container *ngFor="let country of countries">
+                        <div *ngIf="country.dialCode" (click)="selectCode(country.dialCode)"
+                          class="px-3 py-2 text-sm hover:bg-bg-sand hover:text-primary-blue cursor-pointer transition-colors border-b border-gray-50 flex justify-between items-center">
+                          <span class="text-gray-500 truncate mr-2 text-xs">{{ country.name }}</span>
+                          <span class="font-medium text-primary-blue">{{ country.dialCode }}</span>
+                        </div>
+                      </ng-container>
+                    </div>
+                  </div>
+                  <div class="w-2/3">
+                    <input type="tel" placeholder="Phone"
+                      class="w-full border border-gray-300 rounded p-2 text-sm focus:outline-none focus:border-secondary-gold">
+                  </div>
+                </div>
+
+                <!-- Row 3: From & To -->
+                <div class="flex gap-4">
+
+                  <!-- From Date -->
+                  <div class="flex-1 relative bg-gray-100 rounded border border-gray-200">
+                    <div (click)="toggleDateFrom()"
+                      class="w-full h-full p-2 text-sm text-gray-600 cursor-pointer flex justify-between items-center">
+                      <span [class.text-gray-400]="!selectedDateFrom()">{{ formatDate(selectedDateFrom()) || 'From *'
+                        }}</span>
+                      <svg class="w-4 h-4 text-gray-700" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd"
+                          d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
+                          clip-rule="evenodd" />
+                      </svg>
+                    </div>
+                    <!-- Calendar Popup -->
+                    <div *ngIf="isDateFromOpen()"
+                      class="absolute z-50 top-full left-0 mt-2 w-72 bg-white rounded-2xl shadow-2xl border border-gray-100 p-4">
+                      <!-- Header -->
+                      <div class="flex justify-between items-center mb-4">
+                        <button type="button" (click)="prevMonth(); $event.stopPropagation()"
+                          class="p-2 hover:bg-gray-100 rounded-full transition-colors">
+                          <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7">
+                            </path>
+                          </svg>
+                        </button>
+                        <div class="font-bold text-primary-blue">{{ currentMonthName }} {{ currentYear() }}</div>
+                        <button type="button" (click)="nextMonth(); $event.stopPropagation()"
+                          class="p-2 hover:bg-gray-100 rounded-full transition-colors">
+                          <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
+                            </path>
+                          </svg>
+                        </button>
+                      </div>
+                      <!-- Days Header -->
+                      <div class="grid grid-cols-7 gap-1 text-center mb-2">
+                        <div *ngFor="let day of weekDays" class="text-xs font-bold text-gray-400">{{ day }}</div>
+                      </div>
+                      <!-- Calendar Grid -->
+                      <div class="grid grid-cols-7 gap-1">
+                        <div *ngFor="let day of calendarDays"
+                          class="h-8 flex items-center justify-center text-sm rounded-full transition-all"
+                          [class.cursor-pointer]="day !== null" [class.hover:bg-secondary-gold]="day !== null"
+                          [class.hover:text-white]="day !== null" [class.text-gray-700]="day !== null"
+                          (click)="day !== null ? selectDate(day, true) : null">
+                          {{ day || '' }}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- To Date -->
+                  <div class="flex-1 relative bg-gray-100 rounded border border-gray-200">
+                    <div (click)="toggleDateTo()"
+                      class="w-full h-full p-2 text-sm text-gray-600 cursor-pointer flex justify-between items-center">
+                      <span [class.text-gray-400]="!selectedDateTo()">{{ formatDate(selectedDateTo()) || 'To' }}</span>
+                      <svg class="w-4 h-4 text-gray-700" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd"
+                          d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
+                          clip-rule="evenodd" />
+                      </svg>
+                    </div>
+                    <!-- Calendar Popup -->
+                    <div *ngIf="isDateToOpen()"
+                      class="absolute z-50 top-full right-0 mt-2 w-72 bg-white rounded-2xl shadow-2xl border border-gray-100 p-4">
+                      <!-- Header -->
+                      <div class="flex justify-between items-center mb-4">
+                        <button type="button" (click)="prevMonth(); $event.stopPropagation()"
+                          class="p-2 hover:bg-gray-100 rounded-full transition-colors">
+                          <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7">
+                            </path>
+                          </svg>
+                        </button>
+                        <div class="font-bold text-primary-blue">{{ currentMonthName }} {{ currentYear() }}</div>
+                        <button type="button" (click)="nextMonth(); $event.stopPropagation()"
+                          class="p-2 hover:bg-gray-100 rounded-full transition-colors">
+                          <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
+                            </path>
+                          </svg>
+                        </button>
+                      </div>
+                      <!-- Days Header -->
+                      <div class="grid grid-cols-7 gap-1 text-center mb-2">
+                        <div *ngFor="let day of weekDays" class="text-xs font-bold text-gray-400">{{ day }}</div>
+                      </div>
+                      <!-- Calendar Grid -->
+                      <div class="grid grid-cols-7 gap-1">
+                        <div *ngFor="let day of calendarDays"
+                          class="h-8 flex items-center justify-center text-sm rounded-full transition-all"
+                          [class.cursor-pointer]="day !== null" [class.hover:bg-secondary-gold]="day !== null"
+                          [class.hover:text-white]="day !== null" [class.text-gray-700]="day !== null"
+                          (click)="day !== null ? selectDate(day, false) : null">
+                          {{ day || '' }}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                <!-- Row 4: Nationality -->
+                <div class="relative">
+                  <div (click)="toggleCountryDropdown()"
+                    class="w-full border border-gray-300 rounded p-2 text-sm text-gray-600 bg-white cursor-pointer flex justify-between items-center">
+                    <span [class.text-gray-400]="!selectedCountry()">{{ selectedCountry() || 'Nationality' }}</span>
+                    <svg class="w-4 h-4 text-gray-400 transition-transform" [class.rotate-180]="isCountryDropdownOpen()"
+                      fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                  </div>
+                  <!-- Dropdown Menu -->
+                  <div *ngIf="isCountryDropdownOpen()"
+                    class="absolute z-50 top-full left-0 mt-1 w-full max-h-60 overflow-y-auto bg-white border border-gray-100 rounded-lg shadow-xl">
+                    <div *ngFor="let country of countries" (click)="selectCountry(country.name)"
+                      class="px-3 py-2 text-sm hover:bg-bg-sand hover:text-primary-blue cursor-pointer transition-colors border-b border-gray-50 last:border-0">
+                      {{ country.name }}
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Row 5: Adults & Children -->
+                <div class="flex gap-4">
+                  <div class="flex-1">
+                    <input type="number" placeholder="No of Adults *"
+                      class="w-full border border-gray-300 rounded p-2 text-sm focus:outline-none focus:border-secondary-gold">
+                  </div>
+                  <div class="flex-1">
+                    <input type="number" placeholder="Child < 12 year:"
+                      class="w-full border border-gray-300 rounded p-2 text-sm focus:outline-none focus:border-secondary-gold">
+                  </div>
+                </div>
+
+                <!-- Row 6: Requirements -->
+                <div>
+                  <textarea placeholder="Please advise your tour requirements" rows="4"
+                    class="w-full border border-gray-300 rounded p-2 text-sm focus:outline-none focus:border-secondary-gold resize-none"></textarea>
+                </div>
+
+                <!-- Submit Button -->
+                <div>
+                  <button type="button"
+                    class="bg-secondary-gold hover:bg-[#A6834F] text-white font-bold py-2.5 px-6 rounded transition-colors shadow-sm">
+                    Submit
+                  </button>
+                </div>
+
+              </form>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+<!-- Error / Not found -->
+<div *ngIf="!loading() && !tour()"
+  class="min-h-screen flex flex-col items-center justify-center bg-bg-sand text-center px-4">
+  <span class="text-6xl mb-4">🏜️</span>
+  <h1 class="text-4xl font-bold font-heading text-primary-blue mb-4">Tour Not Found</h1>
+  <p class="text-gray-500 max-w-md mx-auto mb-8">We could not find the expedition you were looking for. It may have been
+    removed or the URL is incorrect.</p>
+  <a routerLink="/tours"
+    class="px-8 py-3 bg-secondary-gold text-pure-white rounded-full font-bold hover:bg-primary-blue transition-colors">View
+    All Tours</a>
+</div>
