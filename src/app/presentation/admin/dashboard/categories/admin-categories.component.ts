@@ -110,7 +110,7 @@ import { NotificationService } from '../../../../core/services/notification.serv
                   <button (click)="openEditForm(cat)" class="tr-icon-btn tr-icon-btn--blue" title="Edit">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
                   </button>
-                  <button (click)="deleteCategory(cat._id)" class="tr-icon-btn tr-icon-btn--red" title="Delete">
+                  <button (click)="confirmDelete(cat._id)" class="tr-icon-btn tr-icon-btn--red" title="Delete">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg>
                   </button>
                 </div>
@@ -128,6 +128,21 @@ import { NotificationService } from '../../../../core/services/notification.serv
         </table>
       </div>
     </div>
+
+      <!-- Delete Confirmation Modal -->
+      <div class="tr-modal-overlay" *ngIf="categoryToDelete()">
+        <div class="tr-modal-card">
+          <div class="tr-modal-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+          </div>
+          <h3 class="tr-modal-title">Delete Category?</h3>
+          <p class="tr-modal-msg">Are you sure you want to permanently delete this category? (This action will fail if tours are using it.)</p>
+          <div class="tr-modal-actions">
+            <button class="tr-modal-cancel" (click)="cancelDelete()">Cancel</button>
+            <button class="tr-modal-confirm" (click)="executeDelete()">Delete</button>
+          </div>
+        </div>
+      </div>
   `,
   styles: [`
     .tr-page { animation: fadeIn 0.4s ease; }
@@ -254,6 +269,42 @@ import { NotificationService } from '../../../../core/services/notification.serv
     .tr-empty-row { padding: 0; }
     .tr-empty { text-align: center; padding: 3.5rem; color: #94a3b8; }
     .tr-empty p { font-size: 0.9rem; margin: 0; }
+
+    /* Modal */
+    .tr-modal-overlay {
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(15,23,42,0.6); backdrop-filter: blur(4px);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 1000; animation: fadeIn 0.2s ease;
+    }
+    .tr-modal-card {
+      background: #fff; border-radius: 16px; padding: 2rem;
+      width: 90%; max-width: 400px; text-align: center;
+      box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+      animation: popIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes popIn { from { opacity: 0; transform: scale(0.95) translateY(10px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+    .tr-modal-icon {
+      width: 48px; height: 48px; border-radius: 50%;
+      background: #fef2f2; color: #ef4444;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1rem;
+    }
+    .tr-modal-title { font-size: 1.25rem; font-weight: 700; color: #0f172a; margin: 0 0 0.5rem; }
+    .tr-modal-msg { font-size: 0.9rem; color: #64748b; margin: 0 0 1.5rem; line-height: 1.5; }
+    .tr-modal-actions { display: flex; gap: 0.75rem; justify-content: center; }
+    .tr-modal-cancel {
+      padding: 0.6rem 1.2rem; background: #fff; border: 1px solid #e2e8f0;
+      border-radius: 8px; color: #64748b; font-size: 0.875rem; font-weight: 500;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .tr-modal-cancel:hover { background: #f8fafc; color: #0f172a; border-color: #cbd5e1; }
+    .tr-modal-confirm {
+      padding: 0.6rem 1.5rem; background: #ef4444; border: none;
+      border-radius: 8px; color: #fff; font-size: 0.875rem; font-weight: 600;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .tr-modal-confirm:hover { background: #dc2626; box-shadow: 0 4px 12px rgba(239,68,68,0.25); }
   `]
 })
 export class AdminCategoriesComponent implements OnInit {
@@ -267,6 +318,7 @@ export class AdminCategoriesComponent implements OnInit {
   isSubmitting = signal(false);
   isEditing = signal(false);
   editingId = signal<string | null>(null);
+  categoryToDelete = signal<string | null>(null);
 
   catForm: FormGroup = this.fb.group({
     name: ['', Validators.required],
@@ -313,7 +365,7 @@ export class AdminCategoriesComponent implements OnInit {
     this.isSubmitting.set(true);
 
     const data = this.catForm.value;
-    const request$ = this.isEditing() 
+    const request$ = this.isEditing()
       ? this.adminApi.updateCategory(this.editingId()!, data)
       : this.adminApi.createCategory(data);
 
@@ -338,11 +390,28 @@ export class AdminCategoriesComponent implements OnInit {
     });
   }
 
-  deleteCategory(id: string) {
-    if (!confirm('Are you sure you want to delete this category? (Will fail if tours are using it)')) return;
+  confirmDelete(id: string) {
+    this.categoryToDelete.set(id);
+  }
+
+  cancelDelete() {
+    this.categoryToDelete.set(null);
+  }
+
+  executeDelete() {
+    const id = this.categoryToDelete();
+    if (!id) return;
+
     this.adminApi.deleteCategory(id).subscribe({
-      next: () => { this.notification.showSuccess('Category deleted'); this.loadCategories(); },
-      error: (err) => this.notification.showError(err.error?.message || 'Failed to delete category')
+      next: () => {
+        this.notification.showSuccess('Category deleted');
+        this.loadCategories();
+        this.categoryToDelete.set(null);
+      },
+      error: (err) => {
+        this.notification.showError(err.error?.message || 'Failed to delete category');
+        this.categoryToDelete.set(null);
+      }
     });
   }
 }

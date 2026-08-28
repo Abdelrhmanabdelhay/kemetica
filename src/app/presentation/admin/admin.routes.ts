@@ -38,6 +38,16 @@ export const adminRoutes: Routes = [
         title: 'Manage Tours - Kemetica Admin',
       },
       {
+        path: 'tours/new',
+        loadComponent: () => import('./dashboard/tours/admin-tour-form.component').then(m => m.AdminTourFormComponent),
+        title: 'New Tour - Kemetica Admin',
+      },
+      {
+        path: 'tours/edit/:id',
+        loadComponent: () => import('./dashboard/tours/admin-tour-form.component').then(m => m.AdminTourFormComponent),
+        title: 'Edit Tour - Kemetica Admin',
+      },
+      {
         path: 'categories',
         loadComponent: () => import('./dashboard/categories/admin-categories.component').then(m => m.AdminCategoriesComponent),
         title: 'Manage Categories - Kemetica Admin',
