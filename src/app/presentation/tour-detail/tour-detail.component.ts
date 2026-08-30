@@ -5,6 +5,8 @@ import { FormsModule } from '@angular/forms';
 import { GetTourBySlugUseCase } from '../../domain/use-cases/get-tour-by-slug.usecase';
 import { Tour } from '../../domain/models/tour.model';
 import { TourApiService } from '../../data/services/tour-api.service';
+import { InquiryApiService } from '../../data/services/inquiry-api.service';
+import { NotificationService } from '../../core/services/notification.service';
 
 @Component({
   selector: 'app-tour-detail',
@@ -17,11 +19,21 @@ export class TourDetailComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly getTourBySlug = inject(GetTourBySlugUseCase);
   private readonly tourApiService = inject(TourApiService);
+  private readonly inquiryService = inject(InquiryApiService);
+  private readonly notificationService = inject(NotificationService);
 
   readonly tour = signal<Tour | null>(null);
   readonly loading = signal<boolean>(true);
   readonly galleryIndex = signal<number>(0);
-  
+
+  isLandscape = signal<boolean>(true);
+
+  onMainImageLoad(event: Event) {
+    const img = event.target as HTMLImageElement;
+    const ratio = img.naturalWidth / img.naturalHeight;
+
+    this.isLandscape.set(ratio >= 1.05);
+  }
   openAccordionIndex: number = 0; // Default first item open
   Math = Math; // Expose Math to template
 
@@ -75,12 +87,12 @@ export class TourDetailComponent implements OnInit {
         next: (res) => {
           this.isSubmittingReview.set(false);
           this.reviewSubmitSuccess.set(true);
-          
+
           // Append the new review to the list
           if (res.data) {
-             this.reviews.update(r => [...r, res.data]);
-             // Optional: jump to the latest review (last index)
-             this.currentReviewIndex.set(this.reviews().length - 1);
+            this.reviews.update(r => [...r, res.data]);
+            // Optional: jump to the latest review (last index)
+            this.currentReviewIndex.set(this.reviews().length - 1);
           }
 
           // Reset form
@@ -164,7 +176,7 @@ export class TourDetailComponent implements OnInit {
     const month = this.currentMonth();
     const firstDay = new Date(year, month, 1).getDay();
     const daysInMonth = new Date(year, month + 1, 0).getDate();
-    
+
     const days: (number | null)[] = Array(firstDay).fill(null);
     for (let i = 1; i <= daysInMonth; i++) {
       days.push(i);
@@ -265,6 +277,75 @@ export class TourDetailComponent implements OnInit {
     }
   }
 
+  // --- Inquiry Form ---
+  inquiryFormData: {
+    fullName: string;
+    email: string;
+    phone: string;
+    adults: number | null;
+    children: number | null;
+    message: string;
+  } = {
+    fullName: '',
+    email: '',
+    phone: '',
+    adults: null,
+    children: null,
+    message: ''
+  };
+
+  isInquirySubmitting = signal<boolean>(false);
+
+  formatDateISO(date: Date | null): string | undefined {
+    if (!date) return undefined;
+    const y = date.getFullYear();
+    const m = (date.getMonth() + 1).toString().padStart(2, '0');
+    const d = date.getDate().toString().padStart(2, '0');
+    return `${y}-${m}-${d}`;
+  }
+
+  submitInquiry(): void {
+    if (!this.inquiryFormData.fullName || !this.inquiryFormData.email) {
+      this.notificationService.showError('Please provide your name and email address.');
+      return;
+    }
+
+    this.isInquirySubmitting.set(true);
+
+    const payload = {
+      fullName: this.inquiryFormData.fullName,
+      email: this.inquiryFormData.email,
+      phoneCountryCode: this.selectedCode(),
+      phone: this.inquiryFormData.phone,
+      nationality: this.selectedCountry(),
+      travelDateFrom: this.selectedDateFrom() ? this.formatDateISO(this.selectedDateFrom()) : undefined,
+      travelDateTo: this.selectedDateTo() ? this.formatDateISO(this.selectedDateTo()) : undefined,
+      adults: this.inquiryFormData.adults ?? undefined,
+      children: this.inquiryFormData.children ?? undefined,
+      message: this.inquiryFormData.message,
+      tourTitle: this.tour()?.title,
+      tourSlug: this.tour()?.slug,
+    };
+
+    this.inquiryService.submit(payload).subscribe({
+      next: () => {
+        this.isInquirySubmitting.set(false);
+        this.notificationService.showSuccess('Your private inquiry has been received by our senior concierge.');
+        // Reset form
+        this.inquiryFormData = {
+          fullName: '', email: '', phone: '', adults: null, children: null, message: ''
+        };
+        this.selectedDateFrom.set(null);
+        this.selectedDateTo.set(null);
+      },
+      error: (err) => {
+        this.isInquirySubmitting.set(false);
+        console.error('Inquiry submission failed:', err);
+        this.notificationService.showError('Failed to send inquiry. Please try again later.');
+      }
+    });
+  }
+
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       const slug = params.get('slug');
@@ -280,12 +361,12 @@ export class TourDetailComponent implements OnInit {
       next: (tour) => {
         this.tour.set(tour);
         this.galleryIndex.set(0); // Reset gallery index on load
-        
+
         // Fetch reviews
         if (tour && tour.id) {
-           this.fetchReviews(tour.id);
+          this.fetchReviews(tour.id);
         } else {
-           this.loading.set(false);
+          this.loading.set(false);
         }
       },
       error: () => {
@@ -295,16 +376,16 @@ export class TourDetailComponent implements OnInit {
   }
 
   private fetchReviews(tourId: string): void {
-     this.tourApiService.getReviews(tourId).subscribe({
-        next: (reviews) => {
-           this.reviews.set(reviews || []);
-           this.currentReviewIndex.set(0);
-           this.loading.set(false);
-        },
-        error: () => {
-           this.loading.set(false);
-        }
-     });
+    this.tourApiService.getReviews(tourId).subscribe({
+      next: (reviews) => {
+        this.reviews.set(reviews || []);
+        this.currentReviewIndex.set(0);
+        this.loading.set(false);
+      },
+      error: () => {
+        this.loading.set(false);
+      }
+    });
   }
 
   // --- Gallery Logic ---
@@ -318,15 +399,21 @@ export class TourDetailComponent implements OnInit {
     const images = this.allImages;
     if (images.length === 0) return;
     this.galleryIndex.update(i => (i + 1) % images.length);
+
+    this.isLandscape.set(true);
   }
 
   prevImage(): void {
     const images = this.allImages;
     if (images.length === 0) return;
     this.galleryIndex.update(i => (i - 1 + images.length) % images.length);
+
+    this.isLandscape.set(true);
   }
 
   setGalleryImage(index: number): void {
     this.galleryIndex.set(index);
+    this.isLandscape.set(true);
+
   }
 }

@@ -1,12 +1,13 @@
 import { Tour } from '../../domain/models/tour.model';
 import { TourDto } from '../dto/tour.dto';
+import { environment } from '../../../environments/environment';
 
 export class TourMapper {
   static fromDto(dto: TourDto): Tour {
     const prependUrl = (url: string | undefined) => {
       if (!url) return '';
       if (url.startsWith('http')) return url;
-      return url.startsWith('/') ? `http://localhost:3000${url}` : `http://localhost:3000/${url}`;
+      return url.startsWith('/') ? `${environment.backendUrl}${url}` : `${environment.backendUrl}/${url}`;
     };
 
     return {

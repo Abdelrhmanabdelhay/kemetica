@@ -10,6 +10,7 @@ import { Destination } from '../../domain/models/destination.model';
 import { TourCardComponent } from '../../shared/components/tour-card/tour-card.component';
 import { PopularTourCardComponent } from '../../shared/components/popular-tour-card/popular-tour-card.component';
 import { LoadingService } from '../../core/services/loading.service';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-home',
@@ -163,7 +164,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     return {
       title: dest.name,
       city: dest.name,
-      featuredImage: `http://localhost:3000/cover-special/${dest.slug}.jpg`,
+      featuredImage: `${environment.backendUrl}/cover-special/${dest.slug}.jpg`,
     } as Tour;
   }
 }

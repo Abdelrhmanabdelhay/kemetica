@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { DestinationApiService } from '../../data/services/destination-api.service';
 import { Destination } from '../models/destination.model';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +15,7 @@ export class GetDestinationsUseCase {
     const prependUrl = (url: string) => {
       if (!url) return '';
       if (url.startsWith('http')) return url;
-      return url.startsWith('/') ? `http://localhost:3000${url}` : `http://localhost:3000/${url}`;
+      return url.startsWith('/') ? `${environment.backendUrl}${url}` : `${environment.backendUrl}/${url}`;
     };
 
     return this.apiService.getDestinations().pipe(

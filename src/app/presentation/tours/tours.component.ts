@@ -11,7 +11,7 @@ import { GetSpecialToursUseCase } from '../../domain/use-cases/get-special-tours
 import { Destination } from '../../domain/models/destination.model';
 import { GetFeaturedToursUseCase } from '../../domain/use-cases/get-featured-tours.usecase';
 import { GetPopularToursUseCase } from '../../domain/use-cases/get-popular-tours.usecase';
-
+import { environment } from '../../../environments/environment';
 @Component({
   selector: 'app-tours',
   standalone: true,
@@ -133,7 +133,7 @@ export class ToursComponent implements OnInit {
     return {
       title: dest.name,
       city: dest.name,
-      featuredImage: `http://localhost:3000/cover-special/${dest.slug}.jpg`,
+      featuredImage: `${environment.backendUrl}/cover-special/${dest.slug}.jpg`,
     } as Tour;
   }
 }

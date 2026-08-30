@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { ButtonComponent } from '../../shared/components/button/button.component';
 import { CardComponent } from '../../shared/components/card/card.component';
 import { NotificationService } from '../../core/services/notification.service';
+import { InquiryApiService } from '../../data/services/inquiry-api.service';
 
 @Component({
   selector: 'app-contact',
@@ -14,6 +15,7 @@ import { NotificationService } from '../../core/services/notification.service';
 })
 export class ContactComponent {
   private readonly notificationService = inject(NotificationService);
+  private readonly inquiryService = inject(InquiryApiService);
 
   countries = [
     { name: 'United States', dialCode: '+1' },
@@ -178,12 +180,22 @@ export class ContactComponent {
     this.isDateToOpen.set(false);
   }
 
-  formData = {
+  formData: {
+    fullName: string;
+    email: string;
+    phone: string;
+    expeditionType: string;
+    estimatedGuests: number | null;
+    children: number | null;
+    travelDates: string;
+    specialRequests: string;
+  } = {
     fullName: '',
     email: '',
     phone: '',
     expeditionType: 'luxury-nile',
-    estimatedGuests: 2,
+    estimatedGuests: null,
+    children: null,
     travelDates: '',
     specialRequests: '',
   };
@@ -198,10 +210,39 @@ export class ContactComponent {
     }
 
     this.isSubmitting.set(true);
-    setTimeout(() => {
-      this.isSubmitting.set(false);
-      this.isSubmitted.set(true);
-      this.notificationService.showSuccess('Your private inquiry has been received by our senior concierge.');
-    }, 1000);
+
+    const payload = {
+      fullName: this.formData.fullName,
+      email: this.formData.email,
+      phoneCountryCode: this.selectedCode(),
+      phone: this.formData.phone,
+      nationality: this.selectedCountry(),
+      travelDateFrom: this.selectedDateFrom() ? this.formatDateISO(this.selectedDateFrom()) : undefined,
+      travelDateTo: this.selectedDateTo() ? this.formatDateISO(this.selectedDateTo()) : undefined,
+      adults: this.formData.estimatedGuests ?? undefined,
+      children: this.formData.children ?? undefined,
+      message: `Expedition Type: ${this.formData.expeditionType}\n\nSpecial Requests: ${this.formData.specialRequests}`
+    };
+
+    this.inquiryService.submit(payload).subscribe({
+      next: () => {
+        this.isSubmitting.set(false);
+        this.isSubmitted.set(true);
+        this.notificationService.showSuccess('Your private inquiry has been received by our senior concierge.');
+      },
+      error: (err) => {
+        this.isSubmitting.set(false);
+        console.error('Inquiry submission failed:', err);
+        this.notificationService.showError('Failed to send inquiry. Please try again later.');
+      }
+    });
+  }
+
+  formatDateISO(date: Date | null): string | undefined {
+    if (!date) return undefined;
+    const y = date.getFullYear();
+    const m = (date.getMonth() + 1).toString().padStart(2, '0');
+    const d = date.getDate().toString().padStart(2, '0');
+    return `${y}-${m}-${d}`;
   }
 }

@@ -114,9 +114,15 @@
       <div class="flex flex-col md:flex-row gap-2 mb-12 h-[400px] sm:h-[500px]">
         <!-- Main Large Image (Scrollable) -->
         <div
-          class="w-full md:w-3/4 relative h-[300px] md:h-full group rounded-t-xl md:rounded-l-xl md:rounded-tr-none overflow-hidden shadow-sm">
-          <img [src]="allImages[galleryIndex()]" [alt]="currentTour.title"
-            class="w-full h-full object-cover transition-all duration-500">
+          class="w-full md:w-3/4 relative h-[300px] md:h-[500px] group overflow-hidden shadow-sm rounded-t-xl md:rounded-l-xl md:rounded-tr-none bg-black">
+          <!-- Blurred background fill (shown only when main image is contain/portrait) -->
+          <img *ngIf="!isLandscape()" [src]="allImages[galleryIndex()]" [alt]="currentTour.title"
+            class="absolute inset-0 w-full h-full object-cover blur-2xl scale-110 opacity-50" aria-hidden="true">
+
+          <!-- Main image: cover if landscape, contain if portrait/small -->
+          <img [src]="allImages[galleryIndex()]" [alt]="currentTour.title" (load)="onMainImageLoad($event)"
+            [ngClass]="isLandscape() ? 'object-cover' : 'object-contain'"
+            class="absolute inset-0 w-full h-full transition-all duration-500" loading="eager" decoding="async">
 
           <!-- Navigation Buttons -->
           <button *ngIf="allImages.length > 1" (click)="prevImage()"
@@ -158,7 +164,6 @@
             class="flex-1 bg-gray-100 hidden md:block rounded-br-xl"></div>
         </div>
       </div>
-
       <!-- Main Content Layout -->
       <div class="flex flex-col lg:flex-row gap-12">
 
@@ -170,12 +175,13 @@
             <h2 class="text-3xl font-bold font-heading text-primary-blue mb-4">Overview</h2>
             <h3 class="text-xl font-bold text-gray-800 mb-4 break-words">{{ currentTour.title }}</h3>
             <p class="text-gray-600 leading-relaxed text-lg mb-6 break-words">{{ currentTour.description }}</p>
-            
+
             <!-- Highlights -->
             <div *ngIf="currentTour.highlights?.length" class="mt-8 pt-6 border-t border-gray-100">
               <h4 class="text-lg font-bold text-gray-800 mb-4">Highlights</h4>
               <div class="flex flex-wrap gap-2">
-                <span *ngFor="let highlight of currentTour.highlights" class="inline-flex items-center px-4 py-2 rounded-full bg-secondary-gold/10 text-primary-blue font-medium text-sm">
+                <span *ngFor="let highlight of currentTour.highlights"
+                  class="inline-flex items-center px-4 py-2 rounded-full bg-secondary-gold/10 text-primary-blue font-medium text-sm">
                   <svg class="w-4 h-4 mr-2 text-secondary-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                   </svg>
@@ -187,7 +193,8 @@
 
           <!-- Included / Excluded -->
           <div class="bg-pure-white rounded-3xl p-6 sm:p-10 shadow-sm border border-gray-100 mb-8">
-            <h2 class="text-2xl sm:text-3xl font-bold font-heading text-primary-blue mb-8 break-words">Included/Excluded</h2>
+            <h2 class="text-2xl sm:text-3xl font-bold font-heading text-primary-blue mb-8 break-words">Included/Excluded
+            </h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
 
               <!-- Included -->
@@ -340,35 +347,44 @@
               </div>
 
               <!-- Reviews Slider -->
-              <div *ngIf="reviews().length > 0" class="relative bg-gray-50 rounded-xl border border-gray-100 p-8 sm:p-12">
-                
+              <div *ngIf="reviews().length > 0"
+                class="relative bg-gray-50 rounded-xl border border-gray-100 p-8 sm:p-12">
+
                 <!-- Display current review -->
                 <div class="text-center transition-opacity duration-300">
                   <div class="flex justify-center text-secondary-gold mb-4">
-                    <svg *ngFor="let star of [1,2,3,4,5]" 
+                    <svg *ngFor="let star of [1,2,3,4,5]"
                       [class.text-secondary-gold]="star <= (reviews()[currentReviewIndex()]?.rating || 0)"
-                      [class.text-gray-300]="star > (reviews()[currentReviewIndex()]?.rating || 0)"
-                      class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                      [class.text-gray-300]="star > (reviews()[currentReviewIndex()]?.rating || 0)" class="w-6 h-6"
+                      fill="currentColor" viewBox="0 0 20 20">
+                      <path
+                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                     </svg>
                   </div>
                   <p class="text-gray-600 text-lg italic mb-6 px-4">"{{ reviews()[currentReviewIndex()]?.comment }}"</p>
-                  <h4 class="font-bold text-primary-blue">- {{ reviews()[currentReviewIndex()]?.authorName || 'Anonymous' }}</h4>
-                  <p *ngIf="reviews()[currentReviewIndex()]?.createdAt" class="text-sm text-gray-400 mt-1">{{ reviews()[currentReviewIndex()].createdAt | date }}</p>
+                  <h4 class="font-bold text-primary-blue">- {{ reviews()[currentReviewIndex()]?.authorName ||
+                    'Anonymous' }}</h4>
+                  <p *ngIf="reviews()[currentReviewIndex()]?.createdAt" class="text-sm text-gray-400 mt-1">{{
+                    reviews()[currentReviewIndex()].createdAt | date }}</p>
                 </div>
 
                 <!-- Navigation Arrows -->
-                <button *ngIf="reviews().length > 1" (click)="prevReview()" class="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 p-2 bg-white rounded-full shadow-md text-gray-400 hover:text-secondary-gold transition-colors">
-                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+                <button *ngIf="reviews().length > 1" (click)="prevReview()"
+                  class="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 p-2 bg-white rounded-full shadow-md text-gray-400 hover:text-secondary-gold transition-colors">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                  </svg>
                 </button>
-                <button *ngIf="reviews().length > 1" (click)="nextReview()" class="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 p-2 bg-white rounded-full shadow-md text-gray-400 hover:text-secondary-gold transition-colors">
-                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                <button *ngIf="reviews().length > 1" (click)="nextReview()"
+                  class="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 p-2 bg-white rounded-full shadow-md text-gray-400 hover:text-secondary-gold transition-colors">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                  </svg>
                 </button>
 
                 <!-- Dots -->
                 <div *ngIf="reviews().length > 1" class="flex justify-center gap-2 mt-8 flex-wrap">
-                  <button *ngFor="let r of reviews(); let i = index" 
-                    (click)="setReviewPage(i)"
+                  <button *ngFor="let r of reviews(); let i = index" (click)="setReviewPage(i)"
                     [class.bg-secondary-gold]="i === currentReviewIndex()"
                     [class.bg-gray-300]="i !== currentReviewIndex()"
                     class="w-2.5 h-2.5 rounded-full transition-colors duration-300 focus:outline-none">
@@ -381,9 +397,10 @@
             <!-- Add Review Form -->
             <div class="border-t border-gray-100 pt-10">
               <h3 class="text-xl font-bold text-black mb-6">Leave a Review</h3>
-              
+
               <!-- Success Message -->
-              <div *ngIf="reviewSubmitSuccess()" class="bg-green-50 text-green-700 p-4 rounded-lg mb-6 border border-green-200">
+              <div *ngIf="reviewSubmitSuccess()"
+                class="bg-green-50 text-green-700 p-4 rounded-lg mb-6 border border-green-200">
                 Thank you! Your review has been submitted successfully.
               </div>
 
@@ -398,11 +415,10 @@
                 <div class="flex items-center gap-2 mb-4">
                   <span class="text-gray-700 font-semibold mr-2">Your Rating *</span>
                   <div class="flex text-gray-300 cursor-pointer">
-                    <svg *ngFor="let star of [1,2,3,4,5]" 
-                      (click)="setRating(star)"
+                    <svg *ngFor="let star of [1,2,3,4,5]" (click)="setRating(star)"
                       [class.text-secondary-gold]="star <= reviewRating()"
-                      class="w-7 h-7 hover:text-secondary-gold transition-colors"
-                      fill="currentColor" viewBox="0 0 20 20">
+                      class="w-7 h-7 hover:text-secondary-gold transition-colors" fill="currentColor"
+                      viewBox="0 0 20 20">
                       <path
                         d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                     </svg>
@@ -411,23 +427,20 @@
 
                 <div class="flex flex-col sm:flex-row gap-4">
                   <div class="flex-1">
-                    <input type="text" placeholder="Name *" name="name"
-                      [(ngModel)]="reviewName"
+                    <input type="text" placeholder="Name *" name="name" [(ngModel)]="reviewName"
                       [disabled]="isSubmittingReview()"
                       class="w-full border border-gray-300 rounded-lg p-3 text-sm focus:outline-none focus:border-secondary-gold bg-gray-50 focus:bg-white transition-colors">
                   </div>
                 </div>
 
                 <div>
-                  <textarea placeholder="Write your review here..." rows="4" name="comment"
-                    [(ngModel)]="reviewComment"
+                  <textarea placeholder="Write your review here..." rows="4" name="comment" [(ngModel)]="reviewComment"
                     [disabled]="isSubmittingReview()"
                     class="w-full border border-gray-300 rounded-lg p-3 text-sm focus:outline-none focus:border-secondary-gold bg-gray-50 focus:bg-white transition-colors resize-none"></textarea>
                 </div>
 
                 <div>
-                  <button type="submit"
-                    [disabled]="isSubmittingReview()"
+                  <button type="submit" [disabled]="isSubmittingReview()"
                     class="bg-secondary-gold hover:bg-[#A6834F] text-white font-bold py-3 px-8 rounded-full transition-colors shadow-sm disabled:opacity-50 disabled:cursor-not-allowed">
                     <span *ngIf="isSubmittingReview()">Submitting...</span>
                     <span *ngIf="!isSubmittingReview()">Submit Review</span>
@@ -455,17 +468,19 @@
               <div *ngIf="isCountryDropdownOpen() || isCodeDropdownOpen() || isDateFromOpen() || isDateToOpen()"
                 class="fixed inset-0 z-40" (click)="closeDropdowns()"></div>
 
-              <form class="space-y-4 relative z-50">
+              <form class="space-y-4 relative z-50" (ngSubmit)="submitInquiry()">
 
                 <!-- Row 1: Name & Email -->
                 <div class="flex gap-4">
                   <div class="flex-1">
-                    <input type="text" placeholder="Name *"
-                      class="w-full border border-gray-300 rounded p-2 text-sm focus:outline-none focus:border-secondary-gold">
+                    <input type="text" placeholder="Name *" name="fullName" [(ngModel)]="inquiryFormData.fullName" required
+                      [disabled]="isInquirySubmitting()"
+                      class="w-full border border-gray-300 rounded p-2 text-sm focus:outline-none focus:border-secondary-gold disabled:opacity-50">
                   </div>
                   <div class="flex-1">
-                    <input type="email" placeholder="E-mail *"
-                      class="w-full border border-gray-300 rounded p-2 text-sm focus:outline-none focus:border-secondary-gold">
+                    <input type="email" placeholder="E-mail *" name="email" [(ngModel)]="inquiryFormData.email" required
+                      [disabled]="isInquirySubmitting()"
+                      class="w-full border border-gray-300 rounded p-2 text-sm focus:outline-none focus:border-secondary-gold disabled:opacity-50">
                   </div>
                 </div>
 
@@ -473,8 +488,9 @@
                 <div class="flex gap-4">
                   <!-- Code Custom Dropdown -->
                   <div class="w-1/3 relative">
-                    <div (click)="toggleCodeDropdown()"
-                      class="w-full border border-gray-300 rounded p-2 text-sm text-gray-600 bg-white cursor-pointer flex justify-between items-center h-full">
+                    <div (click)="!isInquirySubmitting() && toggleCodeDropdown()"
+                      class="w-full border border-gray-300 rounded p-2 text-sm text-gray-600 bg-white flex justify-between items-center h-full"
+                      [class.cursor-pointer]="!isInquirySubmitting()" [class.opacity-50]="isInquirySubmitting()">
                       <span>{{ selectedCode() }}</span>
                       <svg class="w-4 h-4 text-gray-400 transition-transform" [class.rotate-180]="isCodeDropdownOpen()"
                         fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -494,8 +510,9 @@
                     </div>
                   </div>
                   <div class="w-2/3">
-                    <input type="tel" placeholder="Phone"
-                      class="w-full border border-gray-300 rounded p-2 text-sm focus:outline-none focus:border-secondary-gold">
+                    <input type="tel" placeholder="Phone" name="phone" [(ngModel)]="inquiryFormData.phone"
+                      [disabled]="isInquirySubmitting()"
+                      class="w-full border border-gray-300 rounded p-2 text-sm focus:outline-none focus:border-secondary-gold disabled:opacity-50">
                   </div>
                 </div>
 
@@ -504,8 +521,9 @@
 
                   <!-- From Date -->
                   <div class="flex-1 relative bg-gray-100 rounded border border-gray-200">
-                    <div (click)="toggleDateFrom()"
-                      class="w-full h-full p-2 text-sm text-gray-600 cursor-pointer flex justify-between items-center">
+                    <div (click)="!isInquirySubmitting() && toggleDateFrom()"
+                      class="w-full h-full p-2 text-sm text-gray-600 flex justify-between items-center"
+                      [class.cursor-pointer]="!isInquirySubmitting()" [class.opacity-50]="isInquirySubmitting()">
                       <span [class.text-gray-400]="!selectedDateFrom()">{{ formatDate(selectedDateFrom()) || 'From *'
                         }}</span>
                       <svg class="w-4 h-4 text-gray-700" fill="currentColor" viewBox="0 0 20 20">
@@ -554,8 +572,9 @@
 
                   <!-- To Date -->
                   <div class="flex-1 relative bg-gray-100 rounded border border-gray-200">
-                    <div (click)="toggleDateTo()"
-                      class="w-full h-full p-2 text-sm text-gray-600 cursor-pointer flex justify-between items-center">
+                    <div (click)="!isInquirySubmitting() && toggleDateTo()"
+                      class="w-full h-full p-2 text-sm text-gray-600 flex justify-between items-center"
+                      [class.cursor-pointer]="!isInquirySubmitting()" [class.opacity-50]="isInquirySubmitting()">
                       <span [class.text-gray-400]="!selectedDateTo()">{{ formatDate(selectedDateTo()) || 'To' }}</span>
                       <svg class="w-4 h-4 text-gray-700" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd"
@@ -605,8 +624,9 @@
 
                 <!-- Row 4: Nationality -->
                 <div class="relative">
-                  <div (click)="toggleCountryDropdown()"
-                    class="w-full border border-gray-300 rounded p-2 text-sm text-gray-600 bg-white cursor-pointer flex justify-between items-center">
+                  <div (click)="!isInquirySubmitting() && toggleCountryDropdown()"
+                    class="w-full border border-gray-300 rounded p-2 text-sm text-gray-600 bg-white flex justify-between items-center"
+                    [class.cursor-pointer]="!isInquirySubmitting()" [class.opacity-50]="isInquirySubmitting()">
                     <span [class.text-gray-400]="!selectedCountry()">{{ selectedCountry() || 'Nationality' }}</span>
                     <svg class="w-4 h-4 text-gray-400 transition-transform" [class.rotate-180]="isCountryDropdownOpen()"
                       fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -626,26 +646,30 @@
                 <!-- Row 5: Adults & Children -->
                 <div class="flex gap-4">
                   <div class="flex-1">
-                    <input type="number" placeholder="No of Adults *"
-                      class="w-full border border-gray-300 rounded p-2 text-sm focus:outline-none focus:border-secondary-gold">
+                    <input type="number" placeholder="No of Adults *" name="adults" [(ngModel)]="inquiryFormData.adults" min="1"
+                      [disabled]="isInquirySubmitting()"
+                      class="w-full border border-gray-300 rounded p-2 text-sm focus:outline-none focus:border-secondary-gold disabled:opacity-50">
                   </div>
                   <div class="flex-1">
-                    <input type="number" placeholder="Child < 12 year:"
-                      class="w-full border border-gray-300 rounded p-2 text-sm focus:outline-none focus:border-secondary-gold">
+                    <input type="number" placeholder="Child < 12 year:" name="children" [(ngModel)]="inquiryFormData.children" min="0"
+                      [disabled]="isInquirySubmitting()"
+                      class="w-full border border-gray-300 rounded p-2 text-sm focus:outline-none focus:border-secondary-gold disabled:opacity-50">
                   </div>
                 </div>
 
                 <!-- Row 6: Requirements -->
                 <div>
-                  <textarea placeholder="Please advise your tour requirements" rows="4"
-                    class="w-full border border-gray-300 rounded p-2 text-sm focus:outline-none focus:border-secondary-gold resize-none"></textarea>
+                  <textarea placeholder="Please advise your tour requirements" rows="4" name="message" [(ngModel)]="inquiryFormData.message"
+                    [disabled]="isInquirySubmitting()"
+                    class="w-full border border-gray-300 rounded p-2 text-sm focus:outline-none focus:border-secondary-gold resize-none disabled:opacity-50"></textarea>
                 </div>
 
                 <!-- Submit Button -->
                 <div>
-                  <button type="button"
-                    class="bg-secondary-gold hover:bg-[#A6834F] text-white font-bold py-2.5 px-6 rounded transition-colors shadow-sm">
-                    Submit
+                  <button type="submit" [disabled]="isInquirySubmitting()"
+                    class="w-full bg-secondary-gold hover:bg-[#A6834F] text-white font-bold py-2.5 px-6 rounded transition-colors shadow-sm disabled:opacity-50 disabled:cursor-not-allowed">
+                    <span *ngIf="isInquirySubmitting()">Submitting...</span>
+                    <span *ngIf="!isInquirySubmitting()">Submit</span>
                   </button>
                 </div>
 
