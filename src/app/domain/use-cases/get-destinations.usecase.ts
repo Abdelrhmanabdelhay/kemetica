@@ -3,7 +3,6 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { DestinationApiService } from '../../data/services/destination-api.service';
 import { Destination } from '../models/destination.model';
-import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',

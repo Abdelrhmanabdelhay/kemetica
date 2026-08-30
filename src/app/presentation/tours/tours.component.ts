@@ -11,7 +11,6 @@ import { GetSpecialToursUseCase } from '../../domain/use-cases/get-special-tours
 import { Destination } from '../../domain/models/destination.model';
 import { GetFeaturedToursUseCase } from '../../domain/use-cases/get-featured-tours.usecase';
 import { GetPopularToursUseCase } from '../../domain/use-cases/get-popular-tours.usecase';
-import { environment } from '../../../environments/environment';
 @Component({
   selector: 'app-tours',
   standalone: true,

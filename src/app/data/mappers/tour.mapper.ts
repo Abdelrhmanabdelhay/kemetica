@@ -1,6 +1,5 @@
 import { Tour } from '../../domain/models/tour.model';
 import { TourDto } from '../dto/tour.dto';
-import { environment } from '../../../environments/environment';
 
 export class TourMapper {
   static fromDto(dto: TourDto): Tour {

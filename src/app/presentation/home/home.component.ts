@@ -10,7 +10,6 @@ import { Destination } from '../../domain/models/destination.model';
 import { TourCardComponent } from '../../shared/components/tour-card/tour-card.component';
 import { PopularTourCardComponent } from '../../shared/components/popular-tour-card/popular-tour-card.component';
 import { LoadingService } from '../../core/services/loading.service';
-import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-home',
