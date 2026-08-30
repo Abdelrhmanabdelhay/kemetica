@@ -132,7 +132,7 @@ export class ToursComponent implements OnInit {
     return {
       title: dest.name,
       city: dest.name,
-      featuredImage: `https://management-squeaky-fish.abasthan.app/cover-special/${dest.slug}.jpg`,
+      featuredImage: `https://pants-similar-sea-lion.abasthan.app/cover-special/${dest.slug}.jpg`,
     } as Tour;
   }
 }

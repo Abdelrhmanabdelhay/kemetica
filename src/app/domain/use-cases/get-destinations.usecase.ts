@@ -14,7 +14,7 @@ export class GetDestinationsUseCase {
     const prependUrl = (url: string) => {
       if (!url) return '';
       if (url.startsWith('http')) return url;
-      return url.startsWith('/') ? `https://management-squeaky-fish.abasthan.app${url}` : `https://management-squeaky-fish.abasthan.app/${url}`;
+      return url.startsWith('/') ? `https://pants-similar-sea-lion.abasthan.app${url}` : `https://pants-similar-sea-lion.abasthan.app/${url}`;
     };
 
     return this.apiService.getDestinations().pipe(

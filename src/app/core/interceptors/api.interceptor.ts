@@ -7,7 +7,7 @@ export const apiInterceptor: HttpInterceptorFn = (req, next) => {
   const loadingService = inject(LoadingService);
 
   // Use the backend base URL from environment for API requests
-  const baseUrl = 'https://management-squeaky-fish.abasthan.app';
+  const baseUrl = 'https://pants-similar-sea-lion.abasthan.app';
 
   // Clone the request to modify it
   let modifiedReq = req;
