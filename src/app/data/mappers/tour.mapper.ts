@@ -7,7 +7,7 @@ export class TourMapper {
     const prependUrl = (url: string | undefined) => {
       if (!url) return '';
       if (url.startsWith('http')) return url;
-      return url.startsWith('/') ? `${environment.backendUrl}${url}` : `${environment.backendUrl}/${url}`;
+      return url.startsWith('/') ? `https://management-squeaky-fish.abasthan.app${url}` : `https://management-squeaky-fish.abasthan.app/${url}`;
     };
 
     return {

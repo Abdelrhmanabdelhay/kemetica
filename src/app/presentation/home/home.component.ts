@@ -164,7 +164,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     return {
       title: dest.name,
       city: dest.name,
-      featuredImage: `${environment.backendUrl}/cover-special/${dest.slug}.jpg`,
+      featuredImage: `https://management-squeaky-fish.abasthan.app/cover-special/${dest.slug}.jpg`,
     } as Tour;
   }
 }
