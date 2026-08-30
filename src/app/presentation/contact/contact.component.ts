@@ -229,6 +229,20 @@ export class ContactComponent {
         this.isSubmitting.set(false);
         this.isSubmitted.set(true);
         this.notificationService.showSuccess('Your private inquiry has been received by our senior concierge.');
+        this.formData = {
+          fullName: '',
+          email: '',
+          phone: '',
+          expeditionType: 'luxury-nile',
+          estimatedGuests: null,
+          children: null,
+          travelDates: '',
+          specialRequests: '',
+        };
+        this.selectedCountry.set('');
+        this.selectedCode.set('+1');
+        this.selectedDateFrom.set(null);
+        this.selectedDateTo.set(null);
       },
       error: (err) => {
         this.isSubmitting.set(false);

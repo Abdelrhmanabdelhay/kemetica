@@ -337,6 +337,8 @@ export class TourDetailComponent implements OnInit {
         };
         this.selectedDateFrom.set(null);
         this.selectedDateTo.set(null);
+        this.selectedCountry.set('');
+        this.selectedCode.set('+1');
       },
       error: (err) => {
         this.isInquirySubmitting.set(false);
