@@ -95,17 +95,35 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   ngAfterViewInit() {
     const vid = this.bgVideo?.nativeElement;
     if (vid) {
+      // Force all required attributes programmatically for iOS/Android
       vid.muted = true;
-      vid.play().catch(() => {
-        // If autoplay is blocked by the browser, dismiss the loader anyway
-        this.onVideoReady();
-      });
+      vid.setAttribute('playsinline', '');
+      vid.setAttribute('webkit-playsinline', '');
+      vid.setAttribute('x5-playsinline', '');
+
+      const tryPlay = () => {
+        const playPromise = vid.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(() => {
+            // Autoplay blocked — dismiss the loader so page is usable
+            this.onVideoReady();
+          });
+        }
+      };
+
+      if (vid.readyState >= 2) {
+        // Video already has enough data — play immediately
+        tryPlay();
+      } else {
+        vid.addEventListener('canplay', tryPlay, { once: true });
+        vid.load();
+      }
     }
 
-    // Safety fallback: if the video doesn't emit 'playing' within 5 seconds, hide the loader
+    // Safety fallback: if the video doesn't emit 'playing' within 3 seconds, hide the loader
     setTimeout(() => {
       this.onVideoReady();
-    }, 5000);
+    }, 3000);
   }
 
   private fetchFeaturedTours(): void {
@@ -163,7 +181,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     return {
       title: dest.name,
       city: dest.name,
-      featuredImage: `https://pants-similar-sea-lion.abasthan.app/cover-special/${dest.slug}.jpg`,
+      featuredImage: `http://localhost:3000/cover-special/${dest.slug}.jpg`,
     } as Tour;
   }
 }

@@ -8,7 +8,9 @@
       [class.opacity-100]="isVideoReady()"
       (playing)="onVideoReady()"
       class="transition-opacity duration-1000 absolute inset-0 w-full h-full object-cover pointer-events-none brightness-50 contrast-125 scale-125"
-      autoplay muted loop playsinline preload="auto" aria-hidden="true">
+      autoplay muted loop playsinline webkit-playsinline x5-playsinline
+      preload="auto" aria-hidden="true"
+      disablePictureInPicture disableRemotePlayback>
       <source src="https://res.cloudinary.com/e7b9mwev/video/upload/0825_1.mp4" type="video/mp4" />
     </video>
 
