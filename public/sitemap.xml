@@ -3,7 +3,7 @@
 
   <!-- Home -->
   <url>
-    <loc>https://www.kemetica.com/</loc>
+    <loc>https://www.kemeticatours.com/</loc>
     <lastmod>2025-09-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
@@ -11,7 +11,7 @@
 
   <!-- Tours listing -->
   <url>
-    <loc>https://www.kemetica.com/tours</loc>
+    <loc>https://www.kemeticatours.com/tours</loc>
     <lastmod>2025-09-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
@@ -19,7 +19,7 @@
 
   <!-- About -->
   <url>
-    <loc>https://www.kemetica.com/about</loc>
+    <loc>https://www.kemeticatours.com/about</loc>
     <lastmod>2025-09-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -27,7 +27,7 @@
 
   <!-- Contact -->
   <url>
-    <loc>https://www.kemetica.com/contact</loc>
+    <loc>https://www.kemeticatours.com/contact</loc>
     <lastmod>2025-09-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -35,35 +35,21 @@
 
   <!-- Destinations -->
   <url>
-    <loc>https://www.kemetica.com/destinations/giza</loc>
+    <loc>https://www.kemeticatours.com/destinations/giza</loc>
     <lastmod>2025-09-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://www.kemetica.com/destinations/luxor</loc>
+    <loc>https://www.kemeticatours.com/destinations/luxor</loc>
     <lastmod>2025-09-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://www.kemetica.com/destinations/aswan</loc>
-    <lastmod>2025-09-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://www.kemetica.com/destinations/cairo</loc>
-    <lastmod>2025-09-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://www.kemetica.com/destinations/alexandria</loc>
+    <loc>https://www.kemeticatours.com/destinations/aswan</loc>
     <lastmod>2025-09-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
