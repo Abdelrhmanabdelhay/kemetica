@@ -10,6 +10,7 @@ import { Destination } from '../../domain/models/destination.model';
 import { TourCardComponent } from '../../shared/components/tour-card/tour-card.component';
 import { PopularTourCardComponent } from '../../shared/components/popular-tour-card/popular-tour-card.component';
 import { LoadingService } from '../../core/services/loading.service';
+import { SeoService } from '../../core/services/seo.service';
 
 @Component({
   selector: 'app-home',
@@ -26,6 +27,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   private readonly getDestinations = inject(GetDestinationsUseCase);
   private readonly getPopularTours = inject(GetPopularToursUseCase);
   readonly loadingService = inject(LoadingService);
+  private readonly seoService = inject(SeoService);
 
   private videoLoadHandled = false;
 
@@ -87,6 +89,14 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   ];
 
   ngOnInit(): void {
+    this.seoService.updateSeo({
+      title: 'Kemetica — Luxury Egyptian Journeys & Cultural Expeditions',
+      description: 'Discover exclusive, Egyptologist-led private tours through Egypt. Private pyramid access after hours, Nile Dahabiya voyages, desert odysseys & Red Sea safaris. Founded in Aswan, 2018.',
+      keywords: 'luxury Egypt tours, private Egyptologist tours, Nile Dahabiya cruise, pyramid after-hours access, luxury travel Egypt, Kemetica',
+      image: 'https://www.kemetica.com/bac-img.png',
+      imageAlt: 'Kemetica — Luxury Egyptian Expeditions hero image',
+      canonical: 'https://www.kemetica.com/',
+    });
     this.fetchDestinations();
     this.fetchPopularTours();
     this.fetchFeaturedTours();
@@ -181,7 +191,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     return {
       title: dest.name,
       city: dest.name,
-      featuredImage: `http://localhost:3000/cover-special/${dest.slug}.jpg`,
+      featuredImage: `https://pants-similar-sea-lion.abasthan.app/cover-special/${dest.slug}.jpg`,
     } as Tour;
   }
 }

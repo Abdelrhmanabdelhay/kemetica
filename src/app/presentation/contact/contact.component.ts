@@ -1,10 +1,11 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ButtonComponent } from '../../shared/components/button/button.component';
 import { CardComponent } from '../../shared/components/card/card.component';
 import { NotificationService } from '../../core/services/notification.service';
 import { InquiryApiService } from '../../data/services/inquiry-api.service';
+import { SeoService } from '../../core/services/seo.service';
 
 @Component({
   selector: 'app-contact',
@@ -13,9 +14,21 @@ import { InquiryApiService } from '../../data/services/inquiry-api.service';
   templateUrl: './contact.component.html',
   styleUrl: './contact.component.scss',
 })
-export class ContactComponent {
+export class ContactComponent implements OnInit {
   private readonly notificationService = inject(NotificationService);
   private readonly inquiryService = inject(InquiryApiService);
+  private readonly seoService = inject(SeoService);
+
+  ngOnInit(): void {
+    this.seoService.updateSeo({
+      title: 'VIP Concierge & Inquiries — Kemetica',
+      description: 'Contact Kemetica\'s senior concierge team for bespoke Egypt expedition planning. Private pyramid access, Nile Dahabiya voyages & tailor-made luxury itineraries.',
+      keywords: 'contact Kemetica, Egypt travel inquiry, VIP concierge Egypt, bespoke Egypt travel, luxury tour inquiry',
+      image: 'https://www.kemetica.com/contact-us.jpg',
+      imageAlt: 'Kemetica VIP concierge — contact us',
+      canonical: 'https://www.kemetica.com/contact',
+    });
+  }
 
   countries = [
     { name: 'United States', dialCode: '+1' },

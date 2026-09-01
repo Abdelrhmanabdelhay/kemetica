@@ -11,6 +11,7 @@ import { GetSpecialToursUseCase } from '../../domain/use-cases/get-special-tours
 import { Destination } from '../../domain/models/destination.model';
 import { GetFeaturedToursUseCase } from '../../domain/use-cases/get-featured-tours.usecase';
 import { GetPopularToursUseCase } from '../../domain/use-cases/get-popular-tours.usecase';
+import { SeoService } from '../../core/services/seo.service';
 @Component({
   selector: 'app-tours',
   standalone: true,
@@ -25,6 +26,7 @@ export class ToursComponent implements OnInit {
   private readonly getDestinations = inject(GetDestinationsUseCase);
   private readonly getFeaturedTours = inject(GetFeaturedToursUseCase);
   private readonly getPopularTours = inject(GetPopularToursUseCase);
+  private readonly seoService = inject(SeoService);
   readonly tours = signal<Tour[]>([]);
   readonly loading = signal<boolean>(true);
   readonly featuredTours = signal<Tour[]>([]);
@@ -45,6 +47,14 @@ export class ToursComponent implements OnInit {
   ];
 
   ngOnInit(): void {
+    this.seoService.updateSeo({
+      title: 'Curated Expeditions — Kemetica',
+      description: 'Browse all luxury Egypt tours: private pyramid access, Nile Dahabiya cruises, desert safaris, Red Sea diving & exclusive Egyptologist-guided expeditions.',
+      keywords: 'Egypt tours, pyramid tours, Nile cruise, desert safari Egypt, Red Sea diving, luxury expeditions Egypt',
+      image: 'https://www.kemetica.com/why-us.jpg',
+      imageAlt: 'Curated luxury Egypt expeditions by Kemetica',
+      canonical: 'https://www.kemetica.com/tours',
+    });
     this.route.queryParams.subscribe((params) => {
       if (params['category']) {
         this.selectedCategory = params['category'];

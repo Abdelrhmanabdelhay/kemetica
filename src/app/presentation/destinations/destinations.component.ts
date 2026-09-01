@@ -6,6 +6,7 @@ import { GetSpecialToursUseCase } from '../../domain/use-cases/get-special-tours
 import { Tour } from '../../domain/models/tour.model';
 import { PopularTourCardComponent } from '../../shared/components/popular-tour-card/popular-tour-card.component';
 import { Observable, switchMap } from 'rxjs';
+import { SeoService } from '../../core/services/seo.service';
 
 @Component({
   selector: 'app-destinations',
@@ -18,6 +19,7 @@ export class DestinationsComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly getTours = inject(GetToursUseCase);
   private readonly getSpecialTours = inject(GetSpecialToursUseCase);
+  private readonly seoService = inject(SeoService);
 
   readonly destination = signal<string>('');
   readonly coverTour = signal<Tour | null>(null);
@@ -54,6 +56,28 @@ export class DestinationsComponent implements OnInit {
       if (dest) {
         this.destination.set(dest);
         this.loadDestinationData(dest);
+
+        // ── Dynamic Destination SEO ─────────────────────────────
+        const destName = dest.charAt(0).toUpperCase() + dest.slice(1);
+        const descriptions: Record<string, string> = {
+          giza: 'Explore the Pyramids of Giza with private after-hours access and an expert Egyptologist. Kemetica curates the most exclusive Giza experiences in Egypt.',
+          aswan: 'Sail the Nile in Aswan aboard a private Dahabiya yacht. Kemetica offers bespoke Aswan tours with Egyptologist guides and five-star experiences.',
+          luxor: 'Discover ancient Luxor\'s temples and tombs on a private Kemetica expedition. VIP access to Karnak, Valley of the Kings and more.',
+          cairo: 'Experience vibrant Cairo with Kemetica\'s exclusive private tours — the Egyptian Museum, Islamic Cairo, and hidden gems guided by expert Egyptologists.',
+          alexandria: 'Uncover coastal Alexandria with Kemetica — ancient catacombs, Bibliotheca Alexandrina, and Mediterranean heritage on a luxury private tour.',
+        };
+        const description = descriptions[dest.toLowerCase()]
+          || `Explore ${destName} with Kemetica — luxury, private, Egyptologist-guided expeditions through Egypt\'s most iconic destinations.`;
+
+        this.seoService.updateSeo({
+          title: `${this.headline} — Kemetica`,
+          description,
+          keywords: `${destName} Egypt tours, ${destName} private tours, luxury ${destName} expeditions, Kemetica ${destName}`,
+          image: 'https://www.kemetica.com/map.jpg',
+          imageAlt: `${destName}, Egypt — Kemetica destination`,
+          canonical: `https://www.kemetica.com/destinations/${dest}`,
+        });
+        // ────────────────────────────────────────────────────
       }
     });
   }

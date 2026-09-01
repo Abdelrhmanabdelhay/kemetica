@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -7,6 +7,7 @@ import { Tour } from '../../domain/models/tour.model';
 import { TourApiService } from '../../data/services/tour-api.service';
 import { InquiryApiService } from '../../data/services/inquiry-api.service';
 import { NotificationService } from '../../core/services/notification.service';
+import { SeoService } from '../../core/services/seo.service';
 
 @Component({
   selector: 'app-tour-detail',
@@ -15,12 +16,13 @@ import { NotificationService } from '../../core/services/notification.service';
   templateUrl: './tour-detail.component.html',
   styleUrl: './tour-detail.component.scss',
 })
-export class TourDetailComponent implements OnInit {
+export class TourDetailComponent implements OnInit, OnDestroy {
   private readonly route = inject(ActivatedRoute);
   private readonly getTourBySlug = inject(GetTourBySlugUseCase);
   private readonly tourApiService = inject(TourApiService);
   private readonly inquiryService = inject(InquiryApiService);
   private readonly notificationService = inject(NotificationService);
+  private readonly seoService = inject(SeoService);
 
   readonly tour = signal<Tour | null>(null);
   readonly loading = signal<boolean>(true);
@@ -362,9 +364,47 @@ export class TourDetailComponent implements OnInit {
     this.getTourBySlug.execute(slug).subscribe({
       next: (tour) => {
         this.tour.set(tour);
-        this.galleryIndex.set(0); // Reset gallery index on load
+        this.galleryIndex.set(0);
 
-        // Fetch reviews
+        // ── Dynamic SEO ──────────────────────────────────────
+        if (tour) {
+          const description = (tour as any).shortDescription
+            || (tour.description ? String(tour.description).replace(/<[^>]*>/g, '').slice(0, 160) : '')
+            || `Explore the ${tour.title} tour with Kemetica — luxury, private, Egyptologist-guided.`;
+
+          this.seoService.updateSeo({
+            title: `${tour.title} — Kemetica`,
+            description,
+            image: tour.featuredImage || 'https://www.kemetica.com/bac-img.png',
+            imageAlt: tour.title,
+            type: 'article',
+            canonical: `https://www.kemetica.com/tours/${tour.slug}`,
+          });
+
+          // ── JSON-LD: TourPackage schema ──────────────────────
+          this.seoService.addJsonLd({
+            '@context': 'https://schema.org',
+            '@type': 'Product',
+            name: tour.title,
+            description,
+            image: tour.featuredImage,
+            url: `https://www.kemetica.com/tours/${tour.slug}`,
+            brand: {
+              '@type': 'Organization',
+              name: 'Kemetica',
+              url: 'https://www.kemetica.com',
+            },
+            offers: {
+              '@type': 'Offer',
+              priceCurrency: 'USD',
+              price: (tour as any).price ?? undefined,
+              availability: 'https://schema.org/InStock',
+              url: `https://www.kemetica.com/tours/${tour.slug}`,
+            },
+          });
+        }
+        // ────────────────────────────────────────────────────
+
         if (tour && tour.id) {
           this.fetchReviews(tour.id);
         } else {
@@ -375,6 +415,11 @@ export class TourDetailComponent implements OnInit {
         this.loading.set(false);
       }
     });
+  }
+
+  ngOnDestroy(): void {
+    // Remove JSON-LD when navigating away
+    this.seoService.removeJsonLd();
   }
 
   private fetchReviews(tourId: string): void {
