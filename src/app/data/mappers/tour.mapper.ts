@@ -6,7 +6,7 @@ export class TourMapper {
     const prependUrl = (url: string | undefined) => {
       if (!url) return '';
       if (url.startsWith('http')) return url;
-      return url.startsWith('/') ? `https://pants-similar-sea-lion.abasthan.app${url}` : `https://pants-similar-sea-lion.abasthan.app/${url}`;
+      return url.startsWith('/') ? `https://kemetica-backend-production.up.railway.app${url}` : `https://kemetica-backend-production.up.railway.app/${url}`;
     };
 
     return {
