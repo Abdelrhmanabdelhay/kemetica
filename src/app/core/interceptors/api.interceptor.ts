@@ -23,6 +23,12 @@ export const apiInterceptor: HttpInterceptorFn = (req, next) => {
       headers = headers.set('Content-Type', 'application/json');
     }
 
+    // Attach JWT token from localStorage as Bearer token if available
+    const token = localStorage.getItem('token');
+    if (token) {
+      headers = headers.set('Authorization', `Bearer ${token}`);
+    }
+
     modifiedReq = req.clone({
       url: `${baseUrl}${req.url}`,
       withCredentials: true, // Send HttpOnly cookies for authentication
