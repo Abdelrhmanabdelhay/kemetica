@@ -23,50 +23,69 @@ export interface AuthResponse {
 })
 export class AuthService {
   private http = inject(HttpClient);
-  
+
   private currentUserSubject = new BehaviorSubject<User | null>(null);
   public currentUser$ = this.currentUserSubject.asObservable();
-  
+
   // Expose a synchronous way to get current user if needed
   public get currentUserValue(): User | null {
     return this.currentUserSubject.value;
   }
 
-  // Set this to true when we've checked the backend for an existing session
-  private isInitialized = false;
-
   constructor() {
-    // Ideally, check for existing session on startup if the API has a /me endpoint
-    // For now, we will rely on successful logins.
+    // Restore session on app startup if a token exists
+    const token = localStorage.getItem('token');
+    if (token) {
+      this.restoreSession().subscribe();
+    }
   }
 
-  login(credentials: any): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>('/api/v1/auth/login', credentials).pipe(
+  /**
+   * Calls the /me endpoint to restore the user session from a saved token.
+   */
+  restoreSession(): Observable<any> {
+    return this.http.get<AuthResponse>('/api/v1/auth/me').pipe(
       tap(response => {
         if (response.data && response.data.user) {
           this.currentUserSubject.next(response.data.user);
         } else {
-           // Fallback if the API only returns a success message and token but no user data.
-           // We'll create a dummy admin user so the guard passes for demonstration.
-           this.currentUserSubject.next({
-             _id: 'admin_id',
-             fullName: 'Admin User',
-             email: credentials.email,
-             role: 'admin'
-           });
+          // Token is invalid or expired — clear it
+          this.clearSession();
+        }
+      }),
+      catchError(() => {
+        this.clearSession();
+        return of(null);
+      })
+    );
+  }
+
+  login(credentials: { email: string; password: string }): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>('/api/v1/auth/login', credentials).pipe(
+      tap(response => {
+        // Save token to localStorage for session persistence
+        if (response.token) {
+          localStorage.setItem('token', response.token);
+        }
+
+        if (response.data && response.data.user) {
+          this.currentUserSubject.next(response.data.user);
+        } else {
+          // If the backend doesn't return user data, restore it via /me
+          this.restoreSession().subscribe();
         }
       })
     );
   }
 
   logout(): Observable<any> {
-    return this.http.get('/api/v1/auth/logout').pipe(
+    return this.http.post('/api/v1/auth/logout', {}).pipe(
       tap(() => {
-        this.currentUserSubject.next(null);
+        this.clearSession();
       }),
       catchError(error => {
         // Even if the backend fails (e.g., token already expired), clear local state
-        this.currentUserSubject.next(null);
+        this.clearSession();
         return of(null);
       })
     );
@@ -76,4 +95,14 @@ export class AuthService {
     const user = this.currentUserSubject.value;
     return user !== null && user.role === 'admin';
   }
+
+  isLoggedIn(): boolean {
+    return this.currentUserSubject.value !== null;
+  }
+
+  private clearSession(): void {
+    localStorage.removeItem('token');
+    this.currentUserSubject.next(null);
+  }
 }
+
