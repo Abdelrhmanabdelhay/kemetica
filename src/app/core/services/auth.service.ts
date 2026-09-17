@@ -12,7 +12,6 @@ export interface User {
 
 export interface AuthResponse {
   status: string;
-  token?: string;
   data?: {
     user: User;
   };
@@ -33,11 +32,8 @@ export class AuthService {
   }
 
   constructor() {
-    // Restore session on app startup if a token exists
-    const token = localStorage.getItem('token');
-    if (token) {
-      this.restoreSession().subscribe();
-    }
+    // Restore session on app startup — cookie is sent automatically via withCredentials
+    this.restoreSession().subscribe();
   }
 
   /**
@@ -63,15 +59,10 @@ export class AuthService {
   login(credentials: { email: string; password: string }): Observable<AuthResponse> {
     return this.http.post<AuthResponse>('/api/v1/auth/login', credentials).pipe(
       tap(response => {
-        // Save token to localStorage for session persistence
-        if (response.token) {
-          localStorage.setItem('token', response.token);
-        }
-
         if (response.data && response.data.user) {
           this.currentUserSubject.next(response.data.user);
         } else {
-          // If the backend doesn't return user data, restore it via /me
+          // If the backend doesn't return user data inline, restore it via /me
           this.restoreSession().subscribe();
         }
       })
@@ -101,7 +92,6 @@ export class AuthService {
   }
 
   private clearSession(): void {
-    localStorage.removeItem('token');
     this.currentUserSubject.next(null);
   }
 }
